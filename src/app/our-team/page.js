@@ -55,7 +55,7 @@ export default function OurTeamPage() {
           </span>
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-16 sm:pt-20 md:pt-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-16 sm:pt-24 md:pt-36 lg:pt-44">
 
           {/* Clean Team Photo Grid (Exact Order Set by Admin) */}
           {loading ? (
