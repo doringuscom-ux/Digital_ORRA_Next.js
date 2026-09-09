@@ -1,0 +1,187 @@
+.reviews-section {
+  position: relative;
+  background: radial-gradient(ellipse at bottom left, #0A1128 0%, #050B1A 40%, #010308 100%);
+  padding: 100px 0;
+  overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.rev-container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.rev-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.rev-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  color: #FFFFFF;
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+.rev-subtitle {
+  font-size: 1.05rem;
+  color: #94A3B8;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ENVELOPE ANIMATION STYLES */
+/* ENVELOPE ANIMATION STYLES */
+.envelope-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  height: 280px;
+  margin: 240px auto 0 auto; /* Increased margin to allow card to slide higher */
+  perspective: 1500px;
+}
+
+.env-back {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #0E1A35 0%, #040812 100%);
+  border-radius: 0 0 16px 16px;
+  box-shadow: 0 30px 60px rgba(6, 182, 212, 0.15); /* Soft cyan outer glow */
+  border: 1px solid rgba(6, 182, 212, 0.15);
+  border-top: none;
+  z-index: 1;
+}
+
+.env-flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 180px;
+  background: linear-gradient(180deg, #132347 0%, #070D1C 100%);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  transform-origin: top;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 4;
+  border-top: 2px solid rgba(6, 182, 212, 0.8);
+  filter: drop-shadow(0 15px 15px rgba(0,0,0,0.6));
+}
+
+.env-flap.open {
+  transform: rotateX(180deg);
+  z-index: 1;
+  border-top: none;
+  border-bottom: 2px solid rgba(236, 72, 153, 0.5); /* Pink glow on back flap */
+}
+
+.env-front {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #0F1C3A 0%, #050B17 100%);
+  clip-path: polygon(0 100%, 0 0, 50% 50%, 100% 0, 100% 100%);
+  border-radius: 0 0 16px 16px;
+  z-index: 3;
+  /* Drop shadow creates a nice edge on the clipped V-shape */
+  filter: drop-shadow(0 -5px 10px rgba(0, 0, 0, 0.5));
+}
+
+/* Added pseudo element to simulate a glowing border on the V-shape of the envelope */
+.env-front::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(6, 182, 212, 0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Card inside envelope */
+.env-card-container {
+  position: absolute;
+  left: 10px; /* Wider card */
+  right: 10px;
+  top: 10px;
+  height: 380px; /* Reduced card height since author info is at top */
+  z-index: 2;
+  transition: all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform-origin: bottom center;
+}
+
+.env-card-container.reading {
+  transform: translateY(-280px) scale(1.05); /* Adjusted slide distance */
+  opacity: 1;
+}
+
+.env-card-container.sliding-out {
+  transform: translateY(-100px) scale(0.9);
+  opacity: 1;
+}
+
+.env-card-container.sliding-in {
+  transform: translateY(0px) scale(0.85);
+  opacity: 0.5;
+}
+
+.env-card-container.hidden-state {
+  transform: translateY(0px) scale(0.8);
+  opacity: 0;
+  transition: none;
+}
+
+/* Review Card Styling */
+.rev-envelope-card {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(10, 18, 36, 0.95) 0%, rgba(5, 11, 21, 0.98) 100%);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Animated Border for Card */
+.rev-envelope-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.8) 0%, transparent 40%, transparent 60%, rgba(236, 72, 153, 0.6) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.rev-quote-text {
+  font-size: 1.15rem;
+  color: #F8FAFC;
+  line-height: 1.7;
+  font-weight: 300;
+  font-style: italic;
+  margin-bottom: 0px;
+  flex-grow: 1;
+  letter-spacing: 0.3px;
+}
+
+@media (max-width: 768px) {
+  .reviews-section {
+    padding: 60px 0;
+  }
+  .envelope-wrapper {
+    margin-top: 140px; /* Reduced for mobile */
+    height: 200px;
+  }
+  .env-card-container {
+    height: 420px;
+  }
+  .env-card-container.reading {
+    transform: translateY(-240px) scale(1);
+  }
+}
