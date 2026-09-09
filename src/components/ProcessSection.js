@@ -211,25 +211,14 @@ export default function ProcessSection() {
       {/* Cyber Grid Lines */}
       <div style={{ pointerEvents: 'none' }} className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none z-0"></div>
 
-      {/* Massive Background Typography (Watermark) */}
-      <div className="absolute top-4 md:-top-4 left-0 w-full flex justify-center pointer-events-none select-none z-0 [mask-image:linear-gradient(to_bottom,black_60%,transparent_100%)]">
-        <span className="text-[8vw] md:text-[8vw] font-black uppercase tracking-widest whitespace-nowrap select-none text-transparent bg-clip-text bg-gradient-to-b from-white/[0.45] via-white/[0.25] to-transparent">
+      {/* Massive Background Typography (Watermark - Centered in Upper Space) */}
+      <div className="absolute top-6 md:top-6 lg:top-8 left-0 w-full flex justify-center pointer-events-none select-none z-0 [mask-image:linear-gradient(to_bottom,black_75%,transparent_100%)]">
+        <span className="text-[8vw] md:text-[8vw] font-black uppercase tracking-widest whitespace-nowrap select-none text-transparent bg-clip-text bg-gradient-to-b from-white/[0.72] via-white/[0.45] to-white/[0.18]">
           HOW WE WORK
         </span>
       </div>
 
-      <div className="proc-container">
-
-        {/* Section Header */}
-        <div className={`proc-header ${isVisible ? 'anim-in' : ''}`}>
-          <h2 className="proc-title">
-            Our Proven <span className="proc-gradient-text">Step-by-Step Process</span><br className="hidden md:block" /> to Scale Your Brand
-          </h2>
-          {/* <p className="proc-sub-desc">
-            Explore our roadmap designed to transform strategy into measurable revenue growth.
-          </p> */}
-        </div>
-
+      <div className="proc-container pt-8 md:pt-12">
         {/* Timeline Navigation Bar */}
         <div className={`proc-timeline-wrapper ${isVisible ? 'anim-in' : ''}`} ref={timelineWrapperRef}>
           <div className="proc-nodes-row-scroll-container">

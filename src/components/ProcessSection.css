@@ -5,12 +5,12 @@
 .process-section-v2 {
   position: relative;
   background: #050505;
-  min-height: auto;
+  min-height: 850px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
-  padding: 130px 0 30px 0; /* Reduced bottom padding */
+  padding: 180px 0 100px 0;
   overflow: hidden;
   font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
   box-sizing: border-box;
@@ -77,7 +77,7 @@
   align-items: center;
   gap: 16px;
   box-sizing: border-box;
-  overflow: hidden;
+  overflow: visible;
 }
 
 /* ── Header ── */
@@ -155,7 +155,7 @@
   max-width: 1100px;
   width: 100%;
   margin: 0;
-  padding: 0 30px;
+  padding: 18px 30px 10px 30px;
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.7s ease 0.2s, transform 0.7s ease 0.2s;
@@ -687,7 +687,7 @@
 @media (max-width: 768px) {
   .process-section-v2 {
     min-height: auto;
-    padding: 80px 0 20px; /* Reduced bottom padding */
+    padding: 130px 0 70px;
   }
 
   .proc-container {

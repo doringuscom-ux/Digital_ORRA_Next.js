@@ -5,9 +5,9 @@ import Image from 'next/image';
 const cities = ["Panchkula", "Chandigarh", "Mohali"];
 
 export default function About({ 
-  ptClass = "pt-12 pb-12 sm:pt-16 sm:pb-16 md:py-28", 
+  ptClass = "pt-12 pb-12 sm:pt-16 sm:pb-16 md:pt-36 lg:pt-40 md:pb-28", 
   id = "about",
-  watermarkTop = "top-2 sm:top-6 md:top-2"
+  watermarkTop = "top-2 sm:top-6 md:-top-2 lg:-top-4"
 }) {
   const [cityIndex, setCityIndex] = useState(0);
   const [currentText, setCurrentText] = useState("");
@@ -53,7 +53,7 @@ export default function About({
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
           
           {/* Left Column: Single Premium Image */}
-          <div className="lg:col-span-5 flex flex-col gap-6 mt-6 sm:mt-6 lg:mt-8">
+          <div className="lg:col-span-5 flex flex-col gap-6 mt-6 sm:mt-6 lg:mt-16">
             <div className="w-full h-[450px] sm:h-[550px] relative">
               
               {/* Subtle Outer Neon Glow */}
@@ -91,7 +91,7 @@ export default function About({
           </div>
 
           {/* Right Column: Text & Stats */}
-          <div className="lg:col-span-7 flex flex-col items-start justify-center lg:pl-6">
+          <div className="lg:col-span-7 flex flex-col items-start justify-center lg:pl-6 mt-0 lg:mt-16">
             
             {/* Pill Badge Removed */}
             

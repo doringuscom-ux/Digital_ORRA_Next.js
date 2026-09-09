@@ -140,10 +140,10 @@ export default function Services() {
   );
 
   return (
-    <section className="relative w-full pt-16 pb-16 md:pt-32 md:pb-20 bg-[#050505] overflow-hidden border-t border-white/5" id="services">
-      {/* Giant Background Watermark */}
-      <div className="absolute top-4 md:-top-4 left-0 w-full flex justify-center pointer-events-none select-none z-0 [mask-image:linear-gradient(to_bottom,black_60%,transparent_100%)]">
-        <span className="text-[7.5vw] md:text-[8vw] font-black uppercase tracking-widest whitespace-nowrap select-none text-transparent bg-clip-text bg-gradient-to-b from-white/[0.45] via-white/[0.25] to-transparent">
+    <section className="relative w-full pt-16 pb-16 md:pt-36 lg:pt-44 md:pb-20 bg-[#050505] overflow-hidden border-t border-white/5" id="services">
+      {/* Giant Background Watermark (Brighter & Balanced Position) */}
+      <div className="absolute top-4 md:top-0 lg:top-2 left-0 w-full flex justify-center pointer-events-none select-none z-0 [mask-image:linear-gradient(to_bottom,black_75%,transparent_100%)]">
+        <span className="text-[7.5vw] md:text-[8vw] font-black uppercase tracking-widest whitespace-nowrap select-none text-transparent bg-clip-text bg-gradient-to-b from-white/[0.72] via-white/[0.45] to-white/[0.18]">
           WHAT WE DELIVER
         </span>
       </div>
@@ -155,7 +155,7 @@ export default function Services() {
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff02_1px,transparent_1px),linear-gradient(to_bottom,#ffffff02_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none z-0"></div>
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 mt-2 md:mt-10 lg:mt-14">
           <div>
             <h2 className="text-3xl sm:text-4xl md:text-[42px] font-bold text-white leading-tight tracking-tight">
               Tailored Digital <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-violet-400">Growth Solutions</span>
