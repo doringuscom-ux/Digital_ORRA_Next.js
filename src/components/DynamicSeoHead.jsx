@@ -2,8 +2,22 @@
 
 import { useEffect } from "react";
 
-export default function DynamicSeoHead({ path }) {
+export default function DynamicSeoHead({ path, customTitle, customDesc, customKeywords }) {
   useEffect(() => {
+    if (customTitle) {
+      document.title = customTitle;
+      if (customDesc) {
+        let metaDesc = document.querySelector('meta[name="description"]');
+        if (!metaDesc) {
+          metaDesc = document.createElement("meta");
+          metaDesc.name = "description";
+          document.head.appendChild(metaDesc);
+        }
+        metaDesc.content = customDesc;
+      }
+      return;
+    }
+
     if (!path) return;
 
     async function applySeo() {

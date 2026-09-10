@@ -208,21 +208,21 @@ export default function CompanyProfilePage() {
                 </div>
 
                 {/* Narrative description */}
-                <p className="text-gray-300 text-sm sm:text-base leading-relaxed font-light">
+                <p className="text-slate-200 text-base sm:text-lg leading-relaxed font-normal">
                   <strong className="text-white font-semibold">Digital ORRA</strong> stands at the forefront of digital dominance. We empower fast-growing enterprises, visionary founders, and corporate leaders with end-to-end creative marketing, search dominance, and digital talent development. Our official profile outlines our credentials, capabilities, infrastructure, and portfolio blueprints.
                 </p>
 
                 {/* 3 Value Proposition Bullets */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-1">
                   {[
                     "Complete Agency & Academy Ecosystem",
                     "500+ Certified Industry Specialists",
                     "Full-Funnel Growth & ROI Frameworks",
                     "Enterprise National & Overseas Delivery"
                   ].map((feat, i) => (
-                    <div key={i} className="flex items-center gap-2.5 text-xs text-gray-300">
-                      <div className="w-4 h-4 rounded-full bg-pink-500/20 border border-pink-500/40 flex items-center justify-center flex-shrink-0 text-pink-400">
-                        <Check className="w-2.5 h-2.5" />
+                    <div key={i} className="flex items-center gap-2.5 text-sm text-slate-200 font-medium">
+                      <div className="w-5 h-5 rounded-full bg-pink-500/20 border border-pink-500/40 flex items-center justify-center flex-shrink-0 text-pink-400">
+                        <Check className="w-3 h-3" />
                       </div>
                       <span>{feat}</span>
                     </div>
@@ -255,18 +255,18 @@ export default function CompanyProfilePage() {
                 </div>
 
                 {/* Mini Stats Bar */}
-                <div className="grid grid-cols-3 gap-4 pt-4 border-t border-white/10 text-left">
+                <div className="grid grid-cols-3 gap-4 pt-4 border-t border-white/15 text-left">
                   <div>
-                    <div className="text-xl sm:text-2xl font-black text-white">500+</div>
-                    <div className="text-[11px] text-gray-400 uppercase font-mono">Trained Specialists</div>
+                    <div className="text-2xl sm:text-3xl font-black text-white">500+</div>
+                    <div className="text-xs text-slate-300 font-medium uppercase font-mono tracking-wide mt-1">Trained Specialists</div>
                   </div>
                   <div>
-                    <div className="text-xl sm:text-2xl font-black text-pink-400">12+</div>
-                    <div className="text-[11px] text-gray-400 uppercase font-mono">Core Disciplines</div>
+                    <div className="text-2xl sm:text-3xl font-black text-pink-400">12+</div>
+                    <div className="text-xs text-slate-300 font-medium uppercase font-mono tracking-wide mt-1">Core Disciplines</div>
                   </div>
                   <div>
-                    <div className="text-xl sm:text-2xl font-black text-cyan-400">100%</div>
-                    <div className="text-[11px] text-gray-400 uppercase font-mono">Verified Portfolio</div>
+                    <div className="text-2xl sm:text-3xl font-black text-cyan-400">100%</div>
+                    <div className="text-xs text-slate-300 font-medium uppercase font-mono tracking-wide mt-1">Verified Portfolio</div>
                   </div>
                 </div>
 
@@ -382,45 +382,45 @@ export default function CompanyProfilePage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 mb-20">
             
             {/* 1. Introduction */}
-            <div className="rounded-3xl bg-[#0C142B]/80 border border-white/10 hover:border-cyan-400/40 p-8 flex flex-col transition-all duration-300 group">
+            <div className="rounded-3xl bg-[#0C142B]/90 border border-white/15 hover:border-cyan-400/40 p-8 flex flex-col transition-all duration-300 group shadow-lg">
               <div className="w-12 h-12 rounded-xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center text-cyan-400 mb-5 group-hover:scale-110 transition-transform">
                 <Target className="w-6 h-6" />
               </div>
-              <h3 className="text-xl font-black text-white mb-3">Introduction</h3>
-              <p className="text-gray-300 text-sm leading-relaxed font-light mb-4">
+              <h3 className="text-xl sm:text-2xl font-black text-white mb-3">Introduction</h3>
+              <p className="text-slate-200 text-[15px] sm:text-base leading-[1.7] font-normal mb-5">
                 As a marketing agency, we utilize our resources of creativity in the specialization of ultimate branding, marketing strategies, planning and implementation, digital marketing and social media as well as designing and events creation and management.
               </p>
-              <div className="mt-auto pt-4 border-t border-white/5">
-                <span className="text-xs text-gray-400 italic">
+              <div className="mt-auto pt-4 border-t border-white/10">
+                <span className="text-sm text-slate-300 italic font-normal">
                   “The world today is cluttered with advertising agencies trying to impress you and win you as a client.”
                 </span>
               </div>
             </div>
 
             {/* 2. Who We Are? */}
-            <div className="rounded-3xl bg-[#0C142B]/80 border border-white/10 hover:border-pink-500/40 p-8 flex flex-col transition-all duration-300 group">
+            <div className="rounded-3xl bg-[#0C142B]/90 border border-white/15 hover:border-pink-500/40 p-8 flex flex-col transition-all duration-300 group shadow-lg">
               <div className="w-12 h-12 rounded-xl bg-pink-500/15 border border-pink-500/30 flex items-center justify-center text-pink-400 mb-5 group-hover:scale-110 transition-transform">
                 <Building2 className="w-6 h-6" />
               </div>
-              <h3 className="text-xl font-black text-white mb-3">Who we are?</h3>
-              <p className="text-gray-300 text-sm leading-relaxed font-light">
+              <h3 className="text-xl sm:text-2xl font-black text-white mb-3">Who we are?</h3>
+              <p className="text-slate-200 text-[15px] sm:text-base leading-[1.7] font-normal mb-5">
                 <strong className="text-white font-semibold">DIGITAL ORRA</strong> ranks top among the professional Marketing companies in India. We offer a comprehensive suite of services designed to cater the marketing needs of businesses. Our mission is to help companies increase their bottom line by maximizing ROI derivable from their marketing efforts.
               </p>
-              <div className="mt-auto pt-4 border-t border-white/5 flex items-center gap-2 text-xs text-pink-400 font-semibold">
+              <div className="mt-auto pt-4 border-t border-white/10 flex items-center gap-2 text-sm text-pink-400 font-semibold">
                 <CheckCircle2 className="w-4 h-4" /> Top-Ranked Performance Hub
               </div>
             </div>
 
             {/* 3. What We Believe? */}
-            <div className="rounded-3xl bg-[#0C142B]/80 border border-white/10 hover:border-purple-500/40 p-8 flex flex-col transition-all duration-300 group">
+            <div className="rounded-3xl bg-[#0C142B]/90 border border-white/15 hover:border-purple-500/40 p-8 flex flex-col transition-all duration-300 group shadow-lg">
               <div className="w-12 h-12 rounded-xl bg-purple-500/15 border border-purple-500/30 flex items-center justify-center text-purple-400 mb-5 group-hover:scale-110 transition-transform">
                 <Lightbulb className="w-6 h-6" />
               </div>
-              <h3 className="text-xl font-black text-white mb-3">What We Believe?</h3>
-              <p className="text-gray-300 text-sm leading-relaxed font-light">
+              <h3 className="text-xl sm:text-2xl font-black text-white mb-3">What We Believe?</h3>
+              <p className="text-slate-200 text-[15px] sm:text-base leading-[1.7] font-normal mb-5">
                 We believe in the power of ideas to drive innovative brand results. Our ideas are born out of powerful research-driven insight, and deep local understanding, resulting in unparalleled outcomes. Our practice is to develop brand strategies that allow you to capitalize on your unique market presence, while ensuring that your brand promise is increasingly represented.
               </p>
-              <div className="mt-auto pt-4 border-t border-white/5 flex items-center gap-2 text-xs text-purple-400 font-semibold">
+              <div className="mt-auto pt-4 border-t border-white/10 flex items-center gap-2 text-sm text-purple-400 font-semibold">
                 <CheckCircle2 className="w-4 h-4" /> Lasting Consumer Loyalty
               </div>
             </div>
@@ -428,19 +428,17 @@ export default function CompanyProfilePage() {
           </div>
 
           {/* Section: What We Do */}
-          <div className="mb-12">
-            <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 pb-6 border-b border-white/10 gap-6">
-              <div>
-                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 text-xs font-mono font-bold tracking-widest uppercase mb-3">
-                  <Layers className="w-3.5 h-3.5" />
-                  Full Spectrum Solutions
-                </div>
-                <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tight">
-                  What We Do
-                </h2>
+          <div className="mb-14">
+            <div className="text-center max-w-3xl mx-auto mb-12">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-400/30 text-cyan-300 text-xs font-mono font-bold tracking-widest uppercase mb-4 shadow-[0_0_20px_rgba(0,229,255,0.15)]">
+                <Layers className="w-3.5 h-3.5 text-cyan-400" />
+                Full Spectrum Solutions
               </div>
-              <p className="text-gray-300 text-sm sm:text-base max-w-xl font-light leading-relaxed">
-                DIGITAL ORRA offers a comprehensive suite of services designed to cater the marketing needs of businesses. We understand the importance of a brand’s social media presence. We get to know them and their target audiences intimately, then we create, develop and communicate brands and their messages in an impactful & engaging way on their social media platforms.
+              <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-4 leading-tight">
+                What We <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-pink-400 to-purple-400">Do & Deliver</span>
+              </h2>
+              <p className="text-slate-200 text-base sm:text-lg font-normal leading-relaxed">
+                From high-impact branding and web engineering to performance marketing and organic search dominance, we build scalable growth engines for ambitious brands.
               </p>
             </div>
 
@@ -460,11 +458,11 @@ export default function CompanyProfilePage() {
                     </span>
                   </div>
 
-                  <h4 className="text-lg font-bold text-white mb-2 group-hover:text-cyan-300 transition-colors">
+                  <h4 className="text-lg sm:text-xl font-bold text-white mb-2.5 group-hover:text-cyan-300 transition-colors">
                     {item.title}
                   </h4>
                   
-                  <p className="text-xs sm:text-sm text-gray-300 leading-relaxed font-light mb-4">
+                  <p className="text-sm sm:text-[15px] text-slate-200 leading-[1.65] font-normal mb-4">
                     {item.desc}
                   </p>
                 </div>
@@ -478,10 +476,10 @@ export default function CompanyProfilePage() {
               <span className="text-xs font-mono font-bold tracking-widest uppercase text-pink-400 mb-1.5 inline-block">
                 Take Us With You
               </span>
-              <h3 className="text-2xl sm:text-3xl font-black text-white mb-2">
+              <h3 className="text-2xl sm:text-3xl font-black text-white mb-2.5">
                 Download Company’s Profile
               </h3>
-              <p className="text-sm text-gray-300 font-light leading-relaxed">
+              <p className="text-[15px] sm:text-base text-slate-200 font-normal leading-relaxed">
                 Save our complete agency capability dossier directly to your device for offline review, presentations, or procurement evaluation.
               </p>
             </div>

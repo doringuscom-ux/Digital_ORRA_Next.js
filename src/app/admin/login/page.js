@@ -105,7 +105,8 @@ export default function AdminLoginPage() {
                 alt="Digital ORRA Logo" 
                 width={130} 
                 height={42} 
-                className="object-contain"
+                style={{ width: "auto", height: "auto" }}
+                className="object-contain max-h-[42px]"
                 priority
               />
             </div>

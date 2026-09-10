@@ -1,6 +1,7 @@
 import dbConnect from "@/lib/dbConnect";
 import Blog from "@/models/Blog";
 import Service from "@/models/Service";
+import LocationPage from "@/models/LocationPage";
 import { servicesData } from "@/data/servicesData";
 
 export default async function sitemap() {
@@ -49,6 +50,24 @@ export default async function sitemap() {
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/testimonial`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/portfolio`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/skill-development-workshop`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.8,
     },
     {
       url: `${baseUrl}/join-our-team`,
@@ -134,5 +153,24 @@ export default async function sitemap() {
     console.error("Error generating sitemap blogs:", err);
   }
 
-  return [...staticPages, ...servicePages, ...blogPages];
+  // 4. Dynamic Location Pages (High SEO priority at root URL /:slug)
+  let locationPages = [];
+  try {
+    await dbConnect();
+    const locs = await LocationPage.find({}, "slug updatedAt createdAt").lean();
+    locs.forEach((l) => {
+      if (l.slug) {
+        locationPages.push({
+          url: `${baseUrl}/${l.slug}`,
+          lastModified: l.updatedAt ? new Date(l.updatedAt) : (l.createdAt ? new Date(l.createdAt) : new Date()),
+          changeFrequency: "daily",
+          priority: 0.9,
+        });
+      }
+    });
+  } catch (err) {
+    console.error("Error generating sitemap locations:", err);
+  }
+
+  return [...staticPages, ...servicePages, ...blogPages, ...locationPages];
 }

@@ -60,10 +60,58 @@ const nextConfig = {
         destination: '/contact',
         permanent: true,
       },
-      // Old WordPress /core-mambers to /our-team
+      // Old WordPress /core-mambers & /core-members to /our-team
       {
         source: '/core-mambers',
         destination: '/our-team',
+        permanent: true,
+      },
+      {
+        source: '/core-members',
+        destination: '/our-team',
+        permanent: true,
+      },
+      {
+        source: '/core-mambers/:path*',
+        destination: '/our-team',
+        permanent: true,
+      },
+      {
+        source: '/core-members/:path*',
+        destination: '/our-team',
+        permanent: true,
+      },
+      // Old WordPress /it-company to /company-profile
+      {
+        source: '/it-company',
+        destination: '/company-profile',
+        permanent: true,
+      },
+      {
+        source: '/it-company/:path*',
+        destination: '/company-profile',
+        permanent: true,
+      },
+      // Old WordPress /academy to /courses
+      {
+        source: '/academy',
+        destination: '/courses',
+        permanent: true,
+      },
+      {
+        source: '/academy/:path*',
+        destination: '/courses',
+        permanent: true,
+      },
+      // Plural /testimonials to /testimonial
+      {
+        source: '/testimonials',
+        destination: '/testimonial',
+        permanent: true,
+      },
+      {
+        source: '/testimonials/:path*',
+        destination: '/testimonial',
         permanent: true,
       },
     ];

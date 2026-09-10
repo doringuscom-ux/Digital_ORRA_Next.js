@@ -6,6 +6,7 @@ import { useParams, useRouter } from 'next/navigation';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import ServiceDetailView from '../../components/ServiceDetailView';
+import LocationPageView from '../../components/LocationPageView';
 import { servicesData } from '../../data/servicesData';
 import {
   ArrowLeft,
@@ -19,7 +20,8 @@ import './BlogDetailPage.css';
 export default function UniversalSlugPage() {
   const router = useRouter();
   const params = useParams();
-  const slug = params?.slug;
+  const rawSlug = params?.slug;
+  const slug = typeof rawSlug === 'string' ? decodeURIComponent(rawSlug) : Array.isArray(rawSlug) ? decodeURIComponent(rawSlug[0]) : '';
 
   // Check immediately if slug matches any service in static servicesData
   const matchedStaticService = useMemo(() => {
@@ -28,19 +30,44 @@ export default function UniversalSlugPage() {
   }, [slug]);
 
   const [service, setService] = useState(matchedStaticService);
+  const [locationPage, setLocationPage] = useState(null);
   const [article, setArticle] = useState(null);
   const [allBlogs, setAllBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  // Sync service state when slug changes
+  useEffect(() => {
+    setService(matchedStaticService);
+  }, [matchedStaticService]);
 
   useEffect(() => {
     let isMounted = true;
 
     async function resolveSlug() {
       if (!slug) return;
+      if (slug === 'core-mambers' || slug === 'core-members') {
+        router.replace('/our-team');
+        return;
+      }
+      if (slug === 'it-company') {
+        router.replace('/company-profile');
+        return;
+      }
+      if (slug === 'academy') {
+        router.replace('/courses');
+        return;
+      }
+      if (slug === 'testimonials') {
+        router.replace('/testimonial');
+        return;
+      }
       setLoading(true);
+      setService(matchedStaticService);
+      setLocationPage(null);
+      setArticle(null);
 
       try {
-        // 1. First priority: If matched statically, or check Service API
+        // 1. First priority: If matched statically in servicesData
         if (matchedStaticService) {
           if (isMounted) {
             setService(matchedStaticService);
@@ -49,20 +76,39 @@ export default function UniversalSlugPage() {
           return;
         }
 
-        // Try service API in case it's a dynamic service created in admin
-        const srvRes = await fetch(`/api/services/${slug}`);
-        if (srvRes.ok) {
-          const srvData = await srvRes.json();
-          if (srvData && (srvData.title || srvData.id)) {
-            if (isMounted) {
-              setService(srvData);
-              setLoading(false);
+        // 2. Second priority: Check if it's a dedicated Location Landing Page
+        try {
+          const locRes = await fetch(`/api/locations/${slug}`);
+          if (locRes.ok) {
+            const locData = await locRes.json();
+            if (locData && locData.title) {
+              if (isMounted) {
+                setLocationPage(locData);
+                setLoading(false);
+              }
+              return;
             }
-            return;
           }
+        } catch (e) {
+          console.error("Loc fetch error:", e);
         }
 
-        // 2. Second priority: Check if it's a Blog article
+        // 3. Third priority: Check if it's a dynamic service created in admin
+        try {
+          const srvRes = await fetch(`/api/services/${slug}`);
+          if (srvRes.ok) {
+            const srvData = await srvRes.json();
+            if (srvData && (srvData.title || srvData.id)) {
+              if (isMounted) {
+                setService(srvData);
+                setLoading(false);
+              }
+              return;
+            }
+          }
+        } catch (e) {}
+
+        // 4. Fourth priority: Check if it's a Blog article
         const res = await fetch(`/api/blogs/${slug}`);
         if (res.ok) {
           const data = await res.json();
@@ -179,7 +225,12 @@ export default function UniversalSlugPage() {
     return <ServiceDetailView initialService={service} slug={slug} />;
   }
 
-  // 2. Render Not Found if neither service nor article
+  // 2. Render Location Page View if matched
+  if (locationPage) {
+    return <LocationPageView page={locationPage} slug={slug} />;
+  }
+
+  // 3. Render Not Found if neither service nor location nor article
   if (!article) {
     return (
       <div className="blog-detail-wrapper flex flex-col justify-between">

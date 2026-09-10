@@ -44,6 +44,8 @@ export default function AdminGalleryPage() {
 
   // Standard category options
   const defaultCategories = [
+    "Workshop Practical",
+    "Student Projects",
     "Team & Events",
     "Office & Workspace",
     "Client Wins & Workshops",

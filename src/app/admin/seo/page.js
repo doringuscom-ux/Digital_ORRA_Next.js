@@ -18,7 +18,8 @@ import {
   Layers,
   ArrowRight,
   ShieldCheck,
-  Code
+  Code,
+  MapPin
 } from "lucide-react";
 
 export default function AdminSeoPage() {
@@ -154,12 +155,38 @@ export default function AdminSeoPage() {
       if (seen.has(path)) return false;
       seen.add(path);
 
-      const isService = path.startsWith("/services") || slug.startsWith("services");
-      const isBlog = slug.startsWith("blog/") || (!isService && path !== "/" && path !== "/about-us" && path !== "/courses" && path !== "/company-profile" && path !== "/gallery" && path !== "/join-our-team" && path !== "/contact" && path !== "/contact-us" && path !== "/faqs" && path !== "/blog" && path !== "/our-team" && path !== "/scan-qr" && path !== "/portfolio" && path !== "/academy" && path !== "/it-company" && path !== "/testimonial");
-      const isCoreStatic = !isService && !isBlog;
+      const mainStaticPaths = [
+        "/",
+        "/about-us",
+        "/our-team",
+        "/services",
+        "/courses",
+        "/company-profile",
+        "/gallery",
+        "/join-our-team",
+        "/career",
+        "/contact",
+        "/contact-us",
+        "/faqs",
+        "/blog",
+        "/portfolio",
+        "/testimonial",
+        "/skill-development-workshop",
+        "/privacy-policy",
+        "/academy",
+        "/it-company",
+        "/scan-qr"
+      ];
+
+      const isLocation = slug.startsWith("location/") || name.startsWith("City:") || path.includes("-in-panchkula") || path.includes("-in-chandigarh") || path.includes("-in-mohali") || path.includes("-in-zirakpur") || path.includes("-in-peer-muchalla");
+      const isService = !isLocation && (path.startsWith("/services") || slug.startsWith("services") || name.startsWith("Service:"));
+      const isCoreStatic = mainStaticPaths.includes(path);
+      const isBlog = !isLocation && !isService && !isCoreStatic;
 
       // Tab filter
       if (filterTab === "static" && !isCoreStatic) {
+        return false;
+      } else if (filterTab === "locations" && !isLocation) {
         return false;
       } else if (filterTab === "services" && !isService) {
         return false;
@@ -266,6 +293,7 @@ export default function AdminSeoPage() {
             {[
               { id: "all", label: "All" },
               { id: "static", label: "Main Pages" },
+              { id: "locations", label: "City Pages" },
               { id: "services", label: "Services" },
               { id: "blogs", label: "Articles" },
             ].map((tab) => (
@@ -305,8 +333,13 @@ export default function AdminSeoPage() {
                     }`}
                   >
                     <div className="min-w-0 pr-2">
-                      <div className="text-xs font-bold truncate group-hover:text-cyan-300 transition-colors">
-                        {page.pageName}
+                      <div className="text-xs font-bold truncate group-hover:text-cyan-300 transition-colors flex items-center gap-1.5">
+                        {page.pageSlug?.startsWith("location/") || page.pageName?.startsWith("City:") ? (
+                          <span className="px-1.5 py-0.5 rounded bg-pink-500/20 text-[#FF3399] text-[10px] font-mono shrink-0">
+                            CITY
+                          </span>
+                        ) : null}
+                        <span className="truncate">{page.pageName}</span>
                       </div>
                       <div className="text-[11px] text-gray-400 font-mono truncate">
                         {page.pagePath}

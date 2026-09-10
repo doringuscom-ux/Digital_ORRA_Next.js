@@ -2,11 +2,15 @@ import { NextResponse } from "next/server";
 import dbConnect from "@/lib/dbConnect";
 import Gallery from "@/models/Gallery";
 
-// GET /api/gallery
-export async function GET() {
+// GET /api/gallery (Optional ?category=XYZ)
+export async function GET(req) {
   try {
     await dbConnect();
-    const items = await Gallery.find().sort({ createdAt: -1 });
+    const { searchParams } = new URL(req.url);
+    const category = searchParams.get("category");
+
+    const query = category ? { category: { $regex: new RegExp(`^${category}$`, "i") } } : {};
+    const items = await Gallery.find(query).sort({ createdAt: -1 });
     return NextResponse.json(items);
   } catch (err) {
     return NextResponse.json(

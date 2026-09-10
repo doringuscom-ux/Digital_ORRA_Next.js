@@ -10,6 +10,31 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
+export async function PUT(req, { params }) {
+  try {
+    const authCheck = verifyAdmin(req);
+    if (authCheck.error) {
+      return NextResponse.json({ message: authCheck.error }, { status: authCheck.status });
+    }
+
+    const { id } = await params;
+    await dbConnect();
+    const body = await req.json();
+
+    const portfolio = await Portfolio.findByIdAndUpdate(id, body, { new: true });
+    if (!portfolio) {
+      return NextResponse.json({ message: "Portfolio item not found" }, { status: 404 });
+    }
+
+    return NextResponse.json(portfolio);
+  } catch (error) {
+    return NextResponse.json(
+      { message: "Server error", error: error.message },
+      { status: 500 }
+    );
+  }
+}
+
 export async function DELETE(req, { params }) {
   try {
     const authCheck = verifyAdmin(req);
@@ -39,3 +64,4 @@ export async function DELETE(req, { params }) {
     );
   }
 }
+

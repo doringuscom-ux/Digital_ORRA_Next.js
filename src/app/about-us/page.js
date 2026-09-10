@@ -22,7 +22,8 @@ import {
   Sparkles,
   Rocket,
   HeartHandshake,
-  MessageCircle
+  MessageCircle,
+  Search
 } from 'lucide-react';
 
 const SERVICES = [
@@ -64,11 +65,11 @@ const SERVICES = [
   },
   {
     number: "04",
-    icon: Users2,
-    title: "Influencer Marketing",
-    gif: "https://res.cloudinary.com/fykd8cyh/image/upload/v1788855123/Influencer_Marketing.gif",
-    desc: "Strategic creator campaigns connecting your brand with vetted, high-trust creator networks across India for exponential reach.",
-    tags: ["Creator Collabs", "Viral Reach"],
+    icon: Search,
+    title: "Search Engine Optimization (SEO)",
+    gif: "https://res.cloudinary.com/fykd8cyh/image/upload/v1789025357/search-engine-optimization.gif",
+    desc: "Dominate search engine rankings, drive targeted organic traffic, and secure top positions on Google with cutting-edge SEO strategies.",
+    tags: ["Top Google Rank", "Organic Traffic"],
     color: "from-pink-500/20 to-cyan-500/10",
     borderGlow: "group-hover:border-pink-500/40",
     iconColor: "text-pink-400",

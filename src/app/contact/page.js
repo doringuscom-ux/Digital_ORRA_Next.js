@@ -363,7 +363,7 @@ export default function ContactPage() {
               </div>
               <div>
                 <h3 className="text-sm font-bold text-white">Agency Headquarters</h3>
-                <p className="text-xs text-gray-400">123 Digital Ave, Innovation City, IN 10001</p>
+                <p className="text-xs text-gray-400">2nd Floor, SCO 19, Sector 11, Panchkula, Haryana 134117</p>
               </div>
             </div>
             <div className="text-xs text-gray-400">

@@ -111,7 +111,8 @@ export default function Footer({ hideCta = false }) {
                   alt="Digital ORRA Logo" 
                   width={180} 
                   height={58} 
-                  className="object-contain"
+                  style={{ width: "auto", height: "auto" }}
+                  className="object-contain max-h-[58px]"
                 />
               </div>
             </Link>
@@ -122,12 +123,19 @@ export default function Footer({ hideCta = false }) {
             
             <div className="flex items-center gap-3 mt-2">
               {[
-                { Icon: FacebookIcon, color: 'hover:text-blue-500 hover:border-blue-500' },
-                { Icon: TwitterIcon, color: 'hover:text-cyan-400 hover:border-cyan-400' },
-                { Icon: InstagramIcon, color: 'hover:text-pink-500 hover:border-pink-500' },
-                { Icon: LinkedinIcon, color: 'hover:text-blue-600 hover:border-blue-600' }
+                { name: 'Facebook', href: 'https://www.facebook.com/digitalorra', Icon: FacebookIcon, color: 'hover:text-blue-500 hover:border-blue-500' },
+                { name: 'Twitter', href: 'https://x.com/Digital_ORRA', Icon: TwitterIcon, color: 'hover:text-cyan-400 hover:border-cyan-400' },
+                { name: 'Instagram', href: 'https://www.instagram.com/digitalorra/', Icon: InstagramIcon, color: 'hover:text-pink-500 hover:border-pink-500' },
+                { name: 'LinkedIn', href: 'https://www.linkedin.com/company/digitalorra', Icon: LinkedinIcon, color: 'hover:text-blue-600 hover:border-blue-600' }
               ].map((Social, idx) => (
-                <a key={idx} href="#" className={`w-10 h-10 rounded-full flex items-center justify-center border border-white/10 text-gray-500 transition-all duration-300 ${Social.color} hover:bg-white/5`}>
+                <a
+                  key={idx}
+                  href={Social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Visit Digital ORRA on ${Social.name}`}
+                  className={`w-10 h-10 rounded-full flex items-center justify-center border border-white/10 text-gray-500 transition-all duration-300 ${Social.color} hover:bg-white/5`}
+                >
                   <Social.Icon className="w-4 h-4" />
                 </a>
               ))}
@@ -142,6 +150,7 @@ export default function Footer({ hideCta = false }) {
                 { name: 'About Us', href: '/about-us' },
                 { name: 'Company Profile', href: '/company-profile' },
                 { name: 'Our Services', href: '/services' },
+                { name: 'Our Team', href: '/our-team' },
                 { name: 'Join Our Team', href: '/join-our-team' },
                 { name: 'Contact Us', href: '/contact' }
               ].map((item) => (
@@ -162,8 +171,10 @@ export default function Footer({ hideCta = false }) {
               {[
                 { name: 'Academy Courses', href: '/courses' },
                 { name: 'Agency Gallery', href: '/gallery' },
+                { name: 'Client Testimonials', href: '/testimonial' },
                 { name: 'Latest Insights & Blog', href: '/blog' },
-                { name: 'Featured Work', href: '/#work' },
+                { name: 'Featured Work & Portfolio', href: '/portfolio' },
+                { name: 'Skill Development Workshop', href: '/skill-development-workshop' },
                 { name: 'Help & FAQs', href: '/faqs' }
               ].map((item) => (
                 <li key={item.name}>
@@ -185,7 +196,7 @@ export default function Footer({ hideCta = false }) {
                 <div className="p-2 rounded-lg bg-white/5 group-hover:bg-cyan-500/20 transition-colors">
                   <MapPin className="w-4 h-4 text-cyan-400" />
                 </div>
-                <span className="text-gray-400 text-sm mt-1.5 font-light">123 Digital Ave, Innovation City, IN 10001</span>
+                <span className="text-gray-400 text-sm mt-1.5 font-light">2nd Floor, SCO 19, Sector 11, Panchkula, Haryana 134117</span>
               </li>
               <li className="flex items-center gap-4 group">
                 <div className="p-2 rounded-lg bg-white/5 group-hover:bg-purple-500/20 transition-colors">

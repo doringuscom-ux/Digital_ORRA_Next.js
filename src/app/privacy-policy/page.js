@@ -5,7 +5,7 @@ import Link from "next/link";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import DynamicSeoHead from "../../components/DynamicSeoHead";
-import { ShieldCheck, ArrowRight, FileText, CheckCircle2, AlertCircle, PhoneCall, Mail } from "lucide-react";
+import { ArrowRight, FileText, CheckCircle2, AlertCircle, PhoneCall, Mail } from "lucide-react";
 
 export default function PrivacyPolicyPage() {
   return (
@@ -37,22 +37,6 @@ export default function PrivacyPolicyPage() {
         </div>
 
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-28 md:pt-36">
-
-          {/* Heading */}
-          <div className="text-center max-w-3xl mx-auto mb-14">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-400/30 text-cyan-300 text-xs font-mono font-bold uppercase tracking-wider mb-5 shadow-lg shadow-cyan-500/10">
-              <ShieldCheck className="w-3.5 h-3.5 text-cyan-400" />
-              <span>Official Terms & Consumer Protection</span>
-            </div>
-
-            <h1 className="text-4xl sm:text-6xl font-black text-white tracking-tight leading-[1.08] mb-4">
-              Privacy & <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-pink-500 to-purple-500">Refund Policy</span>
-            </h1>
-
-            <p className="text-sm sm:text-base text-gray-300 font-light max-w-2xl mx-auto leading-relaxed">
-              Transparency and mutual trust form the cornerstone of our client partnerships. Please review our project execution and refund guidelines below.
-            </p>
-          </div>
 
           {/* Scope & Commitment Box */}
           <div className="relative rounded-3xl p-7 sm:p-9 bg-gradient-to-br from-[#111C3D] via-[#0B132B] to-[#070D1E] border border-white/15 shadow-2xl mb-12 group hover:border-cyan-400/50 transition-all">

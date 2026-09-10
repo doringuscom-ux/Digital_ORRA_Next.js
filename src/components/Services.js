@@ -194,6 +194,7 @@ export default function Services() {
                 <button
                   type="button"
                   onClick={() => manualScroll('left')}
+                  aria-label="Previous services"
                   className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white border border-white/10 transition-all cursor-pointer"
                 >
                   <ChevronLeft className="w-4 h-4" />
@@ -201,6 +202,7 @@ export default function Services() {
                 <button
                   type="button"
                   onClick={() => manualScroll('right')}
+                  aria-label="Next services"
                   className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white border border-white/10 transition-all cursor-pointer"
                 >
                   <ChevronRight className="w-4 h-4" />

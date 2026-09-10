@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import dbConnect from "@/lib/dbConnect";
 import Seo from "@/models/Seo";
 import Service from "@/models/Service";
+import LocationPage from "@/models/LocationPage";
+import Blog from "@/models/Blog";
 import { servicesData } from "@/data/servicesData";
 
 // Default pre-populated static pages with rich SEO metadata
@@ -117,6 +119,36 @@ export const defaultPagesSeo = [
     robots: "index, follow"
   },
   {
+    pagePath: "/portfolio",
+    pageName: "Client Portfolio & Case Studies",
+    metaTitle: "Client Portfolio & Case Studies | Digital ORRA",
+    metaDescription: "Explore our proven portfolio of high-converting websites, visual brand identities, and performance ad campaigns.",
+    metaKeywords: "portfolio, case studies, digital marketing results, web design portfolio, digital orra",
+    ogImage: "/DO JPG.jpeg",
+    canonicalUrl: "https://digitalorra.com/portfolio",
+    robots: "index, follow"
+  },
+  {
+    pagePath: "/testimonial",
+    pageName: "Client Testimonials & Reviews",
+    metaTitle: "Client Testimonials & Reviews | Digital ORRA",
+    metaDescription: "Hear what business owners, founders, and marketing directors say about partnering with Digital ORRA for exponential digital growth.",
+    metaKeywords: "testimonials, reviews, client feedback, digital orra ratings",
+    ogImage: "/DO JPG.jpeg",
+    canonicalUrl: "https://digitalorra.com/testimonial",
+    robots: "index, follow"
+  },
+  {
+    pagePath: "/skill-development-workshop",
+    pageName: "Skill Development Workshop",
+    metaTitle: "Skill Development Workshop | Digital ORRA Academy",
+    metaDescription: "Hands-on practical digital skills workshops, industrial training, and certifications conducted by Digital ORRA experts.",
+    metaKeywords: "workshop, skill development, digital training, practical workshop panchkula",
+    ogImage: "/DO JPG.jpeg",
+    canonicalUrl: "https://digitalorra.com/skill-development-workshop",
+    robots: "index, follow"
+  },
+  {
     pagePath: "/privacy-policy",
     pageName: "Privacy & Refund Policy",
     metaTitle: "Privacy & Refund Policy | Digital ORRA",
@@ -158,6 +190,22 @@ export async function GET(req) {
               canonicalUrl: `https://digitalorra.com${path}`,
               robots: "index, follow"
             });
+          } else {
+            // Check if path is a Location Page (e.g. /website-designing-development-company-in-zirakpur)
+            const loc = await LocationPage.findOne({ slug: srvSlug });
+            if (loc) {
+              pageSeo = await Seo.create({
+                pagePath: path,
+                pageName: `City: ${loc.city} - ${loc.title}`,
+                pageSlug: `location/${loc.slug}`,
+                metaTitle: loc.metaTitle || `${loc.title} | Digital ORRA`,
+                metaDescription: loc.metaDescription || loc.heroSubheadline || `Premier digital services in ${loc.city}.`,
+                metaKeywords: loc.metaKeywords || `${loc.city}, digital marketing, digital orra`,
+                ogImage: loc.ogImage || "/DO JPG.jpeg",
+                canonicalUrl: `https://digitalorra.com${path}`,
+                robots: "index, follow"
+              });
+            }
           }
         }
       }
@@ -167,7 +215,7 @@ export async function GET(req) {
     // Otherwise fetch all static page SEO items
     let allSeo = await Seo.find().sort({ createdAt: 1 });
 
-    // Build complete defaults including dynamic services
+    // Build complete defaults including dynamic services & location pages
     let allDefaults = [...defaultPagesSeo];
     try {
       const dbServices = await Service.find();
@@ -183,6 +231,52 @@ export async function GET(req) {
             metaKeywords: `${srv.title}, ${srv.category}, performance agency`,
             ogImage: "/DO JPG.jpeg",
             canonicalUrl: `https://digitalorra.com${sPath}`,
+            robots: "index, follow"
+          });
+        }
+      });
+    } catch (e) {
+      // Ignore
+    }
+
+    // Append all location pages from MongoDB
+    try {
+      const locationPages = await LocationPage.find();
+      locationPages.forEach((loc) => {
+        const lPath = `/${loc.slug}`;
+        if (!allDefaults.some((d) => d.pagePath === lPath)) {
+          allDefaults.push({
+            pagePath: lPath,
+            pageName: `City: ${loc.city} - ${loc.title}`,
+            pageSlug: `location/${loc.slug}`,
+            metaTitle: loc.metaTitle || `${loc.title} | Digital ORRA`,
+            metaDescription: loc.metaDescription || loc.heroSubheadline || `Premier digital services in ${loc.city}.`,
+            metaKeywords: loc.metaKeywords || `${loc.city}, digital marketing, digital orra`,
+            ogImage: loc.ogImage || "/DO JPG.jpeg",
+            canonicalUrl: `https://digitalorra.com${lPath}`,
+            robots: "index, follow"
+          });
+        }
+      });
+    } catch (e) {
+      // Ignore
+    }
+
+    // Append all blog articles from MongoDB so 100% of sitemap is covered
+    try {
+      const allBlogs = await Blog.find({}, "title slug metaTitle metaDescription focusKeywords featuredImage canonicalUrl").lean();
+      allBlogs.forEach((b) => {
+        const bPath = `/${b.slug}`;
+        if (!allDefaults.some((d) => d.pagePath === bPath)) {
+          allDefaults.push({
+            pagePath: bPath,
+            pageName: b.title || `Article: ${b.slug}`,
+            pageSlug: `blog/${b.slug}`,
+            metaTitle: b.metaTitle || `${b.title} | Digital ORRA`,
+            metaDescription: b.metaDescription || `Read ${b.title} on Digital ORRA Insights.`,
+            metaKeywords: b.focusKeywords || "digital marketing blog, digital orra",
+            ogImage: b.featuredImage || "/DO JPG.jpeg",
+            canonicalUrl: b.canonicalUrl || `https://digitalorra.com${bPath}`,
             robots: "index, follow"
           });
         }
@@ -254,6 +348,24 @@ export async function POST(req) {
       { $set: body },
       { new: true, upsert: true }
     );
+
+    // If it's a city/location page, sync back into LocationPage model as well
+    try {
+      const locSlug = body.pagePath.replace(/^\//, "");
+      await LocationPage.findOneAndUpdate(
+        { slug: locSlug },
+        {
+          $set: {
+            metaTitle: body.metaTitle,
+            metaDescription: body.metaDescription,
+            metaKeywords: body.metaKeywords,
+            ogImage: body.ogImage
+          }
+        }
+      );
+    } catch (e) {
+      // Ignore sync error
+    }
 
     return NextResponse.json({ success: true, data: updated });
   } catch (err) {

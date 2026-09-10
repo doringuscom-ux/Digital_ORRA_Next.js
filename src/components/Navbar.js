@@ -84,7 +84,8 @@ export default function Navbar() {
                 alt="Digital ORRA Logo"
                 width={110}
                 height={35}
-                className="object-contain w-[95px] sm:w-[110px] md:w-[120px] h-auto"
+                style={{ width: "auto", height: "auto" }}
+                className="object-contain max-h-[35px]"
                 priority
               />
             </div>
@@ -156,7 +157,8 @@ export default function Navbar() {
                       alt="Digital ORRA"
                       width={105}
                       height={32}
-                      className="object-contain"
+                      style={{ width: "auto", height: "auto" }}
+                      className="object-contain max-h-[32px]"
                     />
                   </div>
                 </Link>

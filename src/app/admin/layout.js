@@ -18,7 +18,9 @@ import {
   ShieldCheck,
   RefreshCw,
   ExternalLink,
-  Activity
+  Activity,
+  Layers,
+  MapPin
 } from "lucide-react";
 
 export default function AdminLayout({ children }) {
@@ -37,6 +39,10 @@ export default function AdminLayout({ children }) {
     gallery: 0,
     careers: 0,
     services: 0,
+    reviews: 0,
+    portfolios: 0,
+    workshops: 0,
+    locations: 0,
   });
 
   // Agar login page hai toh bina sidebar ke clean login dikhayein
@@ -54,13 +60,17 @@ export default function AdminLayout({ children }) {
     // Load sidebar live counts
     async function loadSidebarCounts() {
       try {
-        const [cRes, bRes, crRes, gRes, carRes, sRes] = await Promise.all([
+        const [cRes, bRes, crRes, gRes, carRes, sRes, rRes, pRes, wRes, lRes] = await Promise.all([
           fetch("/api/contact").catch(() => null),
           fetch("/api/blogs").catch(() => null),
           fetch("/api/courses").catch(() => null),
           fetch("/api/gallery").catch(() => null),
           fetch("/api/careers").catch(() => null),
           fetch("/api/services").catch(() => null),
+          fetch("/api/reviews").catch(() => null),
+          fetch("/api/portfolio").catch(() => null),
+          fetch("/api/workshop").catch(() => null),
+          fetch("/api/locations").catch(() => null),
         ]);
 
         let inqCount = 0;
@@ -99,6 +109,30 @@ export default function AdminLayout({ children }) {
           srvCount = Array.isArray(sData) ? sData.length : (sData.data ? sData.data.length : 0);
         }
 
+        let revCount = 0;
+        if (rRes && rRes.ok) {
+          const rData = await rRes.json();
+          revCount = Array.isArray(rData) ? rData.length : 0;
+        }
+
+        let portCount = 0;
+        if (pRes && pRes.ok) {
+          const pData = await pRes.json();
+          portCount = Array.isArray(pData) ? pData.length : 0;
+        }
+
+        let workCount = 0;
+        if (wRes && wRes.ok) {
+          const wData = await wRes.json();
+          workCount = Array.isArray(wData) ? wData.length : 0;
+        }
+
+        let locCount = 0;
+        if (lRes && lRes.ok) {
+          const lData = await lRes.json();
+          locCount = Array.isArray(lData) ? lData.length : 0;
+        }
+
         setCounts({
           inquiries: inqCount,
           blogs: blogCount,
@@ -106,6 +140,10 @@ export default function AdminLayout({ children }) {
           gallery: galCount,
           careers: carCount,
           services: srvCount,
+          reviews: revCount,
+          portfolios: portCount,
+          workshops: workCount,
+          locations: locCount,
         });
       } catch (e) {
         console.error("Sidebar count error:", e);
@@ -180,11 +218,39 @@ export default function AdminLayout({ children }) {
       active: pathname.startsWith("/admin/gallery"),
     },
     {
+      label: "Workshop Media",
+      icon: GraduationCap,
+      href: "/admin/workshop",
+      badge: counts.workshops,
+      active: pathname.startsWith("/admin/workshop"),
+    },
+    {
+      label: "Portfolio Projects",
+      icon: Layers,
+      href: "/admin/portfolio",
+      badge: counts.portfolios,
+      active: pathname.startsWith("/admin/portfolio"),
+    },
+    {
+      label: "Location Pages",
+      icon: MapPin,
+      href: "/admin/locations",
+      badge: counts.locations,
+      active: pathname.startsWith("/admin/locations"),
+    },
+    {
       label: "Job Applications",
       icon: Briefcase,
       href: "/admin/careers",
       badge: counts.careers,
       active: pathname.startsWith("/admin/careers"),
+    },
+    {
+      label: "Client Reviews",
+      icon: MessageSquare,
+      href: "/admin/reviews",
+      badge: counts.reviews,
+      active: pathname.startsWith("/admin/reviews"),
     },
     {
       label: "Our Team",
@@ -212,7 +278,8 @@ export default function AdminLayout({ children }) {
                 alt="Digital ORRA Logo"
                 width={100}
                 height={32}
-                className="object-contain"
+                style={{ width: "auto", height: "auto" }}
+                className="object-contain max-h-[32px]"
                 priority
               />
             </div>
