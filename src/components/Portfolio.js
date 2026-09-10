@@ -74,26 +74,24 @@ export default function Portfolio() {
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none z-0"></div>
 
       {/* Background Watermark */}
-      <div className="absolute top-4 md:-top-4 left-0 w-full flex justify-center pointer-events-none select-none z-0 [mask-image:linear-gradient(to_bottom,black_60%,transparent_100%)]">
-        <span className="text-[7.5vw] md:text-[8vw] font-black uppercase tracking-widest whitespace-nowrap select-none text-transparent bg-clip-text bg-gradient-to-b from-white/[0.45] via-white/[0.25] to-transparent">
+      <div className="absolute top-4 md:-top-4 left-0 w-full flex justify-center pointer-events-none select-none z-0 [mask-image:linear-gradient(to_bottom,black_75%,transparent_100%)]">
+        <span 
+          style={{ 
+            background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.5) 55%, rgba(255, 255, 255, 0.18) 100%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent'
+          }}
+          className="text-[7.5vw] md:text-[8vw] font-black uppercase tracking-widest whitespace-nowrap select-none"
+        >
           OUR PORTFOLIO
         </span>
       </div>
 
-      <div className="port-container relative z-10">
-        {/* Header */}
-        <div className="port-header">
-          <h2 className="port-title">
-            Featured <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500">Case Studies</span>
-          </h2>
-          <p className="port-subtitle">
-            Explore some of our best works that drove massive growth and ROI for our clients.
-          </p>
-        </div>
+      <div className="port-container relative z-10 pt-8 md:pt-14">
 
         {/* Filter Buttons */}
         {!loading && categories.length > 1 && (
-          <div className="flex flex-wrap justify-center gap-3 mb-10 relative z-20">
+          <div className="flex flex-wrap justify-center gap-3 mb-10 relative z-20" style={{ marginTop: '20px' }}>
             {categories.map((cat, index) => (
               <button
                 key={index}

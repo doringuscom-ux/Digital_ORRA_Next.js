@@ -36,7 +36,7 @@
 .port-container {
   max-width: 1240px;
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 60px 24px 0 24px;
 }
 
 .port-header {

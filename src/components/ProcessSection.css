@@ -5,12 +5,12 @@
 .process-section-v2 {
   position: relative;
   background: #050505;
-  min-height: 850px;
+  min-height: auto;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  padding: 180px 0 100px 0;
+  padding: 170px 0 35px 0;
   overflow: hidden;
   font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
   box-sizing: border-box;
@@ -687,7 +687,7 @@
 @media (max-width: 768px) {
   .process-section-v2 {
     min-height: auto;
-    padding: 130px 0 70px;
+    padding: 130px 0 30px;
   }
 
   .proc-container {

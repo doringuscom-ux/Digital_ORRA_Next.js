@@ -122,8 +122,16 @@ export default function AboutUsPage() {
       {/* Section: Our Core Expertise with Full-Width Watermark like About Section */}
       <section className="relative w-full pt-16 pb-2 md:pt-24 md:pb-4 overflow-hidden">
         {/* Giant Edge-to-Edge Background Watermark */}
-        <div style={{ pointerEvents: 'none' }} className="absolute top-4 md:top-2 left-0 w-full flex justify-center pointer-events-none select-none overflow-hidden z-0 [mask-image:linear-gradient(to_bottom,black_60%,transparent_100%)]">
-          <span style={{ pointerEvents: 'none' }} className="text-[6.5vw] md:text-[7vw] font-black uppercase tracking-wider whitespace-nowrap select-none text-transparent bg-clip-text bg-gradient-to-b from-white/[0.45] via-white/[0.25] to-white/[0.05]">
+        <div style={{ pointerEvents: 'none' }} className="absolute top-4 md:top-2 left-0 w-full flex justify-center pointer-events-none select-none overflow-hidden z-0 [mask-image:linear-gradient(to_bottom,black_75%,transparent_100%)]">
+          <span 
+            style={{ 
+              pointerEvents: 'none',
+              background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.5) 55%, rgba(255, 255, 255, 0.18) 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent'
+            }} 
+            className="text-[6.5vw] md:text-[7vw] font-black uppercase tracking-wider whitespace-nowrap select-none"
+          >
             OUR CORE EXPERTISE
           </span>
         </div>
@@ -219,7 +227,15 @@ export default function AboutUsPage() {
       <section className="relative w-full pt-0 pb-12 md:pb-16 overflow-hidden">
         {/* Giant Edge-to-Edge Background Watermark */}
         <div style={{ pointerEvents: 'none' }} className="absolute top-0 left-0 w-full flex justify-center pointer-events-none select-none overflow-hidden z-0 [mask-image:linear-gradient(to_bottom,black_75%,transparent_100%)]">
-          <span style={{ pointerEvents: 'none' }} className="text-[6.5vw] md:text-[7vw] font-black uppercase tracking-wider whitespace-nowrap select-none text-transparent bg-clip-text bg-gradient-to-b from-white/[0.45] via-white/[0.25] to-white/[0.05]">
+          <span 
+            style={{ 
+              pointerEvents: 'none',
+              background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.5) 55%, rgba(255, 255, 255, 0.18) 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent'
+            }} 
+            className="text-[6.5vw] md:text-[7vw] font-black uppercase tracking-wider whitespace-nowrap select-none"
+          >
             OUR CORE VALUES
           </span>
         </div>

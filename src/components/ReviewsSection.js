@@ -66,8 +66,15 @@ export default function ReviewsSection() {
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none z-0"></div>
 
       {/* Massive Background Typography (Watermark) */}
-      <div className="absolute top-4 md:-top-4 left-0 w-full flex justify-center pointer-events-none select-none z-0 [mask-image:linear-gradient(to_bottom,black_60%,transparent_100%)]">
-        <span className="text-[8vw] md:text-[8vw] font-black uppercase tracking-widest whitespace-nowrap select-none text-transparent bg-clip-text bg-gradient-to-b from-white/[0.45] via-white/[0.25] to-transparent">
+      <div className="absolute top-4 md:-top-4 left-0 w-full flex justify-center pointer-events-none select-none z-0 [mask-image:linear-gradient(to_bottom,black_75%,transparent_100%)]">
+        <span 
+          style={{ 
+            background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.5) 55%, rgba(255, 255, 255, 0.18) 100%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent'
+          }}
+          className="text-[8vw] md:text-[8vw] font-black uppercase tracking-widest whitespace-nowrap select-none"
+        >
           TESTIMONIALS
         </span>
       </div>

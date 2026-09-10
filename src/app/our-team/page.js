@@ -50,7 +50,15 @@ export default function OurTeamPage() {
       <section className="relative w-full pt-24 pb-12 sm:pt-28 md:pt-36 md:pb-20 overflow-hidden">
         {/* Giant Edge-to-Edge Watermark (Properly below the floating Navbar) */}
         <div style={{ pointerEvents: 'none' }} className="absolute top-18 sm:top-20 md:top-20 left-0 w-full flex justify-center pointer-events-none select-none overflow-hidden z-0 [mask-image:linear-gradient(to_bottom,black_75%,transparent_100%)]">
-          <span style={{ pointerEvents: 'none' }} className="text-[12.5vw] sm:text-[9.5vw] md:text-[8.5vw] font-black uppercase tracking-wider whitespace-nowrap select-none text-transparent bg-clip-text bg-gradient-to-b from-white/[0.48] via-white/[0.28] to-white/[0.08]">
+          <span 
+            style={{ 
+              pointerEvents: 'none',
+              background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.5) 55%, rgba(255, 255, 255, 0.18) 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent'
+            }} 
+            className="text-[12.5vw] sm:text-[9.5vw] md:text-[8.5vw] font-black uppercase tracking-wider whitespace-nowrap select-none"
+          >
             OUR TEAM
           </span>
         </div>

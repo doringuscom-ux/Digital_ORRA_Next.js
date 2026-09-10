@@ -110,8 +110,16 @@ export default function ServicesPage() {
       {/* Main Services Catalog Section with Edge-to-Edge Watermark */}
       <section className="relative w-full pt-32 pb-20 md:pt-40 md:pb-24 overflow-hidden">
         {/* Giant Edge-to-Edge Background Watermark */}
-        <div style={{ pointerEvents: 'none' }} className="absolute top-20 md:top-24 left-0 w-full flex justify-center pointer-events-none select-none overflow-hidden z-0 [mask-image:linear-gradient(to_bottom,black_70%,transparent_100%)]">
-          <span style={{ pointerEvents: 'none' }} className="text-[8vw] md:text-[8.5vw] font-black uppercase tracking-wider whitespace-nowrap select-none text-transparent bg-clip-text bg-gradient-to-b from-white/[0.48] via-white/[0.28] to-white/[0.08]">
+        <div style={{ pointerEvents: 'none' }} className="absolute top-20 md:top-24 left-0 w-full flex justify-center pointer-events-none select-none overflow-hidden z-0 [mask-image:linear-gradient(to_bottom,black_75%,transparent_100%)]">
+          <span 
+            style={{ 
+              pointerEvents: 'none',
+              background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.5) 55%, rgba(255, 255, 255, 0.18) 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent'
+            }} 
+            className="text-[8vw] md:text-[8.5vw] font-black uppercase tracking-wider whitespace-nowrap select-none"
+          >
             OUR SERVICES
           </span>
         </div>
@@ -152,7 +160,7 @@ export default function ServicesPage() {
                   onClick={() => setActiveCat(cat.id)}
                   className={`px-3.5 sm:px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-300 ${
                     activeCat === cat.id 
-                      ? 'bg-gradient-to-r from-[var(--color-primary-pink)] to-pink-600 text-white shadow-[0_0_15px_rgba(255,51,153,0.4)]' 
+                      ? 'bg-gradient-to-r from-[#FF66B2] via-pink-400 to-[#FF85C0] text-white shadow-[0_0_18px_rgba(255,102,178,0.45)]' 
                       : 'text-gray-300 hover:text-white hover:bg-white/[0.06]'
                   }`}
                 >
@@ -194,7 +202,7 @@ export default function ServicesPage() {
                     <Link
                       key={service.id || service._id || sIdx}
                       href={`/${serviceSlug}`}
-                      className="group relative rounded-3xl bg-gradient-to-b from-[#111A38]/95 via-[#0A1128]/98 to-[#060B1A] border border-white/15 hover:border-cyan-400/60 p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(0,0,0,0.8),0_0_30px_rgba(6,182,212,0.2)] cursor-pointer min-h-[380px]"
+                      className="group relative rounded-3xl bg-gradient-to-b from-[#111A38]/95 via-[#0A1128]/98 to-[#060B1A] border border-white/15 hover:border-cyan-400/60 p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(0,0,0,0.8),0_0_30px_rgba(6,182,212,0.2)] cursor-pointer min-h-[290px]"
                     >
                     {/* Top Accent Line */}
                     <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent group-hover:via-[var(--color-primary-pink)] transition-all duration-500"></div>
@@ -219,18 +227,13 @@ export default function ServicesPage() {
                       </div>
 
                       {/* Main Title - Pure Solid White, High Contrast & Razor Sharp */}
-                      <h3 className="text-xl sm:text-[22px] font-bold text-white mb-3 group-hover:text-cyan-300 transition-colors leading-snug tracking-tight">
+                      <h3 className="text-xl sm:text-[22px] font-bold text-white mb-4 group-hover:text-cyan-300 transition-colors leading-snug tracking-tight">
                         {service.title}
                       </h3>
 
-                      {/* Description - Larger, High Contrast, Crystal Clear */}
-                      <p className="text-[15px] text-gray-200 leading-[1.6] font-normal mb-6">
-                        {service.shortDesc || service.desc}
-                      </p>
-
                       {/* Key Features / Bullet points */}
                       {service.features && service.features.length > 0 && (
-                        <div className="space-y-2.5 pt-4 border-t border-white/15 mb-6">
+                        <div className="space-y-2.5 pt-3 border-t border-white/10 mb-5">
                           {service.features.slice(0, 3).map((feat, fIdx) => (
                             <div key={fIdx} className="flex items-start gap-2.5 text-[13.5px] text-gray-200 font-medium leading-tight">
                               <CheckCircle2 className="w-4 h-4 text-cyan-400 flex-shrink-0 mt-0.5" />

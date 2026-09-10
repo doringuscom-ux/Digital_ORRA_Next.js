@@ -143,7 +143,14 @@ export default function Services() {
     <section className="relative w-full pt-16 pb-16 md:pt-36 lg:pt-44 md:pb-20 bg-[#050505] overflow-hidden border-t border-white/5" id="services">
       {/* Giant Background Watermark (Brighter & Balanced Position) */}
       <div className="absolute top-4 md:top-0 lg:top-2 left-0 w-full flex justify-center pointer-events-none select-none z-0 [mask-image:linear-gradient(to_bottom,black_75%,transparent_100%)]">
-        <span className="text-[7.5vw] md:text-[8vw] font-black uppercase tracking-widest whitespace-nowrap select-none text-transparent bg-clip-text bg-gradient-to-b from-white/[0.72] via-white/[0.45] to-white/[0.18]">
+        <span 
+          style={{ 
+            background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.5) 55%, rgba(255, 255, 255, 0.18) 100%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent'
+          }}
+          className="text-[7.5vw] md:text-[8vw] font-black uppercase tracking-widest whitespace-nowrap select-none"
+        >
           WHAT WE DELIVER
         </span>
       </div>

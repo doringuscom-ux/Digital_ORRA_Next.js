@@ -148,8 +148,16 @@ export default function JoinOurTeamPage() {
       {/* Main Header with Edge-to-Edge Watermark */}
       <section className="relative w-full pt-32 pb-16 md:pt-40 md:pb-20 overflow-hidden">
         {/* Giant Edge-to-Edge Watermark */}
-        <div style={{ pointerEvents: 'none' }} className="absolute top-20 md:top-24 left-0 w-full flex justify-center pointer-events-none select-none overflow-hidden z-0 [mask-image:linear-gradient(to_bottom,black_60%,transparent_100%)]">
-          <span style={{ pointerEvents: 'none' }} className="text-[8vw] md:text-[8.5vw] font-black uppercase tracking-wider whitespace-nowrap select-none text-transparent bg-clip-text bg-gradient-to-b from-white/[0.25] via-white/[0.12] to-transparent">
+        <div style={{ pointerEvents: 'none' }} className="absolute top-20 md:top-24 left-0 w-full flex justify-center pointer-events-none select-none overflow-hidden z-0 [mask-image:linear-gradient(to_bottom,black_75%,transparent_100%)]">
+          <span 
+            style={{ 
+              pointerEvents: 'none',
+              background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.5) 55%, rgba(255, 255, 255, 0.18) 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent'
+            }} 
+            className="text-[8vw] md:text-[8.5vw] font-black uppercase tracking-wider whitespace-nowrap select-none"
+          >
             JOIN OUR TEAM
           </span>
         </div>
