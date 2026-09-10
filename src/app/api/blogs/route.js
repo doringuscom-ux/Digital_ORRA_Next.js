@@ -6,7 +6,10 @@ import Blog from "@/models/Blog";
 export async function GET() {
   try {
     await dbConnect();
-    const blogs = await Blog.find().lean();
+    // Exclude large 'content' field when listing all blogs to save MBs of bandwidth
+    const blogs = await Blog.find({}, { content: 0 })
+      .sort({ createdAt: -1 })
+      .lean();
 
     // Sort by published date (newest first)
     blogs.sort((a, b) => {
@@ -20,7 +23,11 @@ export async function GET() {
       return createdB - createdA;
     });
 
-    return NextResponse.json(blogs);
+    return NextResponse.json(blogs, {
+      headers: {
+        'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300'
+      }
+    });
   } catch (err) {
     return NextResponse.json(
       { error: "Failed to fetch blogs", message: err.message },

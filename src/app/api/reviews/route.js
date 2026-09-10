@@ -7,8 +7,12 @@ import { verifyAdmin } from "@/lib/auth";
 export async function GET() {
   try {
     await dbConnect();
-    const reviews = await Review.find().sort({ createdAt: -1 });
-    return NextResponse.json(reviews);
+    const reviews = await Review.find().sort({ createdAt: -1 }).lean();
+    return NextResponse.json(reviews, {
+      headers: {
+        'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300'
+      }
+    });
   } catch (error) {
     return NextResponse.json(
       { message: "Error fetching reviews", error: error.message },

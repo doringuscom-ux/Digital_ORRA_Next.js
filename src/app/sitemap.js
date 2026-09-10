@@ -99,6 +99,12 @@ export default async function sitemap() {
       changeFrequency: "monthly",
       priority: 0.6,
     },
+    {
+      url: `${baseUrl}/scan-qr`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.6,
+    },
   ];
 
   // 2. Dynamic Service Pages (at root URL /:slug)

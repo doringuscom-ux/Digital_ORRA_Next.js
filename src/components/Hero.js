@@ -27,6 +27,7 @@ export default function Hero() {
           loop
           muted
           playsInline
+          preload="metadata"
           className="w-full h-full object-cover opacity-60 absolute inset-0 z-20 scale-100"
         >
           <source src="/hero-bg.webm" type="video/webm" />

@@ -16,12 +16,16 @@ export async function GET(req, { params }) {
     const { slug } = await params;
     await dbConnect();
 
-    const page = await LocationPage.findOne(getQueryFilter(slug));
+    const page = await LocationPage.findOne(getQueryFilter(slug)).lean();
     if (!page) {
       return NextResponse.json({ message: "Location page not found" }, { status: 404 });
     }
 
-    return NextResponse.json(page);
+    return NextResponse.json(page, {
+      headers: {
+        'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300'
+      }
+    });
   } catch (err) {
     return NextResponse.json(
       { message: "Failed to fetch location page", error: err.message },

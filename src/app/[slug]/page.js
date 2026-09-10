@@ -76,103 +76,95 @@ export default function UniversalSlugPage() {
           return;
         }
 
-        // 2. Second priority: Check if it's a dedicated Location Landing Page
-        try {
-          const locRes = await fetch(`/api/locations/${slug}`);
-          if (locRes.ok) {
-            const locData = await locRes.json();
-            if (locData && locData.title) {
-              if (isMounted) {
-                setLocationPage(locData);
-                setLoading(false);
-              }
-              return;
-            }
+        // Fetch candidate endpoints concurrently to eliminate waterfall latency
+        const [locRes, blogRes, srvRes] = await Promise.all([
+          fetch(`/api/locations/${slug}`).catch(() => null),
+          fetch(`/api/blogs/${slug}`).catch(() => null),
+          fetch(`/api/services/${slug}`).catch(() => null),
+        ]);
+
+        // 1. Check Location Page
+        if (locRes && locRes.ok) {
+          const locData = await locRes.json();
+          if (locData && locData.title && isMounted) {
+            setLocationPage(locData);
+            setLoading(false);
+            return;
           }
-        } catch (e) {
-          console.error("Loc fetch error:", e);
         }
 
-        // 3. Third priority: Check if it's a dynamic service created in admin
-        try {
-          const srvRes = await fetch(`/api/services/${slug}`);
-          if (srvRes.ok) {
-            const srvData = await srvRes.json();
-            if (srvData && (srvData.title || srvData.id)) {
-              if (isMounted) {
-                setService(srvData);
-                setLoading(false);
-              }
-              return;
-            }
+        // 2. Check Service
+        if (srvRes && srvRes.ok) {
+          const srvData = await srvRes.json();
+          if (srvData && (srvData.title || srvData.id) && isMounted) {
+            setService(srvData);
+            setLoading(false);
+            return;
           }
-        } catch (e) {}
+        }
 
-        // 4. Fourth priority: Check if it's a Blog article
-        const res = await fetch(`/api/blogs/${slug}`);
-        if (res.ok) {
-          const data = await res.json();
-          if (isMounted) {
+        // 3. Check Blog
+        if (blogRes && blogRes.ok) {
+          const data = await blogRes.json();
+          if (isMounted && data && (data.title || data.slug)) {
             setArticle(data);
 
-            // Update Document SEO dynamically for Blog
-            if (data) {
-              const pageTitle = data.metaTitle || data.title || "Digital ORRA Blog";
-              document.title = `${pageTitle} | Digital ORRA`;
+            const pageTitle = data.metaTitle || data.title || "Digital ORRA Blog";
+            document.title = `${pageTitle} | Digital ORRA`;
 
-              let metaDesc = document.querySelector('meta[name="description"]');
-              if (!metaDesc) {
-                metaDesc = document.createElement("meta");
-                metaDesc.name = "description";
-                document.head.appendChild(metaDesc);
-              }
-              metaDesc.content = data.metaDescription || data.excerpt || "";
-
-              if (data.metaKeywords) {
-                let metaKw = document.querySelector('meta[name="keywords"]');
-                if (!metaKw) {
-                  metaKw = document.createElement("meta");
-                  metaKw.name = "keywords";
-                  document.head.appendChild(metaKw);
-                }
-                metaKw.content = data.metaKeywords;
-              }
-
-              let ogTitle = document.querySelector('meta[property="og:title"]');
-              if (!ogTitle) {
-                ogTitle = document.createElement("meta");
-                ogTitle.setAttribute("property", "og:title");
-                document.head.appendChild(ogTitle);
-              }
-              ogTitle.content = pageTitle;
-
-              let ogDesc = document.querySelector('meta[property="og:description"]');
-              if (!ogDesc) {
-                ogDesc = document.createElement("meta");
-                ogDesc.setAttribute("property", "og:description");
-                document.head.appendChild(ogDesc);
-              }
-              ogDesc.content = data.metaDescription || data.excerpt || "";
-
-              if (data.image) {
-                let ogImg = document.querySelector('meta[property="og:image"]');
-                if (!ogImg) {
-                  ogImg = document.createElement("meta");
-                  ogImg.setAttribute("property", "og:image");
-                  document.head.appendChild(ogImg);
-                }
-                ogImg.content = data.image;
-              }
+            let metaDesc = document.querySelector('meta[name="description"]');
+            if (!metaDesc) {
+              metaDesc = document.createElement("meta");
+              metaDesc.name = "description";
+              document.head.appendChild(metaDesc);
             }
-          }
+            metaDesc.content = data.metaDescription || data.excerpt || "";
 
-          // Fetch all blogs for recent articles list
-          const allRes = await fetch('/api/blogs');
-          if (allRes.ok) {
-            const allData = await allRes.json();
-            if (isMounted && Array.isArray(allData)) {
-              setAllBlogs(allData);
+            if (data.metaKeywords) {
+              let metaKw = document.querySelector('meta[name="keywords"]');
+              if (!metaKw) {
+                metaKw = document.createElement("meta");
+                metaKw.name = "keywords";
+                document.head.appendChild(metaKw);
+              }
+              metaKw.content = data.metaKeywords;
             }
+
+            let ogTitle = document.querySelector('meta[property="og:title"]');
+            if (!ogTitle) {
+              ogTitle = document.createElement("meta");
+              ogTitle.setAttribute("property", "og:title");
+              document.head.appendChild(ogTitle);
+            }
+            ogTitle.content = pageTitle;
+
+            let ogDesc = document.querySelector('meta[property="og:description"]');
+            if (!ogDesc) {
+              ogDesc = document.createElement("meta");
+              ogDesc.setAttribute("property", "og:description");
+              document.head.appendChild(ogDesc);
+            }
+            ogDesc.content = data.metaDescription || data.excerpt || "";
+
+            if (data.image) {
+              let ogImg = document.querySelector('meta[property="og:image"]');
+              if (!ogImg) {
+                ogImg = document.createElement("meta");
+                ogImg.setAttribute("property", "og:image");
+                document.head.appendChild(ogImg);
+              }
+              ogImg.content = data.image;
+            }
+
+            // Lazy fetch recent blogs in background without blocking
+            fetch('/api/blogs')
+              .then(r => r.ok ? r.json() : [])
+              .then(allData => {
+                if (isMounted && Array.isArray(allData)) {
+                  setAllBlogs(allData);
+                }
+              })
+              .catch(() => {});
           }
         }
       } catch (err) {

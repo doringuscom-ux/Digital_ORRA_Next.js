@@ -229,28 +229,32 @@ export default function CompanyProfilePage() {
                   ))}
                 </div>
 
-                {/* Interactive Download Actions */}
+                {/* Interactive Download Actions: National & International */}
                 <div className="flex flex-wrap items-center gap-4 pt-3">
+                  {/* National Profile (Digital-Orra-Company-Profile.pdf) */}
                   <a
                     href="/Digital-Orra-Company-Profile.pdf"
-                    download="Digital-Orra-Company-Profile.pdf"
+                    download="Digital-Orra-National-Profile.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-glow-pink px-8 py-4 rounded-full text-sm font-black flex items-center gap-3 shadow-[0_0_35px_rgba(255,51,153,0.5)] hover:scale-105 active:scale-95 transition-all duration-300 group/btn"
+                    className="btn-glow-pink px-7 py-4 rounded-full text-sm font-black flex items-center gap-3 shadow-[0_0_35px_rgba(255,51,153,0.5)] hover:scale-105 active:scale-95 transition-all duration-300 group/btn"
                   >
                     <Download className="w-4 h-4 group-hover/btn:translate-y-0.5 transition-transform text-white" />
-                    <span>Download National Profile</span>
+                    <span>National Profile</span>
                     <span className="px-2 py-0.5 rounded-full bg-white/20 text-[10px] uppercase font-mono tracking-wider">PDF</span>
                   </a>
 
+                  {/* International Profile (Company.pdf) */}
                   <a
-                    href="/Digital-Orra-Company-Profile.pdf"
+                    href="/Company.pdf"
+                    download="Digital-Orra-International-Profile.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-7 py-4 rounded-full text-sm font-bold flex items-center gap-2.5 bg-[#0A122A] hover:bg-cyan-500/10 border border-cyan-400/40 text-cyan-300 hover:text-white transition-all duration-300 shadow-[0_0_20px_rgba(0,240,255,0.15)] hover:border-cyan-400 hover:scale-105 active:scale-95"
+                    className="px-7 py-4 rounded-full text-sm font-black flex items-center gap-3 bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 text-white hover:brightness-110 shadow-[0_0_30px_rgba(6,182,212,0.4)] hover:scale-105 active:scale-95 transition-all duration-300 group/int"
                   >
-                    <Eye className="w-4 h-4 text-cyan-400" />
-                    <span>Instant Preview</span>
+                    <Globe className="w-4 h-4 text-cyan-200 group-hover/int:rotate-45 transition-transform" />
+                    <span>International Profile</span>
+                    <span className="px-2 py-0.5 rounded-full bg-black/25 text-[10px] uppercase font-mono tracking-wider">PDF</span>
                   </a>
                 </div>
 
@@ -480,26 +484,30 @@ export default function CompanyProfilePage() {
                 Download Company’s Profile
               </h3>
               <p className="text-[15px] sm:text-base text-slate-200 font-normal leading-relaxed">
-                Save our complete agency capability dossier directly to your device for offline review, presentations, or procurement evaluation.
+                Save our complete agency capability dossier directly to your device for offline review, presentations, or procurement evaluation. Choose between our National or International edition.
               </p>
             </div>
 
             <div className="flex flex-col sm:flex-row items-center gap-3.5 flex-shrink-0 w-full md:w-auto">
+              {/* National Profile */}
               <a
                 href="/Digital-Orra-Company-Profile.pdf"
-                download="Digital-Orra-Company-Profile.pdf"
-                className="btn-glow-pink w-full sm:w-auto px-7 py-3.5 rounded-full text-sm font-bold flex items-center justify-center gap-2.5 shadow-[0_0_25px_rgba(255,51,153,0.4)] hover:scale-105 active:scale-95 transition-all"
+                download="Digital-Orra-National-Profile.pdf"
+                className="btn-glow-pink w-full sm:w-auto px-6 py-3.5 rounded-full text-xs sm:text-sm font-bold flex items-center justify-center gap-2 shadow-[0_0_25px_rgba(255,51,153,0.4)] hover:scale-105 active:scale-95 transition-all"
               >
                 <Download className="w-4 h-4" />
-                Download Company’s Profile (PDF)
+                <span>National Profile (PDF)</span>
               </a>
 
-              <Link
-                href="/contact"
-                className="w-full sm:w-auto px-6 py-3.5 rounded-full text-sm font-bold bg-[#0A1024] hover:bg-white/10 border border-white/15 text-white flex items-center justify-center gap-2 transition-all hover:scale-105 active:scale-95"
+              {/* International Profile */}
+              <a
+                href="/Company.pdf"
+                download="Digital-Orra-International-Profile.pdf"
+                className="w-full sm:w-auto px-6 py-3.5 rounded-full text-xs sm:text-sm font-bold bg-gradient-to-r from-cyan-500 to-blue-600 hover:brightness-110 text-white flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(6,182,212,0.3)] hover:scale-105 active:scale-95 transition-all"
               >
-                Get in Touch <ArrowRight className="w-4 h-4" />
-              </Link>
+                <Globe className="w-4 h-4 text-cyan-200" />
+                <span>International Profile (PDF)</span>
+              </a>
             </div>
           </div>
 

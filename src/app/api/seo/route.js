@@ -157,6 +157,16 @@ export const defaultPagesSeo = [
     ogImage: "/DO JPG.jpeg",
     canonicalUrl: "https://digitalorra.com/privacy-policy",
     robots: "index, follow"
+  },
+  {
+    pagePath: "/scan-qr",
+    pageName: "Scan QR Portal",
+    metaTitle: "Scan QR - Digital ORRA | Connect With Us",
+    metaDescription: "Connect with Digital ORRA. Visit our website, get office directions, and download official company certifications.",
+    metaKeywords: "scan qr, digital orra qr, official certifications, connect digital orra",
+    ogImage: "/DO JPG.jpeg",
+    canonicalUrl: "https://digitalorra.com/scan-qr",
+    robots: "index, follow"
   }
 ];
 
