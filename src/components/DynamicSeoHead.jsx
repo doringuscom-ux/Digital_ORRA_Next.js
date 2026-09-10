@@ -87,6 +87,33 @@ export default function DynamicSeoHead({ path, customTitle, customDesc, customKe
               }
               ogImg.content = data.ogImage;
             }
+
+            // Dynamic Canonical URL: Always points to currently open page URL
+            let canonicalUrl = data.canonicalUrl;
+            if (typeof window !== "undefined") {
+              // Automatically use current page URL (without query parameters/hash)
+              canonicalUrl = `${window.location.origin}${window.location.pathname}`;
+            } else if (path) {
+              canonicalUrl = `https://digitalorra.com${path === '/' ? '' : path}`;
+            }
+
+            if (canonicalUrl) {
+              let canLink = document.querySelector('link[rel="canonical"]');
+              if (!canLink) {
+                canLink = document.createElement("link");
+                canLink.setAttribute("rel", "canonical");
+                document.head.appendChild(canLink);
+              }
+              canLink.setAttribute("href", canonicalUrl);
+
+              let ogUrl = document.querySelector('meta[property="og:url"]');
+              if (!ogUrl) {
+                ogUrl = document.createElement("meta");
+                ogUrl.setAttribute("property", "og:url");
+                document.head.appendChild(ogUrl);
+              }
+              ogUrl.content = canonicalUrl;
+            }
           }
         }
       } catch (err) {

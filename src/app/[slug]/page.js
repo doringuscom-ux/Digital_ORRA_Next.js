@@ -156,6 +156,24 @@ export default function UniversalSlugPage() {
               ogImg.content = data.image;
             }
 
+            // Set dynamic canonical URL to currently open URL
+            let currentCanonical = typeof window !== 'undefined' ? `${window.location.origin}${window.location.pathname}` : `https://digitalorra.com/${slug}`;
+            let canLink = document.querySelector('link[rel="canonical"]');
+            if (!canLink) {
+              canLink = document.createElement("link");
+              canLink.setAttribute("rel", "canonical");
+              document.head.appendChild(canLink);
+            }
+            canLink.setAttribute("href", currentCanonical);
+
+            let ogUrl = document.querySelector('meta[property="og:url"]');
+            if (!ogUrl) {
+              ogUrl = document.createElement("meta");
+              ogUrl.setAttribute("property", "og:url");
+              document.head.appendChild(ogUrl);
+            }
+            ogUrl.content = currentCanonical;
+
             // Lazy fetch recent blogs in background without blocking
             fetch('/api/blogs')
               .then(r => r.ok ? r.json() : [])

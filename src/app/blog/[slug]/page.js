@@ -33,6 +33,37 @@ export default function BlogDetailPage() {
         if (res.ok) {
           const data = await res.json();
           setBlog(data);
+
+          if (data) {
+            const pageTitle = data.metaTitle || data.title || "Digital ORRA Blog";
+            document.title = `${pageTitle} | Digital ORRA`;
+
+            let metaDesc = document.querySelector('meta[name="description"]');
+            if (!metaDesc) {
+              metaDesc = document.createElement("meta");
+              metaDesc.name = "description";
+              document.head.appendChild(metaDesc);
+            }
+            metaDesc.content = data.metaDescription || data.excerpt || "";
+
+            // Dynamic Canonical URL: Exactly matches the current page
+            let currentCanonical = typeof window !== "undefined" ? `${window.location.origin}${window.location.pathname}` : `https://digitalorra.com/blog/${slug}`;
+            let canLink = document.querySelector('link[rel="canonical"]');
+            if (!canLink) {
+              canLink = document.createElement("link");
+              canLink.setAttribute("rel", "canonical");
+              document.head.appendChild(canLink);
+            }
+            canLink.setAttribute("href", currentCanonical);
+
+            let ogUrl = document.querySelector('meta[property="og:url"]');
+            if (!ogUrl) {
+              ogUrl = document.createElement("meta");
+              ogUrl.setAttribute("property", "og:url");
+              document.head.appendChild(ogUrl);
+            }
+            ogUrl.content = currentCanonical;
+          }
         }
 
         // Fetch recent blogs for suggestions
