@@ -56,6 +56,7 @@ export default function Hero() {
           muted
           playsInline
           preload="metadata"
+          suppressHydrationWarning
           className="w-full h-full object-cover sm:object-cover opacity-60 absolute inset-0 z-20 scale-100"
         >
           <source src="/hero-bg.webm" type="video/webm" />
@@ -69,13 +70,13 @@ export default function Hero() {
       <div className="relative z-20 w-full max-w-7xl mx-auto px-4 sm:px-6 text-center mt-auto pt-0 pb-0 -translate-y-5 sm:translate-y-0">
 
         {/* 1. Headline */}
-        <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-[50px] font-black text-white tracking-tight leading-tight flex flex-wrap items-center justify-center gap-x-2.5 max-w-5xl mx-auto drop-shadow-[0_4px_20px_rgba(0,0,0,0.8)] translate-y-[2px]">
+        <h1 suppressHydrationWarning className="text-2xl sm:text-3xl md:text-5xl lg:text-[50px] font-black text-white tracking-tight leading-tight flex flex-wrap items-center justify-center gap-x-2.5 max-w-5xl mx-auto drop-shadow-[0_4px_20px_rgba(0,0,0,0.8)] translate-y-[2px]">
           <span className="text-white whitespace-nowrap">
             {prefix}
           </span>
           <span className="inline-flex items-center">
             <span className="text-gradient drop-shadow-[0_0_30px_rgba(234,0,122,0.6)]">
-              {currentText}
+              {currentText || words[0]}
             </span>
             {/* Blinking Cyber Cursor */}
             <span className="inline-block w-[3px] md:w-[4px] h-[1em] bg-pink-500 ml-1 animate-pulse rounded-full" />

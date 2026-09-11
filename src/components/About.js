@@ -67,6 +67,7 @@ export default function About({
                   src="/about-founder-team.webp" 
                   alt="Background Blur" 
                   fill 
+                  sizes="(max-width: 1024px) 100vw, 40vw"
                   className="object-cover blur-2xl opacity-30 scale-110"
                   priority
                 />
@@ -77,6 +78,7 @@ export default function About({
                     src="/about-founder-team.webp" 
                     alt="Digital ORRA Team" 
                     fill 
+                    sizes="(max-width: 1024px) 100vw, 40vw"
                     className="object-contain drop-shadow-2xl transition-transform duration-700 group-hover:scale-105"
                     priority
                   />
