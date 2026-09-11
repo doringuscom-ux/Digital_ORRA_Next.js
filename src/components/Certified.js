@@ -19,19 +19,16 @@ export default function Certified({ ptClass = "pt-0 pb-3 sm:pt-6 sm:pb-4 md:pt-1
       {/* Ambient center glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-32 bg-[var(--color-primary-pink)]/10 rounded-full blur-[100px] pointer-events-none z-0"></div>
 
-      <div className="max-w-7xl mx-auto px-6 mb-4 sm:mb-6 md:mb-8 relative z-20 flex flex-col items-center text-center">
+      <div className="max-w-7xl mx-auto px-6 mb-3.5 md:mb-4 relative z-20 flex flex-col items-center text-center">
         {/* Option 2: High-Authority Bold Headline */}
-        <h3 className="text-xl sm:text-2xl md:text-4xl font-black text-white tracking-tight">
+        <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black text-white tracking-tight">
           Trusted & Certified by <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-primary-pink)] via-pink-400 to-cyan-400">Industry Giants</span>
         </h3>
-        <p className="text-gray-300 text-xs sm:text-sm md:text-base mt-1.5 max-w-xl font-normal">
-          Official Google Partner, Meta Business Partner & ISO 9001 Certified
-        </p>
       </div>
 
       <div className="relative flex overflow-hidden">
         {/* Infinite Marquee Track */}
-        <div className="flex animate-marquee items-center gap-16 md:gap-24 w-max">
+        <div className="flex animate-marquee items-center gap-6 sm:gap-8 md:gap-10 w-max">
           {/* Tripling the array so it loops perfectly without jumping */}
           {[...logos, ...logos, ...logos].map((logo, index) => (
             <div 

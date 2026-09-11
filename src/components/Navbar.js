@@ -80,19 +80,19 @@ export default function Navbar() {
               }`}
             >
               <Image
-                src="/DO JPG.jpeg"
+                src="/logo.webp"
                 alt="Digital ORRA Logo"
-                width={110}
-                height={35}
+                width={140}
+                height={46}
                 style={{ width: "auto", height: "auto" }}
-                className="object-contain max-h-[35px]"
+                className="object-contain max-h-[46px] sm:max-h-[50px]"
                 priority
               />
             </div>
           </Link>
 
           {/* Desktop Navigation Links (Large Screens) */}
-          <div className="hidden lg:flex items-center gap-6 xl:gap-7 text-[14.5px] font-bold text-gray-200">
+          <div className="hidden lg:flex items-center gap-6 xl:gap-8 text-[16px] xl:text-[17px] font-bold text-gray-200">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
               return (
