@@ -71,17 +71,18 @@ export default function Portfolio() {
       {/* Background Ambience */}
       <div className="port-bg-orb orb-left"></div>
       <div className="port-bg-orb orb-right"></div>
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none z-0"></div>
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[350px] bg-gradient-to-b from-white/[0.07] via-cyan-500/[0.06] to-transparent rounded-full blur-[140px] pointer-events-none z-0"></div>
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:44px_44px] pointer-events-none z-0"></div>
 
-      {/* Background Watermark */}
-      <div className="absolute top-4 md:-top-4 left-0 w-full flex justify-center pointer-events-none select-none z-0 [mask-image:linear-gradient(to_bottom,black_75%,transparent_100%)]">
+      {/* Background Watermark (Decreased Top Gap, Increased Bottom Gap) */}
+      <div className="absolute top-2 sm:top-2 md:top-2 lg:top-3 left-0 w-full flex justify-center pointer-events-none select-none z-0 [mask-image:linear-gradient(to_bottom,black_85%,transparent_100%)]">
         <span 
           style={{ 
             background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.5) 55%, rgba(255, 255, 255, 0.18) 100%)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent'
           }}
-          className="text-[7.5vw] md:text-[8vw] font-black uppercase tracking-widest whitespace-nowrap select-none"
+          className="text-[8.5vw] sm:text-[8vw] md:text-[8vw] font-black uppercase tracking-widest whitespace-nowrap select-none"
         >
           OUR PORTFOLIO
         </span>
@@ -89,9 +90,9 @@ export default function Portfolio() {
 
       <div className="port-container relative z-10 pt-8 md:pt-14">
 
-        {/* Filter Buttons */}
+        {/* Filter Buttons - Horizontal scrollable on mobile in 1 line */}
         {!loading && categories.length > 1 && (
-          <div className="flex flex-wrap justify-center gap-3 mb-10 relative z-20" style={{ marginTop: '20px' }}>
+          <div className="flex sm:flex-wrap items-center justify-start sm:justify-center gap-2.5 sm:gap-3 mb-8 sm:mb-10 relative z-20 overflow-x-auto no-scrollbar py-2 px-1 max-w-full" style={{ marginTop: '16px', WebkitOverflowScrolling: 'touch' }}>
             {categories.map((cat, index) => (
               <button
                 key={index}
@@ -99,7 +100,7 @@ export default function Portfolio() {
                   setActiveFilter(cat);
                   setVisibleCount(6);
                 }}
-                className={`px-6 py-2 rounded-full text-sm font-bold tracking-wide transition-all duration-300 border ${
+                className={`flex-shrink-0 px-5 sm:px-6 py-2 rounded-full text-xs sm:text-sm font-bold tracking-wide transition-all duration-300 border whitespace-nowrap ${
                   activeFilter === cat
                     ? 'bg-cyan-500 text-slate-900 border-cyan-500 shadow-[0_0_15px_rgba(6,182,212,0.4)]'
                     : 'bg-[#0B1320] text-[#94A3B8] border-white/10 hover:border-cyan-500/50 hover:text-white'
@@ -123,17 +124,6 @@ export default function Portfolio() {
                 <div key={item._id} className="port-card group">
                   <div className="port-image-wrapper">
                     <img src={item.image} alt={item.title} className="port-image" />
-                    <div className="port-overlay">
-                      <div className="port-content">
-                        <span className="port-category">{item.category}</span>
-                        <h3 className="port-item-title">{item.title}</h3>
-                        {item.link && (
-                          <a href={item.link} target="_blank" rel="noopener noreferrer" className="port-link-btn">
-                            View Project <ExternalLink size={16} />
-                          </a>
-                        )}
-                      </div>
-                    </div>
                   </div>
                 </div>
               ))}

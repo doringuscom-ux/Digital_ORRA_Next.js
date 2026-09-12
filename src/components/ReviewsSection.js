@@ -65,10 +65,10 @@ export default function ReviewsSection() {
     <section className="reviews-section" id="reviews">
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none z-0"></div>
 
-      {/* Massive Background Typography (Watermark) */}
-      <div className="absolute top-4 md:-top-4 left-0 w-full flex justify-center pointer-events-none select-none z-0 [mask-image:linear-gradient(to_bottom,black_75%,transparent_100%)]">
-        <span 
-          style={{ 
+      {/* Massive Background Typography (Decreased Top Gap, Increased Bottom Gap) */}
+      <div className="absolute top-2 sm:top-2 md:top-2 lg:top-3 left-0 w-full flex justify-center pointer-events-none select-none z-0 [mask-image:linear-gradient(to_bottom,black_85%,transparent_100%)]">
+        <span
+          style={{
             background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.5) 55%, rgba(255, 255, 255, 0.18) 100%)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent'
@@ -80,30 +80,30 @@ export default function ReviewsSection() {
       </div>
 
       <div className="rev-container relative z-10 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-20">
-        
+
         {/* Left Column: Text & Stats */}
         <div className="lg:w-1/2 w-full text-left relative pr-4 lg:pr-10 mt-8 lg:mt-16">
           <div className="absolute top-0 left-0 w-72 h-72 bg-cyan-500/10 rounded-full blur-[100px] pointer-events-none -z-10"></div>
-          
+
           <h2 className="text-5xl lg:text-[4rem] font-extrabold text-white leading-[1.1] mb-8 tracking-tight">
             Client <br />
             <span className="whitespace-nowrap text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-500">Success Stories</span>
           </h2>
-          
+
           <p className="text-lg md:text-xl text-slate-300 max-w-xl mb-10 leading-relaxed font-light">
             Don't just take our word for it. Hear what our partners have to say about the exponential growth and ROI we deliver. From skyrocketing search rankings to high-converting ad campaigns, we transform digital presence into measurable business success. See how brands like yours are dominating their markets with our tailored strategies.
           </p>
 
-          <div className="flex flex-wrap gap-6 mt-4">
+          <div className="hidden sm:flex flex-wrap gap-6 mt-4">
             <div className="px-8 py-6 rounded-2xl bg-gradient-to-br from-white/[0.05] to-transparent border border-white/[0.08] shadow-[inset_0_0_20px_rgba(255,255,255,0.02)] backdrop-blur-md hover:border-cyan-500/30 transition-colors duration-500 group relative overflow-hidden">
               <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 rounded-full blur-[40px] -mr-10 -mt-10 group-hover:bg-cyan-500/20 transition-all duration-500"></div>
               <h4 className="text-5xl font-black text-white mb-2 tracking-tighter relative z-10">98<span className="text-cyan-400 text-4xl">%</span></h4>
               <p className="text-xs text-slate-400 uppercase tracking-[0.2em] font-bold relative z-10">Client Retention</p>
             </div>
-            
+
             <div className="px-8 py-6 rounded-2xl bg-gradient-to-br from-white/[0.05] to-transparent border border-white/[0.08] shadow-[inset_0_0_20px_rgba(255,255,255,0.02)] backdrop-blur-md hover:border-pink-500/30 transition-colors duration-500 group relative overflow-hidden">
               <div className="absolute top-0 right-0 w-32 h-32 bg-pink-500/10 rounded-full blur-[40px] -mr-10 -mt-10 group-hover:bg-pink-500/20 transition-all duration-500"></div>
-              <h4 className="text-5xl font-black text-white mb-2 tracking-tighter relative z-10">250<span className="text-pink-400 text-4xl">+</span></h4>
+              <h4 className="text-5xl font-black text-white mb-2 tracking-tighter relative z-10">1250<span className="text-pink-400 text-4xl">+</span></h4>
               <p className="text-xs text-slate-400 uppercase tracking-[0.2em] font-bold relative z-10">Projects Delivered</p>
             </div>
           </div>
@@ -117,10 +117,10 @@ export default function ReviewsSection() {
             </div>
           ) : (
             <div className="envelope-wrapper">
-              
+
               {/* Envelope Back */}
               <div className="env-back"></div>
-              
+
               {/* Envelope Flap */}
               <div className={`env-flap ${phase !== 'closed' ? 'open' : ''}`}></div>
 
@@ -135,7 +135,7 @@ export default function ReviewsSection() {
 
               {/* Center Seal / Button */}
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[10] transition-transform duration-500">
-                <button 
+                <button
                   onClick={() => {
                     // Optional manual trigger, or just decorative
                     if (phase === 'reading') setPhase('sliding-in');
@@ -150,26 +150,25 @@ export default function ReviewsSection() {
 
               {/* The Review Card */}
               {activeReview && (
-                <div 
-                  className={`env-card-container ${
-                    phase === 'reading' ? 'reading' : 
-                    phase === 'sliding-out' ? 'sliding-out' : 
-                    phase === 'sliding-in' ? 'sliding-in' : 'hidden-state'
-                  }`}
+                <div
+                  className={`env-card-container ${phase === 'reading' ? 'reading' :
+                      phase === 'sliding-out' ? 'sliding-out' :
+                        phase === 'sliding-in' ? 'sliding-in' : 'hidden-state'
+                    }`}
                 >
                   <div className="rev-envelope-card">
                     <div className="absolute -bottom-10 -right-10 text-white/[0.02] pointer-events-none rotate-12">
                       <Quote size={180} />
                     </div>
-                    
+
                     {/* Top Row: Stars & Author */}
                     <div className="flex justify-between items-start mb-8 relative z-10">
                       <div className="flex gap-1 mt-2">
                         {[...Array(5)].map((_, i) => (
-                          <Star 
-                            key={i} 
-                            size={18} 
-                            className={i < activeReview.rating ? "text-yellow-400 fill-yellow-400 drop-shadow-[0_0_10px_rgba(250,204,21,0.6)]" : "text-gray-700"} 
+                          <Star
+                            key={i}
+                            size={18}
+                            className={i < activeReview.rating ? "text-yellow-400 fill-yellow-400 drop-shadow-[0_0_10px_rgba(250,204,21,0.6)]" : "text-gray-700"}
                           />
                         ))}
                       </div>

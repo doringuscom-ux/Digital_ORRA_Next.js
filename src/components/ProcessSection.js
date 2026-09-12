@@ -73,8 +73,8 @@ export default function ProcessSection() {
       ],
       icon: <CheckCircle size={18} />,
       badge: 'Phase 04',
-      color: '#E6007E',
-      gradient: 'linear-gradient(135deg, #E6007E, #EC4899)'
+      color: '#8B5CF6',
+      gradient: 'linear-gradient(135deg, #8B5CF6, #7C3AED)'
     },
     {
       number: '05',
@@ -207,25 +207,26 @@ export default function ProcessSection() {
       <div className="proc-bg-orb orb-cyan"></div>
       <div className="proc-bg-orb orb-purple"></div>
       <div className="proc-bg-orb orb-pink"></div>
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[350px] bg-gradient-to-b from-white/[0.06] via-cyan-500/[0.06] to-transparent rounded-full blur-[140px] pointer-events-none z-0"></div>
 
       {/* Cyber Grid Lines */}
-      <div style={{ pointerEvents: 'none' }} className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none z-0"></div>
+      <div style={{ pointerEvents: 'none' }} className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none z-0"></div>
 
-      {/* Massive Background Typography (Watermark - Centered in Upper Space) */}
-      <div className="absolute -top-2 md:-top-3 lg:-top-4 left-0 w-full flex justify-center pointer-events-none select-none z-0 [mask-image:linear-gradient(to_bottom,black_75%,transparent_100%)]">
+      {/* Massive Background Typography (Decreased Top Gap, Increased Bottom Gap) */}
+      <div className="absolute top-2 sm:top-2 md:top-2 lg:top-3 left-0 w-full flex justify-center pointer-events-none select-none z-0 [mask-image:linear-gradient(to_bottom,black_85%,transparent_100%)]">
         <span 
           style={{ 
             background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.5) 55%, rgba(255, 255, 255, 0.18) 100%)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent'
           }}
-          className="text-[8vw] md:text-[8vw] font-black uppercase tracking-widest whitespace-nowrap select-none"
+          className="text-[9vw] sm:text-[8vw] md:text-[8vw] font-black uppercase tracking-widest whitespace-nowrap select-none"
         >
           HOW WE WORK
         </span>
       </div>
 
-      <div className="proc-container pt-8 md:pt-12">
+      <div className="proc-container pt-10 sm:pt-14 md:pt-16 lg:pt-20">
         {/* Timeline Navigation Bar */}
         <div className={`proc-timeline-wrapper ${isVisible ? 'anim-in' : ''}`} ref={timelineWrapperRef}>
           <div className="proc-nodes-row-scroll-container">

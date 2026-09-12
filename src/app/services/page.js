@@ -108,7 +108,7 @@ export default function ServicesPage() {
       <Navbar />
 
       {/* Main Services Catalog Section with Edge-to-Edge Watermark */}
-      <section className="relative w-full pt-32 pb-20 md:pt-40 md:pb-24 overflow-hidden">
+      <section className="relative w-full pt-32 pb-8 md:pt-40 md:pb-10 overflow-hidden">
         {/* Giant Edge-to-Edge Background Watermark */}
         <div style={{ pointerEvents: 'none' }} className="absolute top-20 md:top-24 left-0 w-full flex justify-center pointer-events-none select-none overflow-hidden z-0 [mask-image:linear-gradient(to_bottom,black_75%,transparent_100%)]">
           <span 
@@ -171,10 +171,19 @@ export default function ServicesPage() {
 
           </div>
 
-          {/* Results Count & Quick Tip */}
-          <div className="flex items-center justify-between text-xs text-gray-400 mb-6 px-1 font-mono">
-            <span>Showing <strong className="text-white">{filteredCatalog.length}</strong> capabilities</span>
-            <span className="text-cyan-300/90 font-sans hidden sm:inline-block">Click any capability for dedicated process & custom pricing →</span>
+          {/* Results Count & Quick Tip - Modern, Clean & Highly Readable */}
+          <div className="flex flex-wrap items-center justify-between gap-3 text-sm sm:text-[14.5px] text-gray-200 mb-6 px-1 font-sans font-medium">
+            <div className="flex items-center gap-2">
+              <span className="text-gray-300">Showing</span>
+              <span className="px-2.5 py-0.5 rounded-full bg-cyan-500/15 border border-cyan-400/30 text-cyan-300 font-extrabold text-xs sm:text-sm">
+                {filteredCatalog.length}
+              </span>
+              <span className="text-white font-semibold">Capabilities</span>
+            </div>
+            <span className="text-cyan-300 font-semibold tracking-wide hidden sm:inline-flex items-center gap-1.5 hover:text-cyan-200 transition-colors">
+              <span>Click any capability for dedicated process & custom pricing</span>
+              <span className="text-cyan-400 font-bold">→</span>
+            </span>
           </div>
 
           {/* Catalog Grid: Designed for Effortless Readability & Balanced Height */}
@@ -355,45 +364,16 @@ export default function ServicesPage() {
         </div>
       )}
 
-      {/* Direct Action CTA: Compact Sleek Glass Bar */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 pb-16 w-full">
-        <div className="relative rounded-2xl border border-white/10 overflow-hidden bg-gradient-to-r from-[#120B24]/90 via-[#0A1128]/95 to-[#06182B]/90 backdrop-blur-xl px-6 py-6 sm:px-8 sm:py-7 flex flex-col md:flex-row items-center justify-between gap-6 shadow-[0_15px_40px_rgba(0,0,0,0.6)] group hover:border-white/20 transition-all duration-500">
-          
-          {/* Top Laser Accent */}
-          <div className="absolute top-0 inset-x-0 h-[1.5px] bg-gradient-to-r from-transparent via-[var(--color-primary-pink)] to-transparent opacity-60 group-hover:opacity-100 transition-opacity"></div>
-          
-          {/* Left Text Block */}
-          <div className="text-center md:text-left">
-            <h3 className="text-xl sm:text-2xl font-black text-white tracking-tight leading-snug mb-1">
-              Need a Custom Solution for <span className="text-gradient">Your Business?</span>
-            </h3>
-            <p className="text-gray-300/85 text-xs sm:text-[13.5px] font-light">
-              Connect with our core team in Panchkula & Chandigarh to get a custom roadmap and proposal.
-            </p>
-          </div>
-
-          {/* Right Action Buttons */}
-          <div className="flex flex-wrap items-center justify-center gap-3 flex-shrink-0">
-            <Link
-              href="/contact#form"
-              className="btn-glow-pink px-5 py-2.5 text-xs sm:text-sm font-bold inline-flex items-center gap-2 shadow-[0_0_20px_rgba(255,51,153,0.35)] hover:scale-105 transition-all"
-            >
-              <span>Get Proposal</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-            
-            <a
-              href="https://wa.me/919990432321"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-4 py-2.5 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-xs sm:text-sm font-bold hover:bg-emerald-500/20 hover:border-emerald-500/40 hover:scale-105 transition-all inline-flex items-center gap-2"
-            >
-              <MessageCircle className="w-3.5 h-3.5" />
-              <span>WhatsApp</span>
-            </a>
-          </div>
-
-        </div>
+      {/* Direct Action CTA: Image Banner */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 pb-8 sm:pb-12 w-full">
+        <Link href="/contact" className="block relative rounded-2xl sm:rounded-3xl overflow-hidden border border-white/15 hover:border-pink-500/60 transition-all duration-300 shadow-[0_15px_40px_rgba(0,0,0,0.6)] hover:shadow-[0_20px_50px_rgba(255,51,153,0.25)] hover:scale-[1.01] group">
+          <img
+            src="https://res.cloudinary.com/fykd8cyh/image/upload/v1789207193/93133ff7-fcbc-41d1-bea7-6155ed5a47ca.png"
+            alt="Need a Custom Solution for Your Business? - Contact Digital ORRA"
+            className="w-full h-auto object-cover block"
+            loading="lazy"
+          />
+        </Link>
       </div>
 
       {/* Global Footer */}

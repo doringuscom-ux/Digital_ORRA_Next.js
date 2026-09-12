@@ -123,7 +123,7 @@ export default function AboutUsPage() {
       {/* Section: Our Core Expertise with Full-Width Watermark like About Section */}
       <section className="relative w-full pt-16 pb-2 md:pt-24 md:pb-4 overflow-hidden">
         {/* Giant Edge-to-Edge Background Watermark */}
-        <div style={{ pointerEvents: 'none' }} className="absolute top-4 md:top-2 left-0 w-full flex justify-center pointer-events-none select-none overflow-hidden z-0 [mask-image:linear-gradient(to_bottom,black_75%,transparent_100%)]">
+        <div style={{ pointerEvents: 'none' }} className="absolute top-5 sm:top-6 md:top-7 lg:top-8 left-0 w-full flex justify-center pointer-events-none select-none overflow-hidden z-0 [mask-image:linear-gradient(to_bottom,black_85%,transparent_100%)]">
           <span 
             style={{ 
               pointerEvents: 'none',
@@ -227,7 +227,7 @@ export default function AboutUsPage() {
       {/* Section: Strategic Mission, Vision & Values with Giant Watermark Header */}
       <section className="relative w-full pt-0 pb-12 md:pb-16 overflow-hidden">
         {/* Giant Edge-to-Edge Background Watermark */}
-        <div style={{ pointerEvents: 'none' }} className="absolute top-0 left-0 w-full flex justify-center pointer-events-none select-none overflow-hidden z-0 [mask-image:linear-gradient(to_bottom,black_75%,transparent_100%)]">
+        <div style={{ pointerEvents: 'none' }} className="absolute top-5 sm:top-6 md:top-7 lg:top-8 left-0 w-full flex justify-center pointer-events-none select-none overflow-hidden z-0 [mask-image:linear-gradient(to_bottom,black_85%,transparent_100%)]">
           <span 
             style={{ 
               pointerEvents: 'none',
@@ -399,7 +399,7 @@ export default function AboutUsPage() {
             </Link>
             
             <a
-              href="https://wa.me/919990432321"
+              href="https://wa.me/919896384224"
               target="_blank"
               rel="noopener noreferrer"
               className="px-4 py-2.5 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-xs sm:text-sm font-bold hover:bg-emerald-500/20 hover:border-emerald-500/40 hover:scale-105 transition-all inline-flex items-center gap-2"

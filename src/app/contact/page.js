@@ -139,7 +139,7 @@ export default function ContactPage() {
 
               {/* WhatsApp Button */}
               <a
-                href="https://wa.me/919990432321"
+                href="https://wa.me/919896384224"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group p-4 sm:p-4.5 rounded-xl bg-white/[0.03] border border-emerald-500/30 hover:border-emerald-500 hover:bg-emerald-500/10 transition-all flex items-center justify-between"
@@ -157,38 +157,39 @@ export default function ContactPage() {
               </a>
 
               {/* Direct Call Button */}
-              <a
-                href="tel:+919990432321"
-                className="group p-4 sm:p-4.5 rounded-xl bg-white/[0.03] border border-cyan-500/30 hover:border-cyan-500 hover:bg-cyan-500/10 transition-all flex items-center justify-between"
-              >
+              <div className="group p-4 sm:p-4.5 rounded-xl bg-white/[0.03] border border-cyan-500/30 hover:border-cyan-500 hover:bg-cyan-500/10 transition-all flex items-center justify-between">
                 <div className="flex items-center gap-3.5">
                   <div className="w-11 h-11 rounded-xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center text-cyan-400 group-hover:scale-105 transition-transform">
                     <Phone className="w-5 h-5" />
                   </div>
                   <div>
                     <div className="text-xs font-bold text-cyan-400 uppercase tracking-wider">Phone</div>
-                    <div className="text-base sm:text-lg font-bold text-white">+91 99904 32321</div>
+                    <div className="flex flex-wrap gap-x-2 text-base sm:text-lg font-bold text-white">
+                      <a href="tel:+919896384224" className="hover:text-cyan-300 transition-colors">+91 98963 84224</a>
+                      <span className="text-gray-400">,</span>
+                      <a href="tel:+916280458005" className="hover:text-cyan-300 transition-colors">+91 62804 58005</a>
+                    </div>
                   </div>
                 </div>
                 <ArrowUpRight className="w-5 h-5 text-gray-500 group-hover:text-cyan-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
-              </a>
+              </div>
 
               {/* Email Button */}
-              <a
-                href="mailto:hello@digitalorra.com"
-                className="group p-4 sm:p-4.5 rounded-xl bg-white/[0.03] border border-[var(--color-primary-pink)]/30 hover:border-[var(--color-primary-pink)] hover:bg-[var(--color-primary-pink)]/10 transition-all flex items-center justify-between"
-              >
+              <div className="group p-4 sm:p-4.5 rounded-xl bg-white/[0.03] border border-[var(--color-primary-pink)]/30 hover:border-[var(--color-primary-pink)] hover:bg-[var(--color-primary-pink)]/10 transition-all flex items-center justify-between">
                 <div className="flex items-center gap-3.5">
                   <div className="w-11 h-11 rounded-xl bg-[var(--color-primary-pink)]/15 border border-[var(--color-primary-pink)]/30 flex items-center justify-center text-[var(--color-primary-pink)] group-hover:scale-105 transition-transform">
                     <Mail className="w-5 h-5" />
                   </div>
                   <div>
                     <div className="text-xs font-bold text-[var(--color-primary-pink)] uppercase tracking-wider">Email</div>
-                    <div className="text-base sm:text-lg font-bold text-white">hello@digitalorra.com</div>
+                    <div className="flex flex-col text-sm sm:text-base font-bold text-white">
+                      <a href="mailto:info@digitalorra.com" className="hover:text-pink-300 transition-colors">info@digitalorra.com</a>
+                      <a href="mailto:hello@digitalorra.com" className="hover:text-pink-300 transition-colors">hello@digitalorra.com</a>
+                    </div>
                   </div>
                 </div>
                 <ArrowUpRight className="w-5 h-5 text-gray-500 group-hover:text-[var(--color-primary-pink)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
-              </a>
+              </div>
             </div>
 
             {/* Clean Key Highlights */}
@@ -352,7 +353,10 @@ export default function ContactPage() {
               </div>
               <div>
                 <h3 className="text-base sm:text-lg font-bold text-white">Agency Headquarters</h3>
-                <p className="text-sm text-gray-300 mt-0.5">2nd Floor, SCO 19, Sector 11, Panchkula, Haryana 134117</p>
+                <p className="text-sm text-gray-300 mt-0.5">SCO 19, Sector 11, Panchkula, Haryana 134109</p>
+                <p className="text-xs text-cyan-300 mt-1">
+                  <strong className="text-pink-400 font-semibold">Office Presence:</strong> Panchkula | Chandigarh | Mohali | Solan | Zirakpur | Delhi | Canada | USA
+                </p>
               </div>
             </div>
             <div className="text-xs sm:text-sm font-medium text-gray-300">

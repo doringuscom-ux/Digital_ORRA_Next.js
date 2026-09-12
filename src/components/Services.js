@@ -91,33 +91,37 @@ export default function Services() {
     <div
       key={`${type}-${service.id}-${index}`}
       onClick={() => setSelectedService(service)}
-      className={`${type === 'slider' ? 'w-[320px] sm:w-[350px] flex-shrink-0' : ''} h-[380px] rounded-2xl bg-white/[0.02] border border-white/5 p-6 flex flex-col justify-between shadow-lg backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-indigo-500/30 hover:bg-white/[0.04] hover:shadow-[0_10px_30px_rgba(79,70,229,0.15)] cursor-pointer group relative overflow-hidden`}
+      className={`${type === 'slider' ? 'w-[320px] sm:w-[350px] flex-shrink-0' : ''} h-[380px] rounded-2xl bg-gradient-to-b from-white/[0.08] via-white/[0.04] to-white/[0.02] border border-white/20 hover:border-white/40 p-6 flex flex-col justify-between shadow-[0_15px_35px_rgba(0,0,0,0.5)] backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgba(0,0,0,0.7),0_0_30px_rgba(255,255,255,0.08)] cursor-pointer group relative overflow-hidden`}
     >
-      <div className="absolute -top-16 -right-16 w-32 h-32 bg-indigo-500/10 rounded-full blur-2xl pointer-events-none group-hover:bg-indigo-500/20 transition-all duration-500"></div>
+      {/* Top subtle white gloss shine */}
+      <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-white/40 to-transparent"></div>
+      
+      {/* Ambient hover light */}
+      <div className="absolute -top-16 -right-16 w-36 h-36 bg-cyan-400/15 rounded-full blur-2xl pointer-events-none group-hover:bg-cyan-400/25 transition-all duration-500"></div>
 
       <div>
         <div className="flex items-center justify-between mb-4">
-          <div className="w-10 h-10 rounded-xl flex items-center justify-center text-indigo-400 bg-white/5 border border-white/10 group-hover:bg-indigo-500 group-hover:border-indigo-400 group-hover:text-white transition-all duration-300 shadow-sm">
+          <div className="w-10 h-10 rounded-xl flex items-center justify-center text-cyan-300 bg-white/10 border border-white/20 group-hover:bg-white group-hover:border-white group-hover:text-slate-900 transition-all duration-300 shadow-md">
             {getServiceIcon(service)}
           </div>
-          <span className="text-xs font-medium px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-gray-300 tracking-wide group-hover:text-indigo-200 group-hover:border-indigo-500/30 transition-all duration-300">
+          <span className="text-xs font-semibold px-3 py-1 rounded-full bg-white/10 border border-white/15 text-gray-200 tracking-wide group-hover:text-white group-hover:border-white/30 transition-all duration-300">
             {service.tag}
           </span>
         </div>
 
-        <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-white mb-2 line-clamp-1 group-hover:text-indigo-300 transition-colors duration-300">
+        <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-white mb-2 line-clamp-1 group-hover:text-cyan-300 transition-colors duration-300">
           {service.title}
         </h3>
 
-        <p className="text-gray-300 text-base font-medium leading-relaxed line-clamp-2 mb-4 group-hover:text-gray-200 transition-colors duration-300">
+        <p className="text-gray-300 text-sm sm:text-[15px] font-normal leading-relaxed line-clamp-2 mb-4 group-hover:text-white transition-colors duration-300">
           {service.desc || service.shortDesc}
         </p>
 
-        <div className="space-y-2 p-3.5 rounded-xl bg-black/20 border border-white/5">
+        <div className="space-y-2 p-3.5 rounded-xl bg-black/40 border border-white/10 backdrop-blur-sm">
           {service.features.slice(0, 2).map((feat, fIdx) => (
-            <div key={fIdx} className="flex items-start gap-2 text-sm text-gray-200">
-              <CheckCircle2 className="w-4 h-4 text-indigo-500 flex-shrink-0 mt-0.5" />
-              <span className="truncate">{feat}</span>
+            <div key={fIdx} className="flex items-start gap-2 text-xs sm:text-sm text-gray-200">
+              <CheckCircle2 className="w-4 h-4 text-cyan-400 flex-shrink-0 mt-0.5" />
+              <span className="truncate font-medium">{feat}</span>
             </div>
           ))}
         </div>
@@ -129,23 +133,23 @@ export default function Services() {
           e.stopPropagation();
           setSelectedService(service);
         }}
-        className="w-full py-3 px-4 rounded-xl bg-white/5 hover:bg-indigo-600 text-white text-base font-medium flex items-center justify-between border border-white/10 hover:border-indigo-500 transition-all duration-300"
+        className="w-full py-2.5 px-4 rounded-xl bg-white/10 hover:bg-white text-white hover:text-slate-900 text-sm font-bold flex items-center justify-between border border-white/15 hover:border-white transition-all duration-300 shadow-sm"
       >
         <span>Explore Details</span>
-        <div className="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-white/20 group-hover:translate-x-1 transition-all">
-          <ArrowRight className="w-3 h-3 text-white" />
+        <div className="w-6 h-6 rounded-full bg-white/15 flex items-center justify-center group-hover:bg-slate-900/15 group-hover:translate-x-1 transition-all">
+          <ArrowRight className="w-3.5 h-3.5" />
         </div>
       </button>
     </div>
   );
 
   return (
-    <section className="relative w-full pt-16 pb-16 md:pt-36 lg:pt-44 md:pb-20 bg-[#050505] overflow-hidden border-t border-white/5" id="services">
-      {/* Giant Background Watermark (Brighter & Balanced Position) */}
-      <div className="absolute top-4 md:top-0 lg:top-2 left-0 w-full flex justify-center pointer-events-none select-none z-0 [mask-image:linear-gradient(to_bottom,black_75%,transparent_100%)]">
+    <section className="relative w-full pt-20 pb-16 md:pt-40 lg:pt-44 md:pb-20 bg-[#080D1F] overflow-hidden border-t border-white/10" id="services">
+      {/* Giant Background Watermark (Decreased Top Gap, Increased Bottom Gap) */}
+      <div className="absolute top-2 sm:top-2 md:top-3 lg:top-4 left-0 w-full flex justify-center pointer-events-none select-none z-0 [mask-image:linear-gradient(to_bottom,black_85%,transparent_100%)]">
         <span 
           style={{ 
-            background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.5) 55%, rgba(255, 255, 255, 0.18) 100%)',
+            background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.55) 55%, rgba(255, 255, 255, 0.2) 100%)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent'
           }}
@@ -155,11 +159,17 @@ export default function Services() {
         </span>
       </div>
 
-      {/* Sleek Ambient Backgrounds */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-indigo-600/10 rounded-full blur-[120px] pointer-events-none z-0"></div>
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-violet-600/10 rounded-full blur-[120px] pointer-events-none z-0"></div>
+      {/* Luminous Ambient Background Glows - Center & Both Sides Soft White Touch */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[450px] bg-gradient-to-b from-white/[0.08] via-cyan-500/[0.08] to-transparent rounded-full blur-[140px] pointer-events-none z-0"></div>
       
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff02_1px,transparent_1px),linear-gradient(to_bottom,#ffffff02_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none z-0"></div>
+      {/* Left Side White Light Accent */}
+      <div className="absolute top-1/3 -left-20 w-[450px] h-[550px] bg-gradient-to-r from-white/[0.12] via-cyan-400/[0.08] to-transparent rounded-full blur-[150px] pointer-events-none z-0"></div>
+      
+      {/* Right Side White Light Accent */}
+      <div className="absolute top-1/3 -right-20 w-[450px] h-[550px] bg-gradient-to-l from-white/[0.12] via-purple-400/[0.08] to-transparent rounded-full blur-[150px] pointer-events-none z-0"></div>
+      
+      {/* Subtle White Tech Grid Overlay */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-[size:44px_44px] pointer-events-none z-0"></div>
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 mt-2 md:mt-10 lg:mt-14">
@@ -170,11 +180,11 @@ export default function Services() {
           </div>
 
           <div className="flex items-center gap-2 self-start md:self-end">
-            <div className="flex items-center p-1 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm">
+            <div className="flex items-center p-1 rounded-xl bg-white/[0.08] border border-white/20 backdrop-blur-md shadow-sm">
               <button
                 type="button"
                 onClick={() => setViewMode("marquee")}
-                className={`flex items-center gap-2 px-4 py-1.5 rounded-lg text-sm font-medium transition-all cursor-pointer ${viewMode === "marquee" ? "bg-white/10 text-white shadow-sm" : "text-gray-400 hover:text-white"}`}
+                className={`flex items-center gap-2 px-4 py-1.5 rounded-lg text-sm font-semibold transition-all cursor-pointer ${viewMode === "marquee" ? "bg-white text-slate-900 shadow-md" : "text-gray-300 hover:text-white"}`}
               >
                 <Play className="w-3.5 h-3.5" />
                 <span>Slider</span>
@@ -182,7 +192,7 @@ export default function Services() {
               <button
                 type="button"
                 onClick={() => setViewMode("grid")}
-                className={`flex items-center gap-2 px-4 py-1.5 rounded-lg text-sm font-medium transition-all cursor-pointer ${viewMode === "grid" ? "bg-white/10 text-white shadow-sm" : "text-gray-400 hover:text-white"}`}
+                className={`flex items-center gap-2 px-4 py-1.5 rounded-lg text-sm font-semibold transition-all cursor-pointer ${viewMode === "grid" ? "bg-white text-slate-900 shadow-md" : "text-gray-300 hover:text-white"}`}
               >
                 <LayoutGrid className="w-3.5 h-3.5" />
                 <span>Grid</span>
@@ -195,7 +205,7 @@ export default function Services() {
                   type="button"
                   onClick={() => manualScroll('left')}
                   aria-label="Previous services"
-                  className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white border border-white/10 transition-all cursor-pointer"
+                  className="p-2 rounded-xl bg-white/10 hover:bg-white text-white hover:text-slate-900 border border-white/20 transition-all cursor-pointer shadow-sm"
                 >
                   <ChevronLeft className="w-4 h-4" />
                 </button>
@@ -203,7 +213,7 @@ export default function Services() {
                   type="button"
                   onClick={() => manualScroll('right')}
                   aria-label="Next services"
-                  className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white border border-white/10 transition-all cursor-pointer"
+                  className="p-2 rounded-xl bg-white/10 hover:bg-white text-white hover:text-slate-900 border border-white/20 transition-all cursor-pointer shadow-sm"
                 >
                   <ChevronRight className="w-4 h-4" />
                 </button>
@@ -221,10 +231,14 @@ export default function Services() {
                 key={cat.id}
                 type="button"
                 onClick={() => handleCategoryClick(cat.id)}
-                className={`flex-shrink-0 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 flex items-center gap-2 border cursor-pointer select-none ${isActive ? "bg-indigo-500/10 text-indigo-300 border-indigo-500/30" : "bg-white/5 text-gray-400 border-white/5 hover:bg-white/10 hover:text-gray-200"}`}
+                className={`flex-shrink-0 px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200 flex items-center gap-2 border cursor-pointer select-none ${
+                  isActive 
+                    ? "bg-white text-slate-900 border-white shadow-[0_0_20px_rgba(255,255,255,0.3)] scale-[1.02]" 
+                    : "bg-white/[0.06] text-gray-200 border-white/10 hover:bg-white/[0.12] hover:border-white/25 hover:text-white"
+                }`}
               >
                 <span>{cat.label}</span>
-                <span className={`text-xs px-2 py-0.5 rounded-md font-medium ${isActive ? "bg-indigo-500/20 text-indigo-200" : "bg-black/20 text-gray-500"}`}>
+                <span className={`text-xs px-2 py-0.5 rounded-md font-bold ${isActive ? "bg-slate-900/10 text-slate-900" : "bg-white/10 text-gray-300"}`}>
                   {count}
                 </span>
               </button>
@@ -236,7 +250,7 @@ export default function Services() {
       {viewMode === "marquee" ? (
         <div
           ref={scrollContainerRef}
-          className={`w-full overflow-x-auto hide-scrollbar relative py-4 ${isSliderActive ? "[mask-image:linear-gradient(to_right,transparent_0%,black_5%,black_95%,transparent_100%)]" : ""}`}
+          className={`w-full overflow-x-auto hide-scrollbar relative py-4 ${isSliderActive ? "[mask-image:linear-gradient(to_right,rgba(0,0,0,0.3)_0%,black_3%,black_97%,rgba(0,0,0,0.3)_100%)]" : ""}`}
         >
           <div className={`px-6 ${isSliderActive ? "services-marquee-track" : "flex gap-5 justify-center w-full"}`}>
             {marqueeList.map((service, index) => (

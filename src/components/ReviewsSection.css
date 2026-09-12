@@ -1,7 +1,7 @@
 .reviews-section {
   position: relative;
   background: radial-gradient(ellipse at bottom left, #0A1128 0%, #050B1A 40%, #010308 100%);
-  padding: 100px 0;
+  padding: 155px 0 100px 0;
   overflow: hidden;
   border-top: 1px solid rgba(255, 255, 255, 0.05);
 }

@@ -27,7 +27,7 @@ export default function CelebritySpotlight() {
   };
 
   return (
-    <section className="relative w-full py-10 md:py-20 bg-[#0C132C] overflow-hidden border-t border-white/5 shadow-[inset_0_30px_60px_rgba(0,0,0,0.4)]" id="spotlight">
+    <section className="relative w-full pt-12 pb-10 md:pt-24 lg:pt-28 md:pb-14 bg-[#0C132C] overflow-hidden border-t border-white/5 shadow-[inset_0_30px_60px_rgba(0,0,0,0.4)]" id="spotlight">
       
       {/* Video Modal - (Kept logic but we use inline flip) */}
       
@@ -39,8 +39,8 @@ export default function CelebritySpotlight() {
       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[150px] pointer-events-none z-0"></div>
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none z-0"></div>
 
-      {/* Elegant Balanced Background Watermark (Brighter & Crisp Visibility) */}
-      <div className="absolute top-4 md:-top-4 left-0 w-full flex justify-center pointer-events-none select-none overflow-hidden z-0 [mask-image:linear-gradient(to_bottom,black_75%,transparent_100%)]">
+      {/* Elegant Balanced Background Watermark (Decreased Top Gap, Increased Bottom Gap) */}
+      <div className="absolute top-2 sm:top-2 md:top-2 lg:top-3 left-0 w-full flex justify-center pointer-events-none select-none overflow-hidden z-0 [mask-image:linear-gradient(to_bottom,black_85%,transparent_100%)]">
         <span className="text-[6.5vw] md:text-[7vw] font-black uppercase tracking-wider whitespace-nowrap select-none text-transparent bg-clip-text bg-gradient-to-b from-white/[0.72] via-white/[0.45] to-white/[0.18]">
           CELEBRITY SPOTLIGHT
         </span>
@@ -48,10 +48,10 @@ export default function CelebritySpotlight() {
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         
-        <div className="flex flex-col lg:flex-row items-center lg:items-center justify-between gap-12 lg:gap-8">
+        <div className="flex flex-col lg:flex-row items-center lg:items-center justify-between gap-12 lg:gap-8 pt-4 sm:pt-6 md:pt-8">
           
           {/* Left Text Section (Hidden on mobile phones/tablets, visible on Desktop) */}
-          <div className="hidden lg:block flex-1 max-w-2xl relative z-20 mt-8 lg:mt-16">
+          <div className="hidden lg:block flex-1 max-w-2xl relative z-20 mt-4 lg:mt-6">
             {/* Pill Badge Removed */}
 
             <h2 className="hidden sm:block text-3xl sm:text-4xl md:text-5xl xl:text-6xl font-black text-white leading-[1.05] tracking-tight mb-3">

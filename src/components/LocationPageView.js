@@ -547,8 +547,9 @@ export default function LocationPageView({ page, slug }) {
                     <p className="text-base sm:text-lg text-gray-200 leading-relaxed font-normal mb-4">
                       {page.localAdvantageContent}
                     </p>
-                    <div className="flex items-center gap-4 text-xs font-mono text-cyan-300 font-semibold">
-                      <span>📍 Office: SCO 19, Sector 11, Panchkula</span>
+                    <div className="flex flex-col gap-1 text-xs font-mono text-cyan-300 font-semibold">
+                      <span>📍 Office: SCO 19, Sector 11, Panchkula, Haryana 134109</span>
+                      <span className="text-gray-400 font-normal">Offices: Panchkula | Chandigarh | Mohali | Solan | Zirakpur | Delhi | Canada | USA</span>
                     </div>
                   </div>
 

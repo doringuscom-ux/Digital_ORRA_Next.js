@@ -73,7 +73,7 @@ export default function Navbar() {
           {/* Brand Logo */}
           <Link href="/" className="flex items-center hover:scale-105 transition-transform duration-300">
             <div
-              className={`p-1.5 rounded-xl transition-shadow ${
+              className={`p-1 sm:p-1.5 rounded-xl transition-shadow ${
                 scrolled
                   ? "bg-white shadow-[0_0_15px_rgba(255,255,255,0.2)]"
                   : "bg-white shadow-[0_0_15px_rgba(255,255,255,0.2)] hover:shadow-[0_0_20px_rgba(234,0,122,0.4)]"
@@ -83,9 +83,9 @@ export default function Navbar() {
                 src="/logo.webp"
                 alt="Digital ORRA Logo"
                 width={140}
-                height={46}
+                height={44}
                 style={{ width: "auto", height: "auto" }}
-                className="object-contain max-h-[46px] sm:max-h-[50px]"
+                className="object-contain max-h-[35px] sm:max-h-[46px]"
                 priority
               />
             </div>
@@ -118,7 +118,7 @@ export default function Navbar() {
           <div className="flex items-center gap-2.5 sm:gap-3">
             <Link
               href="/contact#form"
-              className="btn-glow-pink px-4 sm:px-6 py-2 sm:py-2.5 text-xs sm:text-[14px] font-bold inline-flex items-center gap-1.5 shadow-[0_0_20px_rgba(255,51,153,0.35)]"
+              className="hidden sm:inline-flex btn-glow-pink px-4 sm:px-6 py-2 sm:py-2.5 text-xs sm:text-[14px] font-bold items-center gap-1.5 shadow-[0_0_20px_rgba(255,51,153,0.35)]"
             >
               <span>Get Proposal</span>
               <ArrowRight className="w-3.5 h-3.5 hidden sm:inline-block" />
@@ -151,14 +151,14 @@ export default function Navbar() {
             <div>
               <div className="flex items-center justify-between pb-6 border-b border-white/10 mb-8">
                 <Link href="/" onClick={() => setMobileMenuOpen(false)} className="flex items-center">
-                  <div className="p-1.5 rounded-xl bg-white shadow-md">
+                  <div className="p-1.5 sm:p-2 rounded-xl bg-white shadow-md">
                     <Image
-                      src="/DO JPG.jpeg"
-                      alt="Digital ORRA"
-                      width={105}
-                      height={32}
+                      src="/logo.webp"
+                      alt="Digital ORRA Logo"
+                      width={150}
+                      height={48}
                       style={{ width: "auto", height: "auto" }}
-                      className="object-contain max-h-[32px]"
+                      className="object-contain max-h-[38px] sm:max-h-[46px]"
                     />
                   </div>
                 </Link>
@@ -219,13 +219,13 @@ export default function Navbar() {
               </Link>
 
               <a
-                href="https://wa.me/919990432321?text=Hi%20Digital%20ORRA,%20I%20want%20to%20discuss%20a%20project."
+                href="https://wa.me/919896384224?text=Hi%20Digital%20ORRA,%20I%20want%20to%20discuss%20a%20project."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full py-3 rounded-2xl bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition-all"
               >
                 <PhoneCall className="w-4 h-4" />
-                <span>Chat on WhatsApp (+91 99904 32321)</span>
+                <span>Chat on WhatsApp (+91 98963 84224)</span>
               </a>
 
               <p className="text-[11px] text-center text-gray-500 font-light pt-2">
