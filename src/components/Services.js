@@ -144,9 +144,9 @@ export default function Services() {
   );
 
   return (
-    <section className="relative w-full pt-20 pb-16 md:pt-40 lg:pt-44 md:pb-20 bg-[#080D1F] overflow-hidden border-t border-white/10" id="services">
+    <section className="relative w-full pt-16 pb-16 md:pt-40 lg:pt-44 md:pb-20 bg-[#080D1F] overflow-hidden border-t border-white/10" id="services">
       {/* Giant Background Watermark (Decreased Top Gap, Increased Bottom Gap) */}
-      <div className="absolute top-2 sm:top-2 md:top-3 lg:top-4 left-0 w-full flex justify-center pointer-events-none select-none z-0 [mask-image:linear-gradient(to_bottom,black_85%,transparent_100%)]">
+      <div className="absolute top-3 sm:top-2 md:top-3 lg:top-4 left-0 w-full flex justify-center pointer-events-none select-none z-0 [mask-image:linear-gradient(to_bottom,black_85%,transparent_100%)]">
         <span 
           style={{ 
             background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.55) 55%, rgba(255, 255, 255, 0.2) 100%)',
@@ -179,7 +179,7 @@ export default function Services() {
             </h2>
           </div>
 
-          <div className="flex items-center gap-2 self-start md:self-end">
+          <div className="hidden md:flex items-center gap-2 self-start md:self-end">
             <div className="flex items-center p-1 rounded-xl bg-white/[0.08] border border-white/20 backdrop-blur-md shadow-sm">
               <button
                 type="button"

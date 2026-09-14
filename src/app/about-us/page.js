@@ -110,8 +110,9 @@ export default function AboutUsPage() {
 
       {/* Main Hero: Exact Aesthetic About Section with Watermark, Image Frame & Typing Effect */}
       <About
-        ptClass="pt-36 sm:pt-44 pb-10 md:pt-52 md:pb-16"
-        watermarkTop="top-24 sm:top-28 md:top-24"
+        asH1={true}
+        ptClass="pt-28 sm:pt-36 pb-10 md:pt-52 md:pb-16"
+        watermarkTop="top-20 sm:top-24 md:top-24"
         id="about-us-hero"
       />
 
@@ -121,9 +122,9 @@ export default function AboutUsPage() {
       </div>
 
       {/* Section: Our Core Expertise with Full-Width Watermark like About Section */}
-      <section className="relative w-full pt-16 pb-2 md:pt-24 md:pb-4 overflow-hidden">
+      <section className="relative w-full pt-28 pb-4 md:pt-40 md:pb-8 overflow-hidden">
         {/* Giant Edge-to-Edge Background Watermark */}
-        <div style={{ pointerEvents: 'none' }} className="absolute top-5 sm:top-6 md:top-7 lg:top-8 left-0 w-full flex justify-center pointer-events-none select-none overflow-hidden z-0 [mask-image:linear-gradient(to_bottom,black_85%,transparent_100%)]">
+        <div style={{ pointerEvents: 'none' }} className="absolute top-4 sm:top-5 md:top-5 lg:top-6 left-0 w-full flex justify-center pointer-events-none select-none overflow-hidden z-0 [mask-image:linear-gradient(to_bottom,black_85%,transparent_100%)]">
           <span 
             style={{ 
               pointerEvents: 'none',
@@ -141,7 +142,8 @@ export default function AboutUsPage() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-[var(--color-primary-pink)]/5 blur-[140px] pointer-events-none z-0"></div>
 
         {/* Content Container with max-w-7xl matching About Section */}
-        <div className="max-w-7xl mx-auto px-6 relative z-10 pt-16 md:pt-24">
+        <div className="max-w-7xl mx-auto px-6 relative z-10 pt-16 sm:pt-20 md:pt-28">
+          <h2 className="sr-only">Our Core Expertise &amp; Digital Solutions</h2>
 
           {/* Cards Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 sm:gap-8">
@@ -156,45 +158,29 @@ export default function AboutUsPage() {
                   <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:via-[var(--color-primary-pink)] transition-all duration-700"></div>
 
                   {/* Ambient Hover Spotlight Glow */}
-                  <div className={`absolute -top-20 -right-20 w-44 h-44 rounded-full bg-gradient-to-br ${serv.color} blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none`}></div>
+                  <div className={`absolute -top-24 -right-24 w-48 h-48 bg-gradient-to-br ${serv.color} rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`}></div>
 
                   <div>
-                    {/* Cinematic Media Showcase with Floating Frosted Badges */}
-                    {serv.gif && (
-                      <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden mb-6 border border-white/10 bg-[#040814] shadow-inner group-hover:border-white/25 transition-all duration-500">
-                        <img
-                          src={serv.gif}
-                          alt={serv.title}
-                          className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    {/* Card Header: Icon + Number */}
+                    <div className="flex items-center justify-between mb-5">
+                      <div className="w-12 h-12 rounded-2xl bg-white/[0.06] border border-white/10 flex items-center justify-center group-hover:scale-110 group-hover:border-white/25 transition-all duration-300 shadow-md">
+                        <Icon className={`w-6 h-6 ${serv.iconColor}`} />
+                      </div>
+                      <span className="text-xs font-mono font-bold text-white/30 group-hover:text-white/70 transition-colors">
+                        {serv.number}
+                      </span>
+                    </div>
+
+                    {/* Service Title */}
+                    <div className="flex items-center gap-3 mb-2.5">
+                      {serv.gif && (
+                        <img 
+                          src={serv.gif} 
+                          alt={serv.title} 
+                          className="w-9 h-9 object-contain flex-shrink-0"
                         />
-
-                        {/* Top Overlay Gradient for subtle depth */}
-                        <div className="absolute inset-x-0 top-0 h-14 bg-gradient-to-b from-black/60 to-transparent pointer-events-none"></div>
-
-                        {/* Frosted Number Badge (Glassmorphic Pill) */}
-                        <div className="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-[#0A1128]/85 border border-white/20 backdrop-blur-md flex items-center gap-1.5 shadow-lg">
-                          <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-primary-cyan)] animate-pulse"></span>
-                          <span className="text-[11px] font-black uppercase tracking-wider text-cyan-300 font-mono">
-                            {serv.number}
-                          </span>
-                        </div>
-
-                        {/* Floating Action Arrow */}
-                        <div className="absolute top-3.5 right-3.5 w-8 h-8 rounded-full bg-black/50 backdrop-blur-md border border-white/20 flex items-center justify-center text-white/80 group-hover:text-white group-hover:bg-[var(--color-primary-pink)] group-hover:border-[var(--color-primary-pink)] group-hover:scale-110 group-hover:rotate-45 transition-all duration-300 shadow-lg">
-                          <ArrowRight className="w-3.5 h-3.5" />
-                        </div>
-
-                        {/* Subtle bottom fade to blend with card */}
-                        <div className="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-[#0D1530]/90 via-transparent to-transparent pointer-events-none"></div>
-                      </div>
-                    )}
-
-                    {/* Icon & Title Row */}
-                    <div className="flex items-center gap-3.5 mb-3.5">
-                      <div className={`w-11 h-11 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-center ${serv.iconColor} group-hover:scale-110 group-hover:bg-white/[0.08] group-hover:shadow-[0_0_25px_rgba(255,51,153,0.35)] transition-all duration-300 shadow-md flex-shrink-0`}>
-                        <Icon className="w-5 h-5" />
-                      </div>
-                      <h3 className="text-xl sm:text-[22px] font-bold text-white tracking-tight group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:via-pink-200 group-hover:to-cyan-300 transition-all duration-300 leading-snug">
+                      )}
+                      <h3 className="text-xl font-black text-white group-hover:text-[var(--color-primary-pink)] transition-colors duration-300 leading-snug">
                         {serv.title}
                       </h3>
                     </div>
@@ -207,9 +193,9 @@ export default function AboutUsPage() {
 
                   {/* Bottom Tags Strip */}
                   <div className="flex flex-wrap gap-2 pt-4 border-t border-white/[0.08]">
-                    {serv.tags.map((tag, tIdx) => (
+                    {serv.tags.map((tag) => (
                       <span
-                        key={tIdx}
+                        key={tag}
                         className={`text-[11px] font-semibold tracking-wide px-3 py-1 rounded-full border ${serv.badgeColor} backdrop-blur-md shadow-sm group-hover:scale-105 transition-transform duration-300`}
                       >
                         {tag}
@@ -225,9 +211,9 @@ export default function AboutUsPage() {
       </section>
 
       {/* Section: Strategic Mission, Vision & Values with Giant Watermark Header */}
-      <section className="relative w-full pt-0 pb-12 md:pb-16 overflow-hidden">
+      <section className="relative w-full pt-28 pb-14 md:pt-40 md:pb-20 overflow-hidden">
         {/* Giant Edge-to-Edge Background Watermark */}
-        <div style={{ pointerEvents: 'none' }} className="absolute top-5 sm:top-6 md:top-7 lg:top-8 left-0 w-full flex justify-center pointer-events-none select-none overflow-hidden z-0 [mask-image:linear-gradient(to_bottom,black_85%,transparent_100%)]">
+        <div style={{ pointerEvents: 'none' }} className="absolute top-4 sm:top-5 md:top-5 lg:top-6 left-0 w-full flex justify-center pointer-events-none select-none overflow-hidden z-0 [mask-image:linear-gradient(to_bottom,black_85%,transparent_100%)]">
           <span 
             style={{ 
               pointerEvents: 'none',
@@ -245,7 +231,8 @@ export default function AboutUsPage() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-[var(--color-primary-cyan)]/5 blur-[140px] pointer-events-none z-0"></div>
 
         {/* Content Container: Pill List on Left + Glowing Venn Diagram on Right */}
-        <div className="max-w-7xl mx-auto px-6 relative z-10 pt-28 md:pt-40">
+        <div className="max-w-7xl mx-auto px-6 relative z-10 pt-16 sm:pt-20 md:pt-28">
+          <h2 className="sr-only">Our Strategic Mission, Vision &amp; Core Values</h2>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
 
             {/* Left Column: 3 Sleek Pill Strips (7 Cols) */}

@@ -111,7 +111,7 @@ export default function ServicesPage() {
       <section className="relative w-full pt-32 pb-8 md:pt-40 md:pb-10 overflow-hidden">
         {/* Giant Edge-to-Edge Background Watermark */}
         <div style={{ pointerEvents: 'none' }} className="absolute top-20 md:top-24 left-0 w-full flex justify-center pointer-events-none select-none overflow-hidden z-0 [mask-image:linear-gradient(to_bottom,black_75%,transparent_100%)]">
-          <span 
+          <h1 
             style={{ 
               pointerEvents: 'none',
               background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.5) 55%, rgba(255, 255, 255, 0.18) 100%)',
@@ -121,13 +121,14 @@ export default function ServicesPage() {
             className="text-[8vw] md:text-[8.5vw] font-black uppercase tracking-wider whitespace-nowrap select-none"
           >
             OUR SERVICES
-          </span>
+          </h1>
         </div>
 
         {/* Ambient Center Glow */}
         <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-cyan-500/10 blur-[160px] pointer-events-none z-0"></div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-32 md:pt-44">
+          <h2 className="sr-only">Explore Comprehensive Digital Marketing, Development & Performance Solutions</h2>
           
           {/* Controls Bar: Search Bar + Filter Tabs */}
           <div className="relative z-20 mb-4 p-2.5 rounded-2xl md:rounded-full bg-[#0B132B] border border-white/15 shadow-[0_10px_35px_rgba(0,0,0,0.6)] flex flex-col md:flex-row items-center justify-between gap-3">

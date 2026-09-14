@@ -31,8 +31,8 @@ export const defaultPagesSeo = [
   {
     pagePath: "/our-team",
     pageName: "Our Team & Leadership",
-    metaTitle: "Meet Our Team | Digital ORRA Leadership & Specialists",
-    metaDescription: "Meet the growth strategists, media buyers, creative designers, and developers behind Digital ORRA's award-winning campaigns.",
+    metaTitle: "Meet Our Creative Team | Digital ORRA Panchkula",
+    metaDescription: "Meet the creative and skilled team behind Digital ORRA, a leading digital marketing company in Panchkula, delivering SEO, web, design and marketing solutions.",
     metaKeywords: "digital orra team, marketing leadership, creative directors, developers",
     ogImage: "/DO JPG.jpeg",
     canonicalUrl: "https://digitalorra.com/our-team",
@@ -61,8 +61,8 @@ export const defaultPagesSeo = [
   {
     pagePath: "/company-profile",
     pageName: "Company Profile",
-    metaTitle: "Company Profile & Credentials | Digital ORRA",
-    metaDescription: "Discover Digital ORRA's official corporate profile, client case studies, executive team leadership, capabilities, and award-winning campaigns.",
+    metaTitle: "Digital ORRA Company Profile | Digital Marketing Agency",
+    metaDescription: "Explore Digital ORRA’s company profile, services, capabilities and expertise in SEO, PPC, branding, web development, social media and digital marketing.",
     metaKeywords: "digital orra profile, agency credentials, corporate deck, digital marketing milestones",
     ogImage: "/DO JPG.jpeg",
     canonicalUrl: "https://digitalorra.com/company-profile",
@@ -81,8 +81,8 @@ export const defaultPagesSeo = [
   {
     pagePath: "/join-our-team",
     pageName: "Careers & Join Our Team",
-    metaTitle: "Careers at Digital ORRA | Open Roles & Opportunities",
-    metaDescription: "Join high-impact creators, marketers, and developers. Explore current job openings, immediate hiring roles, and fast-track career benefits.",
+    metaTitle: "Digital Marketing Jobs in Panchkula | Join Digital ORRA",
+    metaDescription: "Explore current job openings at Digital ORRA in Panchkula for digital marketing, SEO, graphic design, video editing, web development and social media roles.",
     metaKeywords: "digital marketing jobs, agency careers, media buyer jobs, graphic designer jobs",
     ogImage: "/DO JPG.jpeg",
     canonicalUrl: "https://digitalorra.com/join-our-team",

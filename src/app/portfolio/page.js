@@ -93,7 +93,7 @@ export default function PortfolioPage() {
           style={{ pointerEvents: "none" }} 
           className="absolute top-20 md:top-24 left-0 w-full flex justify-center pointer-events-none select-none overflow-hidden z-0 [mask-image:linear-gradient(to_bottom,black_75%,transparent_100%)]"
         >
-          <span 
+          <h1 
             style={{ 
               pointerEvents: "none",
               background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.5) 55%, rgba(255, 255, 255, 0.18) 100%)',
@@ -103,10 +103,11 @@ export default function PortfolioPage() {
             className="text-[8vw] md:text-[8.5vw] font-black uppercase tracking-wider whitespace-nowrap select-none"
           >
             OUR PORTFOLIO
-          </span>
+          </h1>
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-28 md:pt-36">
+          <h2 className="sr-only">Client Work Showcase, Digital Web Experiences & Performance Case Studies</h2>
 
           {/* Category Filter Tabs (if multiple categories available) */}
           {categories.length > 1 && (

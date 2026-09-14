@@ -5,7 +5,7 @@
 .portfolio-section {
   position: relative;
   background: #080D1F;
-  padding: 160px 0 90px 0;
+  padding: 200px 0 90px 0;
   overflow: hidden;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -105,10 +105,10 @@
 
 @media (max-width: 768px) {
   .portfolio-section {
-    padding: 75px 0 40px;
+    padding: 70px 0 35px;
   }
   .port-container {
-    padding: 30px 16px 0 16px;
+    padding: 8px 16px 0 16px;
   }
   .port-grid {
     grid-template-columns: 1fr;

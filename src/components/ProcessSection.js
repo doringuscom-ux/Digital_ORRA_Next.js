@@ -212,8 +212,8 @@ export default function ProcessSection() {
       {/* Cyber Grid Lines */}
       <div style={{ pointerEvents: 'none' }} className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none z-0"></div>
 
-      {/* Massive Background Typography (Decreased Top Gap, Increased Bottom Gap) */}
-      <div className="absolute top-2 sm:top-2 md:top-2 lg:top-3 left-0 w-full flex justify-center pointer-events-none select-none z-0 [mask-image:linear-gradient(to_bottom,black_85%,transparent_100%)]">
+      {/* Massive Background Typography */}
+      <div className="absolute top-6 sm:top-7 md:top-6 lg:top-7 left-0 w-full flex justify-center pointer-events-none select-none z-0 [mask-image:linear-gradient(to_bottom,black_85%,transparent_100%)]">
         <span 
           style={{ 
             background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.5) 55%, rgba(255, 255, 255, 0.18) 100%)',
@@ -226,7 +226,7 @@ export default function ProcessSection() {
         </span>
       </div>
 
-      <div className="proc-container pt-10 sm:pt-14 md:pt-16 lg:pt-20">
+      <div className="proc-container pt-3 sm:pt-4 md:pt-5 lg:pt-6">
         {/* Timeline Navigation Bar */}
         <div className={`proc-timeline-wrapper ${isVisible ? 'anim-in' : ''}`} ref={timelineWrapperRef}>
           <div className="proc-nodes-row-scroll-container">

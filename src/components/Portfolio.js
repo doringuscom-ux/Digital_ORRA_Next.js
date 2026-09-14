@@ -74,8 +74,8 @@ export default function Portfolio() {
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[350px] bg-gradient-to-b from-white/[0.07] via-cyan-500/[0.06] to-transparent rounded-full blur-[140px] pointer-events-none z-0"></div>
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:44px_44px] pointer-events-none z-0"></div>
 
-      {/* Background Watermark (Decreased Top Gap, Increased Bottom Gap) */}
-      <div className="absolute top-2 sm:top-2 md:top-2 lg:top-3 left-0 w-full flex justify-center pointer-events-none select-none z-0 [mask-image:linear-gradient(to_bottom,black_85%,transparent_100%)]">
+      {/* Background Watermark */}
+      <div className="absolute top-5 sm:top-6 md:top-5 lg:top-6 left-0 w-full flex justify-center pointer-events-none select-none z-0 [mask-image:linear-gradient(to_bottom,black_85%,transparent_100%)]">
         <span 
           style={{ 
             background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.5) 55%, rgba(255, 255, 255, 0.18) 100%)',
@@ -88,11 +88,11 @@ export default function Portfolio() {
         </span>
       </div>
 
-      <div className="port-container relative z-10 pt-8 md:pt-14">
+      <div className="port-container relative z-10 pt-4 md:pt-14">
 
         {/* Filter Buttons - Horizontal scrollable on mobile in 1 line */}
         {!loading && categories.length > 1 && (
-          <div className="flex sm:flex-wrap items-center justify-start sm:justify-center gap-2.5 sm:gap-3 mb-8 sm:mb-10 relative z-20 overflow-x-auto no-scrollbar py-2 px-1 max-w-full" style={{ marginTop: '16px', WebkitOverflowScrolling: 'touch' }}>
+          <div className="flex sm:flex-wrap items-center justify-start sm:justify-center gap-2.5 sm:gap-3 mb-5 sm:mb-8 relative z-20 overflow-x-auto no-scrollbar py-1 px-1 max-w-full" style={{ marginTop: '4px', WebkitOverflowScrolling: 'touch' }}>
             {categories.map((cat, index) => (
               <button
                 key={index}

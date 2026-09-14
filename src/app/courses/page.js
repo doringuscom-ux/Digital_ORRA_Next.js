@@ -88,7 +88,7 @@ export default function CoursesPage() {
       <section className="relative w-full pt-32 pb-16 md:pt-40 md:pb-20 overflow-hidden">
         {/* Giant Edge-to-Edge Watermark */}
         <div style={{ pointerEvents: 'none' }} className="absolute top-20 md:top-24 left-0 w-full flex justify-center pointer-events-none select-none overflow-hidden z-0 [mask-image:linear-gradient(to_bottom,black_75%,transparent_100%)]">
-          <span 
+          <h1 
             style={{ 
               pointerEvents: 'none',
               background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.5) 55%, rgba(255, 255, 255, 0.18) 100%)',
@@ -98,10 +98,11 @@ export default function CoursesPage() {
             className="text-[8vw] md:text-[8.5vw] font-black uppercase tracking-wider whitespace-nowrap select-none"
           >
             ACADEMY COURSES
-          </span>
+          </h1>
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-32 md:pt-44">
+          <h2 className="sr-only">Professional Digital Marketing & Tech Certification Programs</h2>
           
           {/* Category Filter Tabs: Clean, Centered & Strictly 1 Single Line */}
           <div className="relative z-20 mb-8 w-full flex items-center justify-center">

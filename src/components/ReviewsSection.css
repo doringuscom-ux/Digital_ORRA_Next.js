@@ -1,7 +1,7 @@
 .reviews-section {
   position: relative;
   background: radial-gradient(ellipse at bottom left, #0A1128 0%, #050B1A 40%, #010308 100%);
-  padding: 155px 0 100px 0;
+  padding: 220px 0 100px 0;
   overflow: hidden;
   border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
@@ -172,10 +172,10 @@
 
 @media (max-width: 768px) {
   .reviews-section {
-    padding: 60px 0;
+    padding: 65px 0 60px;
   }
   .envelope-wrapper {
-    margin-top: 140px; /* Reduced for mobile */
+    margin-top: 90px; /* Reduced for mobile */
     height: 200px;
   }
   .env-card-container {
@@ -183,5 +183,8 @@
   }
   .env-card-container.reading {
     transform: translateY(-240px) scale(1);
+  }
+  .rev-envelope-card {
+    padding: 24px 18px;
   }
 }

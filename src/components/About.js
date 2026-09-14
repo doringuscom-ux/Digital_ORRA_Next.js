@@ -5,9 +5,10 @@ import Image from 'next/image';
 const cities = ["Panchkula, India", "Chandigarh, India", "Mohali, India"];
 
 export default function About({ 
-  ptClass = "pt-20 pb-12 sm:pt-24 sm:pb-16 md:pt-40 lg:pt-44 md:pb-28", 
+  ptClass = "pt-12 pb-12 sm:pt-16 sm:pb-16 md:pt-40 lg:pt-44 md:pb-28", 
   id = "about",
-  watermarkTop = "top-2 sm:top-2 md:top-2 lg:top-3"
+  watermarkTop = "top-1 sm:top-2 md:top-2 lg:top-3",
+  asH1 = false
 }) {
   const [cityIndex, setCityIndex] = useState(0);
   const [currentText, setCurrentText] = useState("");
@@ -53,7 +54,7 @@ export default function About({
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
           
           {/* Left Column: Single Premium Image */}
-          <div className="lg:col-span-5 flex flex-col gap-6 mt-6 sm:mt-6 lg:mt-16">
+          <div className="lg:col-span-5 flex flex-col gap-6 mt-2 sm:mt-4 lg:mt-16">
             <div className="w-full h-[450px] sm:h-[550px] relative">
               
               {/* Subtle Outer Neon Glow */}
@@ -97,14 +98,25 @@ export default function About({
             
             {/* Pill Badge Removed */}
             
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-white leading-[1.2] mb-6">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-primary-pink)] via-pink-400 to-white">
-                #1 Digital Marketing
-              </span> <br/>
-              <span className="whitespace-nowrap">
-                Company in <span className="text-white border-r-4 border-[var(--color-primary-pink)] pr-1 animate-pulse">{currentText || '\u00A0'}</span>
-              </span>
-            </h2>
+            {asH1 ? (
+              <h1 className="text-2xl xs:text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-[1.25] mb-6">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-primary-pink)] via-pink-400 to-white">
+                  #1 Digital Marketing
+                </span> <br className="hidden xs:inline" />
+                <span className="inline-block">
+                  Company in <span className="text-white border-r-4 border-[var(--color-primary-pink)] pr-1 animate-pulse">{currentText || '\u00A0'}</span>
+                </span>
+              </h1>
+            ) : (
+              <h2 className="text-2xl xs:text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-[1.25] mb-6">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-primary-pink)] via-pink-400 to-white">
+                  #1 Digital Marketing
+                </span> <br className="hidden xs:inline" />
+                <span className="inline-block">
+                  Company in <span className="text-white border-r-4 border-[var(--color-primary-pink)] pr-1 animate-pulse">{currentText || '\u00A0'}</span>
+                </span>
+              </h2>
+            )}
 
             <p className="text-gray-300 text-base md:text-lg mb-4 leading-relaxed font-light">
               <strong className="text-white font-semibold">Digital ORRA</strong> is a results-driven Digital Marketing Company based out in Panchkula near Chandigarh, India, offering end-to-end digital solutions for brands and businesses. We specialize in digital marketing, Google Ads, Meta Ads, influencer marketing, graphic designing, website development and designing, CRM software, app development, and ERP solutions.

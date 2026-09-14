@@ -36,7 +36,11 @@ export default function OurTeamPage() {
 
   return (
     <main className="min-h-screen bg-[#070D1E] text-white selection:bg-pink-500 selection:text-white relative overflow-hidden flex flex-col justify-between">
-      <DynamicSeoHead path="/our-team" />
+      <DynamicSeoHead 
+        path="/our-team" 
+        customTitle="Meet Our Creative Team | Digital ORRA Panchkula" 
+        customDesc="Meet the creative and skilled team behind Digital ORRA, a leading digital marketing company in Panchkula, delivering SEO, web, design and marketing solutions." 
+      />
       <Navbar />
 
       {/* Ambient Background Glows */}
@@ -50,7 +54,7 @@ export default function OurTeamPage() {
       <section className="relative w-full pt-24 pb-12 sm:pt-28 md:pt-36 md:pb-20 overflow-hidden">
         {/* Giant Edge-to-Edge Watermark (Properly below the floating Navbar) */}
         <div style={{ pointerEvents: 'none' }} className="absolute top-18 sm:top-20 md:top-20 left-0 w-full flex justify-center pointer-events-none select-none overflow-hidden z-0 [mask-image:linear-gradient(to_bottom,black_75%,transparent_100%)]">
-          <span 
+          <h1 
             style={{ 
               pointerEvents: 'none',
               background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.5) 55%, rgba(255, 255, 255, 0.18) 100%)',
@@ -60,10 +64,11 @@ export default function OurTeamPage() {
             className="text-[12.5vw] sm:text-[9.5vw] md:text-[8.5vw] font-black uppercase tracking-wider whitespace-nowrap select-none"
           >
             OUR TEAM
-          </span>
+          </h1>
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-16 sm:pt-24 md:pt-36 lg:pt-44">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-28 sm:pt-32 md:pt-40 text-center">
+          <h2 className="sr-only">Meet the Creative Minds & Growth Specialists Behind Digital ORRA</h2>
 
           {/* Clean Team Photo Grid (Exact Order Set by Admin) */}
           {loading ? (

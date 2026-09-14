@@ -169,7 +169,7 @@ export default function SkillDevelopmentWorkshopPage() {
           style={{ pointerEvents: "none" }} 
           className="absolute top-20 md:top-24 left-0 w-full flex justify-center pointer-events-none select-none overflow-hidden z-0 [mask-image:linear-gradient(to_bottom,black_75%,transparent_100%)]"
         >
-          <span 
+          <h1 
             style={{ 
               pointerEvents: "none",
               background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.5) 55%, rgba(255, 255, 255, 0.18) 100%)',
@@ -179,10 +179,11 @@ export default function SkillDevelopmentWorkshopPage() {
             className="text-[6.5vw] md:text-[7vw] font-black uppercase tracking-wider whitespace-nowrap select-none"
           >
             SKILL WORKSHOP
-          </span>
+          </h1>
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-28 md:pt-36">
+          <h2 className="sr-only">Hands-on Skill Development Workshops & Industrial Digital Training</h2>
 
           {/* Clean 2-Category Tab Selector */}
           <div className="relative z-20 mb-10 w-full flex items-center justify-center">

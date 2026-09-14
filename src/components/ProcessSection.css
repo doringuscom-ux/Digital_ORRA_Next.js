@@ -10,7 +10,7 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  padding: 215px 0 10px 0;
+  padding: 260px 0 10px 0;
   overflow: hidden;
   font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
   box-sizing: border-box;
@@ -75,7 +75,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 28px;
+  gap: 20px;
   box-sizing: border-box;
   overflow: visible;
 }
@@ -155,7 +155,7 @@
   max-width: 1100px;
   width: 100%;
   margin: 0;
-  padding: 18px 30px 10px 30px;
+  padding: 14px 30px 10px 30px;
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.7s ease 0.2s, transform 0.7s ease 0.2s;
@@ -292,7 +292,7 @@
   position: relative;
   max-width: 1060px;
   width: 100%;
-  margin: 20px auto 0;
+  margin: 10px auto 0;
   padding: 0 70px;
   display: flex;
   align-items: center;
@@ -638,7 +638,7 @@
     overflow-y: hidden !important;
     -webkit-overflow-scrolling: touch !important;
     scrollbar-width: none !important;
-    padding: 10px 16px 18px 16px !important;
+    padding: 10px 12px 12px 12px !important;
     box-sizing: border-box !important;
   }
 
@@ -647,10 +647,10 @@
   }
 
   .proc-nodes-row-scroll-container {
-    min-width: 700px !important;
-    width: 700px !important;
+    min-width: 580px !important;
+    width: 580px !important;
     position: relative !important;
-    padding: 0 30px 0 15px !important;
+    padding: 0 20px 0 10px !important;
     box-sizing: border-box !important;
   }
 
@@ -661,25 +661,36 @@
   }
 
   .proc-track {
-    left: 45px !important;
-    right: 45px !important;
-    top: 18px !important;
+    left: 35px !important;
+    right: 35px !important;
+    top: 15px !important;
+    height: 2px !important;
   }
 
   .proc-node-ring {
-    width: 36px !important;
-    height: 36px !important;
+    width: 30px !important;
+    height: 30px !important;
+  }
+
+  .proc-node-icon svg {
+    width: 14px !important;
+    height: 14px !important;
+  }
+
+  .proc-node-pulse {
+    inset: -4px !important;
   }
 
   .proc-node-title-sm {
-    font-size: 0.68rem !important;
-    line-height: 1.25 !important;
+    font-size: 0.6rem !important;
+    line-height: 1.15 !important;
     text-align: center !important;
     word-break: break-word !important;
   }
 
   .proc-node {
-    width: 82px !important;
+    width: 68px !important;
+    gap: 5px !important;
     flex-shrink: 0 !important;
   }
 }
@@ -687,11 +698,11 @@
 @media (max-width: 768px) {
   .process-section-v2 {
     min-height: auto;
-    padding: 100px 0 25px;
+    padding: 95px 0 20px;
   }
 
   .proc-container {
-    gap: 14px;
+    gap: 10px;
     padding: 0 10px;
   }
 
@@ -707,22 +718,32 @@
   }
 
   .proc-track {
-    left: 30px;
-    right: 30px;
-    top: 19px;
+    left: 25px;
+    right: 25px;
+    top: 15px;
   }
 
   .proc-node-ring {
-    width: 36px;
-    height: 36px;
+    width: 30px;
+    height: 30px;
+  }
+
+  .proc-node-icon svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .proc-node-pulse {
+    inset: -4px;
   }
 
   .proc-node-title-sm {
-    font-size: 0.7rem;
+    font-size: 0.6rem;
   }
 
   .proc-node {
-    width: 70px;
+    width: 65px;
+    gap: 5px;
   }
 
   .proc-slider-stage {

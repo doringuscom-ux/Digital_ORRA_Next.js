@@ -65,8 +65,8 @@ export default function ReviewsSection() {
     <section className="reviews-section" id="reviews">
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none z-0"></div>
 
-      {/* Massive Background Typography (Decreased Top Gap, Increased Bottom Gap) */}
-      <div className="absolute top-2 sm:top-2 md:top-2 lg:top-3 left-0 w-full flex justify-center pointer-events-none select-none z-0 [mask-image:linear-gradient(to_bottom,black_85%,transparent_100%)]">
+      {/* Massive Background Typography */}
+      <div className="absolute top-6 sm:top-7 md:top-6 lg:top-7 left-0 w-full flex justify-center pointer-events-none select-none z-0 [mask-image:linear-gradient(to_bottom,black_85%,transparent_100%)]">
         <span
           style={{
             background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.5) 55%, rgba(255, 255, 255, 0.18) 100%)',
@@ -82,7 +82,7 @@ export default function ReviewsSection() {
       <div className="rev-container relative z-10 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-20">
 
         {/* Left Column: Text & Stats */}
-        <div className="lg:w-1/2 w-full text-left relative pr-4 lg:pr-10 mt-8 lg:mt-16">
+        <div className="lg:w-1/2 w-full text-left relative pr-4 lg:pr-10 mt-1 lg:mt-6">
           <div className="absolute top-0 left-0 w-72 h-72 bg-cyan-500/10 rounded-full blur-[100px] pointer-events-none -z-10"></div>
 
           <h2 className="text-5xl lg:text-[4rem] font-extrabold text-white leading-[1.1] mb-8 tracking-tight">
@@ -162,23 +162,23 @@ export default function ReviewsSection() {
                     </div>
 
                     {/* Top Row: Stars & Author */}
-                    <div className="flex justify-between items-start mb-8 relative z-10">
-                      <div className="flex gap-1 mt-2">
+                    <div className="flex justify-between items-center mb-6 sm:mb-8 relative z-10 gap-2">
+                      <div className="flex gap-1 flex-shrink-0">
                         {[...Array(5)].map((_, i) => (
                           <Star
                             key={i}
-                            size={18}
+                            size={16}
                             className={i < activeReview.rating ? "text-yellow-400 fill-yellow-400 drop-shadow-[0_0_10px_rgba(250,204,21,0.6)]" : "text-gray-700"}
                           />
                         ))}
                       </div>
 
-                      <div className="flex items-center gap-3 text-right">
-                        <div>
-                          <p className="text-[10px] text-cyan-400 font-bold tracking-[0.2em] uppercase mb-0.5">Words From</p>
-                          <h4 className="text-sm font-bold text-white">{activeReview.clientName}</h4>
+                      <div className="flex items-center gap-2.5 sm:gap-3 text-right flex-shrink-0">
+                        <div className="text-right">
+                          <p className="text-[10px] sm:text-[10.5px] text-cyan-400 font-bold tracking-[0.15em] uppercase mb-0.5 whitespace-nowrap">Words From</p>
+                          <h4 className="text-xs sm:text-sm font-bold text-white whitespace-nowrap">{activeReview.clientName}</h4>
                         </div>
-                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center text-white font-bold shadow-[0_0_10px_rgba(6,182,212,0.4)]">
+                        <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center text-white font-bold text-sm shadow-[0_0_10px_rgba(6,182,212,0.4)] flex-shrink-0">
                           {activeReview.clientName.charAt(0).toUpperCase()}
                         </div>
                       </div>

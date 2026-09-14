@@ -134,7 +134,11 @@ const CAPABILITIES = [
 export default function CompanyProfilePage() {
   return (
     <main className="min-h-screen bg-[#070D1E] text-white flex flex-col relative selection:bg-pink-500 selection:text-white overflow-hidden">
-      <DynamicSeoHead path="/company-profile" />
+      <DynamicSeoHead 
+        path="/company-profile" 
+        customTitle="Digital ORRA Company Profile | Digital Marketing Agency" 
+        customDesc="Explore Digital ORRA’s company profile, services, capabilities and expertise in SEO, PPC, branding, web development, social media and digital marketing." 
+      />
       {/* Global Navigation */}
       <Navbar />
 
@@ -148,7 +152,7 @@ export default function CompanyProfilePage() {
       {/* Edge-to-Edge Watermark Section */}
       <section className="relative w-full pt-32 pb-4 md:pt-40 md:pb-8 overflow-hidden">
         <div style={{ pointerEvents: 'none' }} className="absolute top-20 md:top-24 left-0 w-full flex justify-center pointer-events-none select-none overflow-hidden z-0 [mask-image:linear-gradient(to_bottom,black_75%,transparent_100%)]">
-          <span 
+          <h1 
             style={{ 
               pointerEvents: 'none',
               background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.5) 55%, rgba(255, 255, 255, 0.18) 100%)',
@@ -158,10 +162,11 @@ export default function CompanyProfilePage() {
             className="text-[7.5vw] md:text-[8vw] font-black uppercase tracking-wider whitespace-nowrap select-none"
           >
             COMPANY PROFILE
-          </span>
+          </h1>
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-36 md:pt-48">
+          <h2 className="sr-only">Official Digital ORRA Corporate Profile, Services & Capabilities</h2>
           
           {/* Ultra-Luxury Executive Hero Section */}
           <div className="relative rounded-3xl bg-gradient-to-b from-[#0C1530] via-[#091024] to-[#060B18] border border-white/15 p-8 sm:p-12 lg:p-16 mb-20 overflow-hidden shadow-[0_30px_90px_rgba(0,0,0,0.85)] group">

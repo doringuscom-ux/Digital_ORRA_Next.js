@@ -27,7 +27,7 @@ export default function CelebritySpotlight() {
   };
 
   return (
-    <section className="relative w-full pt-12 pb-10 md:pt-24 lg:pt-28 md:pb-14 bg-[#0C132C] overflow-hidden border-t border-white/5 shadow-[inset_0_30px_60px_rgba(0,0,0,0.4)]" id="spotlight">
+    <section className="relative w-full pt-14 pb-10 md:pt-24 lg:pt-28 md:pb-14 bg-[#0C132C] overflow-hidden border-t border-white/5 shadow-[inset_0_30px_60px_rgba(0,0,0,0.4)]" id="spotlight">
       
       {/* Video Modal - (Kept logic but we use inline flip) */}
       
@@ -40,7 +40,7 @@ export default function CelebritySpotlight() {
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none z-0"></div>
 
       {/* Elegant Balanced Background Watermark (Decreased Top Gap, Increased Bottom Gap) */}
-      <div className="absolute top-2 sm:top-2 md:top-2 lg:top-3 left-0 w-full flex justify-center pointer-events-none select-none overflow-hidden z-0 [mask-image:linear-gradient(to_bottom,black_85%,transparent_100%)]">
+      <div className="absolute top-3 sm:top-2 md:top-2 lg:top-3 left-0 w-full flex justify-center pointer-events-none select-none overflow-hidden z-0 [mask-image:linear-gradient(to_bottom,black_85%,transparent_100%)]">
         <span className="text-[6.5vw] md:text-[7vw] font-black uppercase tracking-wider whitespace-nowrap select-none text-transparent bg-clip-text bg-gradient-to-b from-white/[0.72] via-white/[0.45] to-white/[0.18]">
           CELEBRITY SPOTLIGHT
         </span>
@@ -48,7 +48,7 @@ export default function CelebritySpotlight() {
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         
-        <div className="flex flex-col lg:flex-row items-center lg:items-center justify-between gap-12 lg:gap-8 pt-4 sm:pt-6 md:pt-8">
+        <div className="flex flex-col lg:flex-row items-center lg:items-center justify-between gap-12 lg:gap-8 pt-0 sm:pt-4 md:pt-8">
           
           {/* Left Text Section (Hidden on mobile phones/tablets, visible on Desktop) */}
           <div className="hidden lg:block flex-1 max-w-2xl relative z-20 mt-4 lg:mt-6">
@@ -75,7 +75,7 @@ export default function CelebritySpotlight() {
           </div>
 
           {/* Right Image Section with Transparent PNG & Flip */}
-          <div className="flex-1 w-full relative mt-4 lg:mt-8 flex justify-center lg:justify-end z-10">
+          <div className="flex-1 w-full relative mt-0 sm:mt-4 lg:mt-8 flex justify-center lg:justify-end z-10">
             
             {/* Flipping Container */}
             <div 
@@ -116,15 +116,15 @@ export default function CelebritySpotlight() {
             {!isPlaying && (
               <div 
                 onClick={handlePlayClick}
-                className={`absolute bottom-[8%] left-1/2 -translate-x-1/2 flex items-center gap-3 p-2.5 pr-6 rounded-full bg-black/60 backdrop-blur-2xl border border-white/20 shadow-[0_20px_50px_rgba(0,0,0,0.9)] cursor-pointer group hover:border-[var(--color-primary-pink)]/80 hover:bg-[#0A1128]/90 transition-all duration-300 z-30 ${flipDegree > 0 ? 'opacity-0 scale-75 pointer-events-none' : 'opacity-100 scale-100'}`}
+                className={`absolute bottom-[8%] left-1/2 -translate-x-1/2 flex items-center gap-2.5 sm:gap-3 p-2 sm:p-2.5 pr-4 sm:pr-6 rounded-full bg-black/60 backdrop-blur-2xl border border-white/20 shadow-[0_20px_50px_rgba(0,0,0,0.9)] cursor-pointer group hover:border-[var(--color-primary-pink)]/80 hover:bg-[#0A1128]/90 transition-all duration-300 z-30 whitespace-nowrap ${flipDegree > 0 ? 'opacity-0 scale-75 pointer-events-none' : 'opacity-100 scale-100'}`}
               >
-                <div className="relative w-12 h-12 md:w-14 md:h-14 rounded-full bg-gradient-to-br from-[var(--color-primary-pink)] to-[#FF007A] flex items-center justify-center shadow-[0_0_30px_rgba(234,0,122,0.6)] group-hover:scale-110 transition-transform">
+                <div className="relative w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full bg-gradient-to-br from-[var(--color-primary-pink)] to-[#FF007A] flex items-center justify-center shadow-[0_0_30px_rgba(234,0,122,0.6)] group-hover:scale-110 transition-transform shrink-0">
                    <div className="absolute inset-0 rounded-full border border-white/40 animate-ping"></div>
-                  <Play className="w-5 h-5 md:w-6 md:h-6 text-white ml-1" fill="currentColor" />
+                  <Play className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-white ml-0.5" fill="currentColor" />
                 </div>
-                <div>
-                  <p className="text-gray-300 font-bold text-[10px] md:text-xs leading-tight tracking-[0.2em] uppercase mb-0.5">Hear From</p>
-                  <p className="text-white font-black text-lg md:text-xl leading-tight uppercase tracking-wider drop-shadow-md">Rakesh Ji</p>
+                <div className="whitespace-nowrap">
+                  <p className="text-gray-300 font-bold text-[9px] sm:text-[10px] md:text-xs leading-tight tracking-[0.2em] uppercase mb-0.5 whitespace-nowrap">Hear From</p>
+                  <p className="text-white font-black text-base sm:text-lg md:text-xl leading-tight uppercase tracking-wider drop-shadow-md whitespace-nowrap">Rakesh Ji</p>
                 </div>
               </div>
             )}

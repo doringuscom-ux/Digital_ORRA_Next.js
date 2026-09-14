@@ -264,8 +264,9 @@ export default function Footer({ hideCta = false }) {
           <p className="text-gray-500 text-sm font-light">
             &copy; {currentYear} Digital ORRA. All rights reserved.
           </p>
-          <div className="flex gap-6 text-sm font-light text-gray-500">
+          <div className="flex flex-wrap gap-5 sm:gap-6 text-sm font-light text-gray-400">
             <Link href="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link>
+            <Link href="/sitemap" className="hover:text-cyan-400 transition-colors">Sitemap</Link>
             <Link href="/privacy-policy" className="hover:text-white transition-colors">Terms of Service</Link>
             <Link href="/privacy-policy" className="hover:text-white transition-colors">Refund Policy</Link>
           </div>

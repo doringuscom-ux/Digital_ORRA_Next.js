@@ -134,7 +134,11 @@ export default function JoinOurTeamPage() {
 
   return (
     <main className="min-h-screen bg-[#070D1E] text-white flex flex-col relative selection:bg-pink-500 selection:text-white overflow-hidden">
-      <DynamicSeoHead path="/join-our-team" />
+      <DynamicSeoHead 
+        path="/join-our-team" 
+        customTitle="Digital Marketing Jobs in Panchkula | Join Digital ORRA" 
+        customDesc="Explore current job openings at Digital ORRA in Panchkula for digital marketing, SEO, graphic design, video editing, web development and social media roles." 
+      />
       {/* Global Navbar */}
       <Navbar />
 
@@ -149,7 +153,7 @@ export default function JoinOurTeamPage() {
       <section className="relative w-full pt-32 pb-16 md:pt-40 md:pb-20 overflow-hidden">
         {/* Giant Edge-to-Edge Watermark */}
         <div style={{ pointerEvents: 'none' }} className="absolute top-20 md:top-24 left-0 w-full flex justify-center pointer-events-none select-none overflow-hidden z-0 [mask-image:linear-gradient(to_bottom,black_75%,transparent_100%)]">
-          <span 
+          <h1 
             style={{ 
               pointerEvents: 'none',
               background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.5) 55%, rgba(255, 255, 255, 0.18) 100%)',
@@ -159,7 +163,7 @@ export default function JoinOurTeamPage() {
             className="text-[8vw] md:text-[8.5vw] font-black uppercase tracking-wider whitespace-nowrap select-none"
           >
             JOIN OUR TEAM
-          </span>
+          </h1>
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-32 md:pt-44">
