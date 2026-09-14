@@ -122,6 +122,67 @@ const nextConfig = {
         destination: '/testimonial',
         permanent: true,
       },
+      // Old WordPress Course URLs to /courses
+      {
+        source: '/web-designing-and-development-courses',
+        destination: '/courses',
+        permanent: true,
+      },
+      {
+        source: '/web-designing-and-development-courses/:path*',
+        destination: '/courses',
+        permanent: true,
+      },
+      {
+        source: '/software-testing-course',
+        destination: '/courses',
+        permanent: true,
+      },
+      {
+        source: '/software-testing-course/:path*',
+        destination: '/courses',
+        permanent: true,
+      },
+      {
+        source: '/digital-marketing-academic-course',
+        destination: '/courses',
+        permanent: true,
+      },
+      {
+        source: '/digital-marketing-academic-course/:path*',
+        destination: '/courses',
+        permanent: true,
+      },
+      {
+        source: '/graphic-designing-course',
+        destination: '/courses',
+        permanent: true,
+      },
+      {
+        source: '/graphic-designing-course/:path*',
+        destination: '/courses',
+        permanent: true,
+      },
+      {
+        source: '/video-editing-courses',
+        destination: '/courses',
+        permanent: true,
+      },
+      {
+        source: '/video-editing-courses/:path*',
+        destination: '/courses',
+        permanent: true,
+      },
+      {
+        source: '/animation-course',
+        destination: '/courses',
+        permanent: true,
+      },
+      {
+        source: '/animation-course/:path*',
+        destination: '/courses',
+        permanent: true,
+      },
     ];
   },
 };

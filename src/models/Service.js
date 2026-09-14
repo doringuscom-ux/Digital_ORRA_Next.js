@@ -9,6 +9,8 @@ const serviceSchema = new mongoose.Schema(
     shortDesc: { type: String },
     desc: { type: String },
     fullDesc: { type: String },
+    image: { type: String },
+    imageAlt: { type: String },
     iconName: { type: String, default: "Globe" },
     stats: [
       {

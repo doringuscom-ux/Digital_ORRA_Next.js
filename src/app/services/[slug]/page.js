@@ -135,9 +135,9 @@ export default function ServiceDetailPage() {
             {/* Ambient Multi-layer Glow */}
             <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-full max-w-4xl h-[350px] bg-gradient-to-r from-cyan-500/15 via-pink-500/15 to-purple-600/15 blur-[120px] rounded-full pointer-events-none -z-10"></div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
               {/* Left Column: Title, Badges, Lead, Actions */}
-              <div className="lg:col-span-7 xl:col-span-8">
+              <div className="w-full">
                 {/* Category & Tag Pills */}
                 <div className="flex flex-wrap items-center gap-3 mb-6">
                   <div className="w-10 h-10 rounded-xl bg-cyan-500/15 border border-cyan-400/30 text-cyan-300 flex items-center justify-center shadow-lg shadow-cyan-500/10">
@@ -154,12 +154,12 @@ export default function ServiceDetailPage() {
                 </div>
 
                 {/* Main Heading */}
-                <h1 className="text-4xl sm:text-6xl xl:text-7xl font-black text-white tracking-tight leading-[1.08] mb-6">
+                <h1 className="text-3xl sm:text-5xl font-black text-white tracking-tight leading-[1.1] mb-5">
                   {currentService.title}
                 </h1>
 
                 {/* Lead Description */}
-                <p className="text-base sm:text-lg text-gray-200/90 font-light leading-relaxed mb-8 max-w-2xl">
+                <p className="text-base sm:text-lg text-gray-200/90 font-light leading-relaxed mb-8">
                   {currentService.fullDesc || currentService.desc}
                 </p>
 
@@ -185,33 +185,40 @@ export default function ServiceDetailPage() {
                 </div>
               </div>
 
-              {/* Right Column: Floating High-Impact Metric Cards */}
-              {currentService.stats && currentService.stats.length > 0 && (
-                <div className="lg:col-span-5 xl:col-span-4 flex flex-col gap-3.5">
-                  <div className="text-xs font-mono uppercase tracking-widest text-cyan-400 font-bold px-1 mb-1">
-                    Verified Benchmark Results
+              {/* Right Column: Hero Showcase Image + Mini Stats directly below image */}
+              <div className="w-full max-w-lg lg:max-w-none mx-auto flex flex-col gap-3">
+                {currentService.image ? (
+                  <div className="relative w-full rounded-2xl overflow-hidden border border-white/15 bg-gradient-to-b from-[#111C3D]/90 to-[#0A122A]/90 p-2 shadow-2xl group">
+                    <div className="relative w-full aspect-[16/10] sm:aspect-[16/10] max-h-[300px] sm:max-h-[320px] rounded-xl overflow-hidden bg-black/40">
+                      <img
+                        src={currentService.image}
+                        alt={currentService.imageAlt || currentService.title || "Digital ORRA Service Showcase"}
+                        className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#0A122A]/80 via-transparent to-transparent pointer-events-none" />
+                    </div>
                   </div>
-                  {currentService.stats.map((st, sidx) => (
-                    <div 
-                      key={sidx} 
-                      className="group relative p-5 rounded-2xl bg-gradient-to-r from-[#111C3D]/90 to-[#0A122A]/90 border border-white/15 hover:border-cyan-400/50 backdrop-blur-xl shadow-lg transition-all duration-300 hover:-translate-x-1"
-                    >
-                      <div className="absolute top-0 right-0 w-24 h-24 bg-cyan-500/10 rounded-full blur-2xl group-hover:bg-pink-500/10 transition-all pointer-events-none"></div>
-                      <div className="flex items-baseline justify-between gap-3">
-                        <div className="text-3xl sm:text-4xl font-black text-white tracking-tight font-mono">
+                ) : null}
+
+                {/* Mini Benchmark Stats directly below image */}
+                {currentService.stats && currentService.stats.length > 0 && (
+                  <div className="grid grid-cols-3 gap-2 sm:gap-2.5">
+                    {currentService.stats.map((st, sidx) => (
+                      <div
+                        key={sidx}
+                        className="p-2 sm:p-2.5 rounded-xl bg-[#080E21]/90 border border-white/10 hover:border-cyan-400/40 transition-all text-center flex flex-col justify-center items-center shadow-lg"
+                      >
+                        <div className="text-base sm:text-xl font-black text-white font-mono tracking-tight leading-tight">
                           {st.value}
                         </div>
-                        <span className="text-[11px] font-mono text-cyan-400/80 font-bold uppercase tracking-wider">
-                          Benchmark #{sidx + 1}
-                        </span>
+                        <div className="text-[10px] sm:text-[11px] text-gray-300/90 font-medium leading-tight mt-0.5 line-clamp-2">
+                          {st.label}
+                        </div>
                       </div>
-                      <div className="text-xs sm:text-sm text-gray-300 font-medium mt-1">
-                        {st.label}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
 

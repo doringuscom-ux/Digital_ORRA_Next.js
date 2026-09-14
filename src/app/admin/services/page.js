@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import {
   Sparkles,
@@ -25,13 +25,17 @@ import {
   Palette,
   Code,
   Globe,
-  Sliders
+  Sliders,
+  Upload,
+  Camera,
+  Image as ImageIcon
 } from "lucide-react";
 
 export default function AdminServicesPage() {
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [feedback, setFeedback] = useState({ type: "", text: "" });
@@ -41,6 +45,9 @@ export default function AdminServicesPage() {
   const [isEditing, setIsEditing] = useState(false);
   const [editingId, setEditingId] = useState(null);
 
+  // File input ref for image upload
+  const fileInputRef = useRef(null);
+
   // Form State
   const initialFormState = {
     id: "",
@@ -49,6 +56,8 @@ export default function AdminServicesPage() {
     tag: "High Impact",
     shortDesc: "",
     fullDesc: "",
+    image: "",
+    imageAlt: "",
     iconName: "Globe",
     order: 0,
     stats: [
@@ -116,6 +125,35 @@ export default function AdminServicesPage() {
     return matchesCategory && matchesQuery;
   });
 
+  // Direct file upload to Cloudinary
+  const handleFileUpload = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploading(true);
+    try {
+      const uploadData = new FormData();
+      uploadData.append("file", file);
+
+      const res = await fetch("/api/upload", {
+        method: "POST",
+        body: uploadData,
+      });
+
+      if (!res.ok) throw new Error("Upload failed. Check Cloudinary credentials.");
+      const data = await res.json();
+      setFormData((prev) => ({ 
+        ...prev, 
+        image: data.url,
+        imageAlt: prev.imageAlt || prev.title || "Service Showcase Image"
+      }));
+    } catch (err) {
+      alert("Error uploading image: " + err.message);
+    } finally {
+      setUploading(false);
+    }
+  };
+
   // Open modal for Create
   const handleOpenCreate = () => {
     setIsEditing(false);
@@ -140,6 +178,8 @@ export default function AdminServicesPage() {
       tag: srv.tag || "",
       shortDesc: srv.shortDesc || srv.desc || "",
       fullDesc: srv.fullDesc || srv.desc || "",
+      image: srv.image || "",
+      imageAlt: srv.imageAlt || "",
       iconName: srv.iconName || "Globe",
       order: srv.order !== undefined ? srv.order : 0,
       stats: srv.stats && srv.stats.length > 0 ? srv.stats : initialFormState.stats,
@@ -276,6 +316,8 @@ export default function AdminServicesPage() {
         shortDesc: formData.shortDesc.trim(),
         desc: formData.shortDesc.trim(), // sync for legacy views
         fullDesc: formData.fullDesc.trim(),
+        image: formData.image ? formData.image.trim() : "",
+        imageAlt: formData.imageAlt ? formData.imageAlt.trim() : "",
         iconName: formData.iconName.trim() || "Globe",
         order: Number(formData.order) || 0,
         stats: formData.stats.filter((s) => s.label && s.value),
@@ -483,15 +525,29 @@ export default function AdminServicesPage() {
                   </span>
                 </div>
 
-                {/* Title & Tag */}
-                <h3 className="text-lg font-bold text-white mb-1 group-hover:text-cyan-300 transition-colors line-clamp-1">
-                  {srv.title}
-                </h3>
-                {srv.tag && (
-                  <span className="text-[11px] font-semibold text-pink-400 uppercase tracking-wider block mb-3">
-                    ✦ {srv.tag}
-                  </span>
-                )}
+                {/* Title & Tag & Optional Thumbnail */}
+                <div className="flex items-start gap-3 mb-2">
+                  {srv.image && (
+                    <div className="w-12 h-12 rounded-xl overflow-hidden bg-black/40 border border-white/10 flex-shrink-0">
+                      <img 
+                        src={srv.image} 
+                        alt={srv.imageAlt || srv.title} 
+                        className="w-full h-full object-cover" 
+                        onError={(e) => { e.target.style.display = 'none'; }}
+                      />
+                    </div>
+                  )}
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-lg font-bold text-white group-hover:text-cyan-300 transition-colors line-clamp-1">
+                      {srv.title}
+                    </h3>
+                    {srv.tag && (
+                      <span className="text-[11px] font-semibold text-pink-400 uppercase tracking-wider block">
+                        ✦ {srv.tag}
+                      </span>
+                    )}
+                  </div>
+                </div>
 
                 {/* Short Description */}
                 <p className="text-xs sm:text-sm text-gray-300 line-clamp-3 leading-relaxed mb-4">
@@ -666,6 +722,111 @@ export default function AdminServicesPage() {
                   placeholder="Comprehensive breakdown of value proposition, framework, and strategy..."
                   className="w-full bg-[#0E1736] border border-white/15 rounded-xl p-3.5 text-sm text-white font-medium focus:outline-none focus:border-cyan-400 transition-colors resize-none leading-relaxed"
                 />
+              </div>
+
+              {/* Service Hero Showcase Image & Alt Text */}
+              <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 space-y-3">
+                <div className="flex items-center justify-between">
+                  <label className="block text-xs font-semibold text-gray-200">
+                    Service Showcase Image &amp; SEO Alt Text
+                  </label>
+                  <span className="text-[11px] text-cyan-400 font-mono">Hero Banner / Card Visual</span>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {/* Option 1: File Upload */}
+                  <div>
+                    <label className="block text-[11px] text-gray-400 mb-1.5 font-medium">
+                      Upload from Device
+                    </label>
+                    <input
+                      type="file"
+                      ref={fileInputRef}
+                      onChange={handleFileUpload}
+                      accept="image/*"
+                      className="hidden"
+                    />
+                    <button
+                      type="button"
+                      disabled={uploading}
+                      onClick={() => fileInputRef.current?.click()}
+                      className="w-full py-2.5 px-3 rounded-xl bg-[#0E1736] border border-dashed border-white/20 hover:border-cyan-400/60 text-gray-300 text-xs font-semibold flex items-center justify-center gap-2 transition-all hover:bg-white/5"
+                    >
+                      {uploading ? (
+                        <>
+                          <div className="w-3.5 h-3.5 border-2 border-cyan-400 border-t-transparent rounded-full animate-spin" />
+                          <span>Uploading...</span>
+                        </>
+                      ) : (
+                        <>
+                          <Upload className="w-3.5 h-3.5 text-cyan-400" />
+                          <span>Choose Image File</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+
+                  {/* Option 2: Image URL */}
+                  <div>
+                    <label className="block text-[11px] text-gray-400 mb-1.5 font-medium">
+                      Or Image URL / Link
+                    </label>
+                    <input
+                      type="text"
+                      name="image"
+                      value={formData.image}
+                      onChange={handleChange}
+                      placeholder="https://... or /assets/..."
+                      className="w-full bg-[#0E1736] border border-white/15 rounded-xl px-3 py-2 text-xs text-white font-mono focus:outline-none focus:border-cyan-400 transition-colors"
+                    />
+                  </div>
+                </div>
+
+                {/* Alt Text Input */}
+                <div>
+                  <label className="block text-[11px] text-gray-300 mb-1.5 font-semibold">
+                    Image Alt Text <span className="text-cyan-400 font-normal">(Crucial for SEO &amp; Screen Readers)</span>
+                  </label>
+                  <input
+                    type="text"
+                    name="imageAlt"
+                    value={formData.imageAlt}
+                    onChange={handleChange}
+                    placeholder="e.g. Social media marketing campaign dashboard by Digital ORRA"
+                    className="w-full bg-[#0E1736] border border-white/15 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-400 transition-colors"
+                  />
+                </div>
+
+                {/* Live Image Preview */}
+                {formData.image && (
+                  <div className="flex items-center gap-3 pt-2 border-t border-white/10">
+                    <div className="w-16 h-16 rounded-xl overflow-hidden bg-black/40 border border-white/15 flex-shrink-0 relative">
+                      <img
+                        src={formData.image}
+                        alt={formData.imageAlt || "Preview"}
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          e.target.style.display = "none";
+                        }}
+                      />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs text-emerald-400 font-medium truncate flex items-center gap-1">
+                        <Check className="w-3 h-3" /> Image linked successfully
+                      </p>
+                      <p className="text-[11px] text-gray-400 truncate">
+                        Alt: {formData.imageAlt || "No alt text provided"}
+                      </p>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setFormData((prev) => ({ ...prev, image: "", imageAlt: "" }))}
+                      className="text-xs text-rose-400 hover:text-rose-300 font-medium px-2 py-1 rounded bg-rose-500/10"
+                    >
+                      Clear
+                    </button>
+                  </div>
+                )}
               </div>
 
               {/* Row 5: Features (One per line) */}

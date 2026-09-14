@@ -61,6 +61,18 @@ export default function UniversalSlugPage() {
         router.replace('/testimonial');
         return;
       }
+      const legacyCourseSlugs = [
+        'web-designing-and-development-courses',
+        'software-testing-course',
+        'digital-marketing-academic-course',
+        'graphic-designing-course',
+        'video-editing-courses',
+        'animation-course'
+      ];
+      if (legacyCourseSlugs.includes(slug)) {
+        router.replace('/courses');
+        return;
+      }
       setLoading(true);
       setService(matchedStaticService);
       setLocationPage(null);
