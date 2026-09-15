@@ -28,7 +28,14 @@ import {
   Sliders,
   Upload,
   Camera,
-  Image as ImageIcon
+  Image as ImageIcon,
+  Bold,
+  Italic,
+  Underline,
+  Link as LinkIcon,
+  List,
+  ListOrdered,
+  Quote
 } from "lucide-react";
 
 export default function AdminServicesPage() {
@@ -45,8 +52,56 @@ export default function AdminServicesPage() {
   const [isEditing, setIsEditing] = useState(false);
   const [editingId, setEditingId] = useState(null);
 
-  // File input ref for image upload
+  // File input ref for main image upload
   const fileInputRef = useRef(null);
+  const spotlightFileInputRef = useRef(null);
+  const spotlightEditorRef = useRef(null);
+  const [uploadingSpotlight, setUploadingSpotlight] = useState(false);
+
+  // WYSIWYG command helper for Spotlight content
+  const formatSpotlightDoc = (cmd, value = null) => {
+    if (typeof document !== "undefined") {
+      document.execCommand(cmd, false, value);
+      if (spotlightEditorRef.current) {
+        setFormData((prev) => ({ ...prev, spotlightContent: spotlightEditorRef.current.innerHTML }));
+      }
+    }
+  };
+
+  const handleSpotlightAddLink = () => {
+    const url = prompt("Enter Web Link (e.g. https://digitalorra.com/contact):");
+    if (!url) return;
+    formatSpotlightDoc("createLink", url);
+  };
+
+  // Upload Spotlight Image to Cloudinary
+  const handleSpotlightImageUpload = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploadingSpotlight(true);
+    try {
+      const uploadData = new FormData();
+      uploadData.append("file", file);
+
+      const res = await fetch("/api/upload", {
+        method: "POST",
+        body: uploadData,
+      });
+
+      if (!res.ok) throw new Error("Upload failed. Check Cloudinary credentials.");
+      const data = await res.json();
+      setFormData((prev) => ({ 
+        ...prev, 
+        spotlightImage: data.url,
+        spotlightImageAlt: prev.spotlightImageAlt || prev.spotlightTitle || "Spotlight Image"
+      }));
+    } catch (err) {
+      alert("Error uploading spotlight image: " + err.message);
+    } finally {
+      setUploadingSpotlight(false);
+    }
+  };
 
   // Form State
   const initialFormState = {
@@ -70,10 +125,22 @@ export default function AdminServicesPage() {
       { title: "Custom Strategy", desc: "Tailored execution blueprint focused on measurable ROI." },
       { title: "Asset Creation", desc: "High quality creatives, copies, and technical setups." }
     ],
+    process: [
+      { step: "01", title: "Audit & Analysis", desc: "Initial research and competitor analysis." },
+      { step: "02", title: "Strategy & Plan", desc: "Formulating custom roadmap and targets." },
+      { step: "03", title: "Execution", desc: "Deploying campaigns with active management." },
+      { step: "04", title: "Scale & Optimize", desc: "Reviewing metrics and scaling top performers." }
+    ],
     faqs: [
       { q: "How soon do we see results?", a: "Initial momentum begins within the first 14-30 days." },
       { q: "Do we get dedicated support?", a: "Yes, a dedicated project lead will be assigned to your brand." }
-    ]
+    ],
+    spotlightBadge: "",
+    spotlightTitle: "",
+    spotlightContent: "",
+    spotlightImage: "",
+    spotlightImageAlt: "",
+    spotlightImagePosition: "right"
   };
 
   const [formData, setFormData] = useState(initialFormState);
@@ -163,6 +230,11 @@ export default function AdminServicesPage() {
       id: "service-" + Date.now().toString().slice(-4),
       order: services.length + 1
     });
+    setTimeout(() => {
+      if (spotlightEditorRef.current) {
+        spotlightEditorRef.current.innerHTML = "";
+      }
+    }, 50);
     setModalOpen(true);
   };
 
@@ -185,8 +257,20 @@ export default function AdminServicesPage() {
       stats: srv.stats && srv.stats.length > 0 ? srv.stats : initialFormState.stats,
       featuresText: Array.isArray(srv.features) ? srv.features.join("\n") : "",
       deliverables: srv.deliverables && srv.deliverables.length > 0 ? srv.deliverables : initialFormState.deliverables,
-      faqs: srv.faqs && srv.faqs.length > 0 ? srv.faqs : initialFormState.faqs
+      process: srv.process && srv.process.length > 0 ? srv.process : initialFormState.process,
+      faqs: srv.faqs && srv.faqs.length > 0 ? srv.faqs : initialFormState.faqs,
+      spotlightBadge: srv.spotlightBadge || "",
+      spotlightTitle: srv.spotlightTitle || "",
+      spotlightContent: srv.spotlightContent || "",
+      spotlightImage: srv.spotlightImage || "",
+      spotlightImageAlt: srv.spotlightImageAlt || "",
+      spotlightImagePosition: srv.spotlightImagePosition || "right"
     });
+    setTimeout(() => {
+      if (spotlightEditorRef.current) {
+        spotlightEditorRef.current.innerHTML = srv.spotlightContent || "";
+      }
+    }, 50);
     setModalOpen(true);
   };
 
@@ -274,6 +358,33 @@ export default function AdminServicesPage() {
     }));
   };
 
+  // Helper for Process Steps (Proven Playbook / Strategic Engine)
+  const handleProcessChange = (index, field, val) => {
+    const updated = [...formData.process];
+    updated[index][field] = val;
+    setFormData((prev) => ({ ...prev, process: updated }));
+  };
+
+  const addProcess = () => {
+    setFormData((prev) => {
+      const nextStepNum = String(prev.process.length + 1).padStart(2, "0");
+      return {
+        ...prev,
+        process: [
+          ...prev.process,
+          { step: nextStepNum, title: "Step Title", desc: "Explanation of this step." }
+        ]
+      };
+    });
+  };
+
+  const removeProcess = (idx) => {
+    setFormData((prev) => ({
+      ...prev,
+      process: prev.process.filter((_, i) => i !== idx)
+    }));
+  };
+
   // Helper for FAQs
   const handleFaqChange = (index, field, val) => {
     const updated = [...formData.faqs];
@@ -323,7 +434,14 @@ export default function AdminServicesPage() {
         stats: formData.stats.filter((s) => s.label && s.value),
         features: featuresArray,
         deliverables: formData.deliverables.filter((d) => d.title),
-        faqs: formData.faqs.filter((f) => f.q)
+        process: formData.process.filter((p) => p.title),
+        faqs: formData.faqs.filter((f) => f.q),
+        spotlightBadge: formData.spotlightBadge ? formData.spotlightBadge.trim() : "",
+        spotlightTitle: formData.spotlightTitle ? formData.spotlightTitle.trim() : "",
+        spotlightContent: spotlightEditorRef.current ? spotlightEditorRef.current.innerHTML.trim() : (formData.spotlightContent ? formData.spotlightContent.trim() : ""),
+        spotlightImage: formData.spotlightImage ? formData.spotlightImage.trim() : "",
+        spotlightImageAlt: formData.spotlightImageAlt ? formData.spotlightImageAlt.trim() : "",
+        spotlightImagePosition: formData.spotlightImagePosition || "right"
       };
 
       let res;
@@ -940,7 +1058,65 @@ export default function AdminServicesPage() {
                 </div>
               </div>
 
-              {/* Row 8: FAQs */}
+              {/* Row 8: Strategic Process Engine (Steps 01, 02, 03, 04) */}
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <label className="text-xs font-semibold text-gray-200 flex items-center gap-2">
+                    <span>Strategic Engine / Process (01, 02, 03, 04)</span>
+                    <span className="text-[10px] text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded-full border border-cyan-500/20">Proven Playbook</span>
+                  </label>
+                  <button
+                    type="button"
+                    onClick={addProcess}
+                    className="text-xs text-cyan-400 hover:text-cyan-300 font-semibold"
+                  >
+                    + Add Step
+                  </button>
+                </div>
+                <div className="space-y-3">
+                  {formData.process && formData.process.map((stepItem, idx) => (
+                    <div
+                      key={idx}
+                      className="p-3.5 rounded-xl bg-white/[0.03] border border-white/10 space-y-2"
+                    >
+                      <div className="flex items-center gap-2">
+                        <input
+                          type="text"
+                          placeholder="01"
+                          value={stepItem.step || String(idx + 1).padStart(2, '0')}
+                          onChange={(e) => handleProcessChange(idx, "step", e.target.value)}
+                          className="w-16 bg-[#0E1736] border border-white/10 rounded-lg px-2.5 py-1.5 text-xs text-cyan-400 font-mono font-bold text-center"
+                        />
+                        <input
+                          type="text"
+                          placeholder="Step Title (e.g. Audit & Persona Analysis)"
+                          value={stepItem.title}
+                          onChange={(e) => handleProcessChange(idx, "title", e.target.value)}
+                          className="flex-1 bg-[#0E1736] border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white font-bold"
+                        />
+                        {formData.process.length > 1 && (
+                          <button
+                            type="button"
+                            onClick={() => removeProcess(idx)}
+                            className="text-gray-400 hover:text-rose-400 p-1"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        )}
+                      </div>
+                      <textarea
+                        rows={2}
+                        placeholder="Description of this step..."
+                        value={stepItem.desc}
+                        onChange={(e) => handleProcessChange(idx, "desc", e.target.value)}
+                        className="w-full bg-[#0E1736] border border-white/10 rounded-lg p-2.5 text-xs text-gray-300 resize-none leading-relaxed"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Row 9: FAQs */}
               <div>
                 <div className="flex items-center justify-between mb-2">
                   <label className="text-xs font-semibold text-gray-200">
@@ -987,6 +1163,213 @@ export default function AdminServicesPage() {
                       />
                     </div>
                   ))}
+                </div>
+              </div>
+
+              {/* Row 10: In-Depth Spotlight / Deep-Dive Framework (Rich Content Editor) */}
+              <div className="p-4 rounded-2xl bg-gradient-to-b from-[#111A38] to-[#0A122A] border border-cyan-500/25 space-y-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-white/10">
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <Sparkles className="w-4 h-4 text-cyan-400" />
+                      <label className="text-xs font-bold text-white uppercase tracking-wider">
+                        Spotlight Deep-Dive Section (One Side Image + One Side Rich Content)
+                      </label>
+                    </div>
+                    <p className="text-[11px] text-gray-400 mt-0.5">
+                      Optional in-depth block placed between Deliverables and Process Engine. Leave blank if not needed.
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[11px] text-gray-300 font-medium">Image Side:</span>
+                    <select
+                      name="spotlightImagePosition"
+                      value={formData.spotlightImagePosition}
+                      onChange={handleChange}
+                      className="bg-[#0E1736] border border-white/15 rounded-lg px-2.5 py-1 text-xs text-cyan-300 font-bold focus:outline-none"
+                    >
+                      <option value="right">Right Side</option>
+                      <option value="left">Left Side</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* Badge + Title */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  <div>
+                    <label className="block text-[11px] font-semibold text-gray-300 mb-1">Badge Tag</label>
+                    <input
+                      type="text"
+                      name="spotlightBadge"
+                      value={formData.spotlightBadge}
+                      onChange={handleChange}
+                      placeholder="e.g. OUR FRAMEWORK"
+                      className="w-full bg-[#0E1736] border border-white/15 rounded-xl px-3 py-2 text-xs text-white font-medium focus:outline-none focus:border-cyan-400"
+                    />
+                  </div>
+                  <div className="sm:col-span-2">
+                    <label className="block text-[11px] font-semibold text-gray-300 mb-1">Section Heading</label>
+                    <input
+                      type="text"
+                      name="spotlightTitle"
+                      value={formData.spotlightTitle}
+                      onChange={handleChange}
+                      placeholder="e.g. Data-Backed Viral Content Architecture"
+                      className="w-full bg-[#0E1736] border border-white/15 rounded-xl px-3 py-2 text-xs text-white font-medium focus:outline-none focus:border-cyan-400"
+                    />
+                  </div>
+                </div>
+
+                {/* Spotlight Image Upload / URL */}
+                <div>
+                  <label className="block text-[11px] font-semibold text-gray-300 mb-1">Spotlight Image</label>
+                  <input
+                    type="file"
+                    ref={spotlightFileInputRef}
+                    onChange={handleSpotlightImageUpload}
+                    accept="image/*"
+                    className="hidden"
+                  />
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="text"
+                      name="spotlightImage"
+                      value={formData.spotlightImage}
+                      onChange={handleChange}
+                      placeholder="https://... or upload image"
+                      className="flex-1 bg-[#0E1736] border border-white/15 rounded-xl px-3 py-2 text-xs text-white font-medium focus:outline-none focus:border-cyan-400"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => spotlightFileInputRef.current?.click()}
+                      disabled={uploadingSpotlight}
+                      className="px-3.5 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-black font-bold text-xs rounded-xl flex items-center gap-1.5 transition-all flex-shrink-0 disabled:opacity-50"
+                    >
+                      {uploadingSpotlight ? (
+                        <RefreshCw className="w-3.5 h-3.5 animate-spin text-black" />
+                      ) : (
+                        <Upload className="w-3.5 h-3.5" />
+                      )}
+                      <span>{uploadingSpotlight ? "Uploading..." : "Upload"}</span>
+                    </button>
+                  </div>
+                  {formData.spotlightImage && (
+                    <div className="mt-2 flex items-center gap-3">
+                      <div className="w-16 h-12 rounded-lg border border-white/15 overflow-hidden bg-black/40 flex-shrink-0">
+                        <img src={formData.spotlightImage} alt="Spotlight Preview" className="w-full h-full object-cover" />
+                      </div>
+                      <input
+                        type="text"
+                        name="spotlightImageAlt"
+                        value={formData.spotlightImageAlt}
+                        onChange={handleChange}
+                        placeholder="Image Alt Text (for SEO)"
+                        className="flex-1 bg-[#0E1736] border border-white/15 rounded-lg px-2.5 py-1 text-[11px] text-gray-300"
+                      />
+                    </div>
+                  )}
+                </div>
+
+                {/* Rich Text Editor Toolbar */}
+                <div>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <label className="text-[11px] font-semibold text-gray-300">
+                      Rich Content (H1-H5, Bold, Italic, Underline, Links, Lists, Quotes)
+                    </label>
+                  </div>
+
+                  {/* Formatting Toolbar */}
+                  <div className="flex flex-wrap items-center gap-1.5 p-2 bg-[#090F24] border border-white/15 rounded-t-xl">
+                    {/* Headings dropdown */}
+                    <div className="relative">
+                      <select
+                        defaultValue="<p>"
+                        onChange={(e) => formatSpotlightDoc("formatBlock", e.target.value)}
+                        className="px-2.5 py-1 bg-white/5 hover:bg-white/10 border border-white/15 rounded-lg text-xs font-bold text-cyan-300 focus:outline-none cursor-pointer pr-6"
+                      >
+                        <option value="<p>" className="bg-[#0A1128] text-gray-200">Paragraph</option>
+                        <option value="<h1>" className="bg-[#0A1128] text-white font-bold">H1 - Heading 1</option>
+                        <option value="<h2>" className="bg-[#0A1128] text-white font-bold">H2 - Heading 2</option>
+                        <option value="<h3>" className="bg-[#0A1128] text-[#FF3399] font-bold">H3 - Subheading</option>
+                        <option value="<h4>" className="bg-[#0A1128] text-cyan-300 font-bold">H4 - Minor Heading</option>
+                        <option value="<h5>" className="bg-[#0A1128] text-amber-300 font-bold">H5 - Small Heading</option>
+                      </select>
+                    </div>
+
+                    <div className="h-4 w-px bg-white/15 mx-0.5" />
+
+                    <button
+                      type="button"
+                      onClick={() => formatSpotlightDoc("bold")}
+                      className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-gray-200 hover:text-white"
+                      title="Bold (Ctrl+B)"
+                    >
+                      <Bold className="w-3.5 h-3.5" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => formatSpotlightDoc("italic")}
+                      className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-gray-200 hover:text-white"
+                      title="Italic (Ctrl+I)"
+                    >
+                      <Italic className="w-3.5 h-3.5" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => formatSpotlightDoc("underline")}
+                      className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-gray-200 hover:text-white"
+                      title="Underline (Ctrl+U)"
+                    >
+                      <Underline className="w-3.5 h-3.5" />
+                    </button>
+
+                    <div className="h-4 w-px bg-white/15 mx-0.5" />
+
+                    <button
+                      type="button"
+                      onClick={() => formatSpotlightDoc("insertUnorderedList")}
+                      className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-cyan-400 hover:text-cyan-300"
+                      title="Bullet List"
+                    >
+                      <List className="w-3.5 h-3.5" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => formatSpotlightDoc("insertOrderedList")}
+                      className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-cyan-400 hover:text-cyan-300"
+                      title="Numbered List"
+                    >
+                      <ListOrdered className="w-3.5 h-3.5" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => formatSpotlightDoc("formatBlock", "<blockquote>")}
+                      className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-pink-400 hover:text-pink-300"
+                      title="Quote"
+                    >
+                      <Quote className="w-3.5 h-3.5" />
+                    </button>
+
+                    <div className="h-4 w-px bg-white/15 mx-0.5" />
+
+                    <button
+                      type="button"
+                      onClick={handleSpotlightAddLink}
+                      className="px-2 py-1 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 text-xs font-bold flex items-center gap-1 cursor-pointer"
+                      title="Insert Hyperlink"
+                    >
+                      <LinkIcon className="w-3.5 h-3.5" />
+                      <span>Link</span>
+                    </button>
+                  </div>
+
+                  {/* WYSIWYG Editable Box */}
+                  <div
+                    ref={spotlightEditorRef}
+                    contentEditable
+                    onInput={(e) => setFormData((prev) => ({ ...prev, spotlightContent: e.currentTarget.innerHTML }))}
+                    className="min-h-[140px] max-h-[260px] overflow-y-auto bg-[#0A1128] border border-t-0 border-white/15 rounded-b-xl p-3.5 text-xs text-gray-200 focus:outline-none focus:border-cyan-400 custom-editor-scrollbar leading-relaxed"
+                  />
                 </div>
               </div>
 

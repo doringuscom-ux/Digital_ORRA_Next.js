@@ -38,6 +38,12 @@ const serviceSchema = new mongoose.Schema(
         a: { type: String },
       },
     ],
+    spotlightBadge: { type: String, default: "" },
+    spotlightTitle: { type: String, default: "" },
+    spotlightContent: { type: String, default: "" },
+    spotlightImage: { type: String, default: "" },
+    spotlightImageAlt: { type: String, default: "" },
+    spotlightImagePosition: { type: String, default: "right" }, // "left" or "right"
     order: { type: Number, default: 0 },
   },
   { timestamps: true, strict: false }

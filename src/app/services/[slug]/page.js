@@ -169,7 +169,7 @@ export default function ServiceDetailPage() {
                     href="/contact#form"
                     className="btn-glow-pink px-8 py-3.5 text-sm sm:text-base font-extrabold rounded-full inline-flex items-center gap-2 shadow-[0_0_25px_rgba(255,51,153,0.4)] hover:scale-105 transition-all"
                   >
-                    <span>Get Custom Proposal</span>
+                    <span>Free Audit</span>
                     <ArrowRight className="w-4 h-4" />
                   </Link>
 
@@ -248,12 +248,11 @@ export default function ServiceDetailPage() {
           {/* Detailed Deliverables */}
           {currentService.deliverables && currentService.deliverables.length > 0 && (
             <div className="mb-20">
-              <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
-                <div>
-                  <span className="text-xs font-mono uppercase tracking-widest text-pink-400 font-bold">Tangible Commercial Assets</span>
-                  <h2 className="text-3xl sm:text-4xl font-black text-white mt-1.5 tracking-tight">What You Get (Deliverables)</h2>
-                </div>
-                <p className="text-sm text-gray-300/80 max-w-md">
+              <div className="mb-10 pb-6 border-b border-white/10">
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight mb-3">
+                  What We <span className="bg-gradient-to-r from-pink-400 via-purple-300 to-cyan-300 bg-clip-text text-transparent">Deliver</span>
+                </h2>
+                <p className="text-sm sm:text-base text-gray-300/80 w-full leading-relaxed font-normal">
                   Everything we produce is engineered for high conversion, authoritative branding, and long-term business scale.
                 </p>
               </div>
@@ -277,6 +276,53 @@ export default function ServiceDetailPage() {
                     </p>
                   </div>
                 ))}
+              </div>
+            </div>
+          )}
+
+          {/* Dynamic Spotlight / Deep-Dive Framework Section */}
+          {currentService.spotlightContent && (
+            <div className="mb-20">
+              <div className={`p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-[#101A3A]/90 via-[#0A122A]/95 to-[#060B1C] border border-white/15 shadow-[0_20px_50px_rgba(0,0,0,0.6)] flex flex-col ${currentService.spotlightImagePosition === 'left' ? 'lg:flex-row-reverse' : 'lg:flex-row'} items-center gap-10 lg:gap-14 overflow-hidden relative group`}>
+                {/* Ambient Glow behind box */}
+                <div className="absolute top-0 right-0 w-80 h-80 bg-pink-500/10 rounded-full blur-[100px] pointer-events-none -z-0" />
+                <div className="absolute bottom-0 left-0 w-80 h-80 bg-cyan-500/10 rounded-full blur-[100px] pointer-events-none -z-0" />
+
+                {/* Content Side */}
+                <div className="flex-1 space-y-4 relative z-10 w-full">
+                  {currentService.spotlightBadge && (
+                    <div className="inline-flex items-center px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs font-semibold tracking-wider uppercase">
+                      {currentService.spotlightBadge}
+                    </div>
+                  )}
+
+                  {currentService.spotlightTitle && (
+                    <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white tracking-tight leading-snug">
+                      {currentService.spotlightTitle}
+                    </h2>
+                  )}
+
+                  <div 
+                    className="service-spotlight-content text-gray-300 leading-relaxed text-[15px] sm:text-base space-y-4 font-normal"
+                    dangerouslySetInnerHTML={{ __html: currentService.spotlightContent }}
+                  />
+                </div>
+
+                {/* Image Side */}
+                {currentService.spotlightImage && (
+                  <div className="w-full lg:w-[46%] flex-shrink-0 relative z-10">
+                    <div className="relative rounded-2xl overflow-hidden border border-white/15 bg-[#080E24] shadow-2xl group/img p-2">
+                      <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden bg-black/40">
+                        <img 
+                          src={currentService.spotlightImage} 
+                          alt={currentService.spotlightImageAlt || currentService.spotlightTitle || "Service Spotlight"} 
+                          className="w-full h-full object-cover object-center group-hover/img:scale-105 transition-transform duration-700 ease-out"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#060B1C]/60 via-transparent to-transparent pointer-events-none" />
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           )}

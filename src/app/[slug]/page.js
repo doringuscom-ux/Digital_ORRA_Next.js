@@ -79,15 +79,6 @@ export default function UniversalSlugPage() {
       setArticle(null);
 
       try {
-        // 1. First priority: If matched statically in servicesData
-        if (matchedStaticService) {
-          if (isMounted) {
-            setService(matchedStaticService);
-            setLoading(false);
-          }
-          return;
-        }
-
         // Fetch candidate endpoints concurrently to eliminate waterfall latency
         const [locRes, blogRes, srvRes] = await Promise.all([
           fetch(`/api/locations/${slug}`).catch(() => null),
@@ -121,8 +112,8 @@ export default function UniversalSlugPage() {
           if (isMounted && data && (data.title || data.slug)) {
             setArticle(data);
 
-            const pageTitle = data.metaTitle || data.title || "Digital ORRA Blog";
-            document.title = `${pageTitle} | Digital ORRA`;
+            const pageTitle = data.metaTitle ? data.metaTitle : (data.title ? `${data.title} | Digital ORRA` : "Digital ORRA Blog");
+            document.title = pageTitle;
 
             let metaDesc = document.querySelector('meta[name="description"]');
             if (!metaDesc) {

@@ -62,9 +62,7 @@ export default function Hero() {
         >
           <source src="/hero-bg.webm" type="video/webm" />
         </video>
-        {/* Deep Multi-stop Dark Overlay: softened so the video stays clear while maintaining text readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-[#0A1128]/25 to-[#0A1128]/90 z-30"></div>
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#0A1128] via-[#0A1128]/60 to-transparent z-40"></div>
+        {/* Video Overlays removed for full original clarity */}
       </div>
 
       {/* Hero Main Content */}

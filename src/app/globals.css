@@ -183,3 +183,100 @@ body {
   background: rgba(255, 51, 153, 0.7);
 }
 
+/* Service Spotlight Dynamic Content Typography */
+.service-spotlight-content h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-top: 1.25rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.25;
+}
+.service-spotlight-content h2 {
+  font-size: 1.65rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-top: 1.25rem;
+  margin-bottom: 0.65rem;
+  line-height: 1.3;
+}
+.service-spotlight-content h3 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #FF3399;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+.service-spotlight-content h4 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #00E5FF;
+  margin-top: 0.85rem;
+  margin-bottom: 0.5rem;
+}
+.service-spotlight-content h5 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fcd34d;
+  margin-top: 0.75rem;
+  margin-bottom: 0.4rem;
+}
+.service-spotlight-content p {
+  color: #CBD5E1;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin-bottom: 0.85rem;
+}
+.service-spotlight-content strong,
+.service-spotlight-content b {
+  font-weight: 700;
+  color: #ffffff;
+}
+.service-spotlight-content em,
+.service-spotlight-content i {
+  font-style: italic;
+  color: #e2e8f0;
+}
+.service-spotlight-content u {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: #00E5FF;
+}
+.service-spotlight-content a {
+  color: #00E5FF;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+.service-spotlight-content a:hover {
+  color: #FF3399;
+}
+.service-spotlight-content ul {
+  list-style-type: disc;
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+  color: #e2e8f0;
+}
+.service-spotlight-content ol {
+  list-style-type: decimal;
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+  color: #e2e8f0;
+}
+.service-spotlight-content li {
+  margin-bottom: 0.4rem;
+  line-height: 1.6;
+}
+.service-spotlight-content blockquote {
+  border-left: 3px solid #FF3399;
+  padding-left: 1rem;
+  margin: 1rem 0;
+  color: #94a3b8;
+  font-style: italic;
+  background: rgba(255, 51, 153, 0.05);
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-radius: 0 0.5rem 0.5rem 0;
+}
+
