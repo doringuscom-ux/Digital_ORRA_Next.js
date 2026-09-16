@@ -50,7 +50,7 @@ export default function About({
         </span>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+      <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 xl:px-16 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
           
           {/* Left Column: Single Premium Image */}

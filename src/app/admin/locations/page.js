@@ -49,15 +49,18 @@ export default function AdminLocationsPage() {
     heroHeadline: "",
     heroSubheadline: "",
     heroImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
+    whyLocalSuperTitle: "",
     whyLocalTitle: "Why Every Panchkula Business Needs a Strong Digital Identity",
     whyLocalContent: "",
     whyLocalImage: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1000&q=80",
+    whyLocalImagePosition: "right",
     whyChooseTitle: "Why Choose Digital ORRA as Your Web Development Partner in Panchkula?",
     whyChooseReasonsText: "Custom Web Design: Your business is unique, and so should your website be. Our web designers create bespoke designs tailored to reflect your brand identity.\nExpert Development Team: Our web developers leverage the latest technologies including HTML5, CSS3, PHP, React, and WordPress to build fast, secure, and scalable websites.\nMobile Optimization: With mobile traffic on the rise, we ensure that your website is responsive and functions seamlessly on all devices.\nSEO-Optimized Code: We follow SEO best practices from the start, ensuring your site gets indexed properly and ranks higher in search engines.\nUser Experience Focused: Our web designs are not just beautiful—they’re intuitive, easy to navigate, and built for engagement.",
     servicesTitle: "Our Comprehensive Website Services in Panchkula",
     servicesSubtitle: "As a trusted web development company in Panchkula, we provide an extensive suite of services tailored to different business models and industries.",
     servicesListText: "Corporate Website Design: Tailored corporate web design that establishes authority.\nE-commerce Website Development: Scalable online stores built with high converting checkouts.\nCustom Web Applications: Tailored React & Next.js applications solving complex operations.\nWordPress and CMS Solutions: Easy to manage content systems empowering your team.\nLanding Page Design: High conversion lead-generation landing pages for ad campaigns.\nWebsite Redesign & Upgradation: Modernize outdated designs with fresh cyber UI and faster speeds.\nMaintenance & Technical Support: 24/7 bug fixes, uptime monitoring, and security patching.\nSEO and Analytics Integration: Google Analytics, GTM, and technical SEO schema implemented.",
     processTitle: "The Digital ORRA Development Process",
+    processSubtitle: "Transparent milestones, real-time staging previews, and zero guesswork from discovery to deployment.",
     processStepsText: "Discovery & Planning: Understanding goals, competitors, and audience.\nWireframe Design: Laying out structural flows and wireframes.\nUI/UX Prototyping: Crafting aesthetic high-fidelity responsive visuals.\nDevelopment & Integration: Writing clean, modern code and backend connectivity.\nTesting & Quality Assurance: Rigorous cross-browser and speed audits.\nLaunch & Support: Seamless deployment and ongoing technical SLA.",
     whyBestTitle: "Why We’re the Best Website Designing Company in Panchkula",
     whyBestPointsText: "Experienced Professionals: Our web designers and developers bring years of expertise across diverse domains.\nClient-Centric Approach: We involve you at every stage of the project with full transparency.\nLocal Advantage: Being based in the Tricity area, we understand the local market and customer behavior.\nAffordable Pricing: Quality doesn’t have to break the bank. Our pricing is competitive and transparent.",
@@ -69,6 +72,7 @@ export default function AdminLocationsPage() {
     metaTitle: "",
     metaDescription: "",
     metaKeywords: "",
+    customSections: [],
     isPublished: true
   };
 
@@ -115,6 +119,33 @@ export default function AdminLocationsPage() {
       alert("Error uploading image: " + err.message);
     } finally {
       setLoader(false);
+    }
+  };
+
+  // Upload handler for Custom Section Image
+  const handleUploadCustomSectionImage = async (file, index) => {
+    if (!file) return;
+    try {
+      const uploadData = new FormData();
+      uploadData.append("file", file);
+
+      const res = await fetch("/api/upload", {
+        method: "POST",
+        body: uploadData,
+      });
+
+      if (!res.ok) throw new Error("Upload failed. Please check credentials.");
+      const data = await res.json();
+      setFormData((prev) => {
+        const updated = [...(prev.customSections || [])];
+        if (updated[index]) {
+          updated[index] = { ...updated[index], image: data.url };
+        }
+        return { ...prev, customSections: updated };
+      });
+      setFeedback({ type: "success", text: "Section image uploaded successfully!" });
+    } catch (err) {
+      alert("Error uploading image: " + err.message);
     }
   };
 
@@ -177,15 +208,18 @@ export default function AdminLocationsPage() {
       heroHeadline: p.heroHeadline || "",
       heroSubheadline: p.heroSubheadline || "",
       heroImage: p.heroImage || "",
+      whyLocalSuperTitle: p.whyLocalSuperTitle || "",
       whyLocalTitle: p.whyLocalTitle || "",
       whyLocalContent: p.whyLocalContent || "",
       whyLocalImage: p.whyLocalImage || "",
+      whyLocalImagePosition: p.whyLocalImagePosition || "right",
       whyChooseTitle: p.whyChooseTitle || "",
       whyChooseReasonsText: formatItemsToText(p.whyChooseReasons),
       servicesTitle: p.servicesTitle || "",
       servicesSubtitle: p.servicesSubtitle || "",
       servicesListText: formatItemsToText(p.servicesList),
       processTitle: p.processTitle || "",
+      processSubtitle: p.processSubtitle || "",
       processStepsText: formatItemsToText(p.processSteps),
       whyBestTitle: p.whyBestTitle || "",
       whyBestPointsText: formatItemsToText(p.whyBestPoints),
@@ -197,6 +231,7 @@ export default function AdminLocationsPage() {
       metaTitle: p.metaTitle || "",
       metaDescription: p.metaDescription || "",
       metaKeywords: p.metaKeywords || "",
+      customSections: Array.isArray(p.customSections) ? p.customSections : [],
       isPublished: p.isPublished !== false
     });
     setModalOpen(true);
@@ -240,15 +275,18 @@ export default function AdminLocationsPage() {
       heroHeadline: formData.heroHeadline || formData.title,
       heroSubheadline: formData.heroSubheadline,
       heroImage: formData.heroImage,
+      whyLocalSuperTitle: formData.whyLocalSuperTitle,
       whyLocalTitle: formData.whyLocalTitle,
       whyLocalContent: formData.whyLocalContent,
       whyLocalImage: formData.whyLocalImage,
+      whyLocalImagePosition: formData.whyLocalImagePosition || "right",
       whyChooseTitle: formData.whyChooseTitle,
       whyChooseReasons: parseLinesToItems(formData.whyChooseReasonsText),
       servicesTitle: formData.servicesTitle,
       servicesSubtitle: formData.servicesSubtitle,
       servicesList: parseLinesToItems(formData.servicesListText),
       processTitle: formData.processTitle,
+      processSubtitle: formData.processSubtitle,
       processSteps: parseProcessSteps(formData.processStepsText),
       whyBestTitle: formData.whyBestTitle,
       whyBestPoints: parseLinesToItems(formData.whyBestPointsText),
@@ -260,6 +298,7 @@ export default function AdminLocationsPage() {
       metaTitle: formData.metaTitle || formData.title,
       metaDescription: formData.metaDescription || formData.heroSubheadline,
       metaKeywords: formData.metaKeywords,
+      customSections: formData.customSections || [],
       isPublished: publishState
     };
 
@@ -682,7 +721,20 @@ export default function AdminLocationsPage() {
                 <div className="space-y-3">
                   <div>
                     <label className="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-1.5">
-                      Card Title
+                      Section Main Heading (Outside Box) <span className="text-gray-400 font-normal lowercase">(optional - leave blank to hide completely)</span>
+                    </label>
+                    <input
+                      type="text"
+                      value={formData.whyLocalSuperTitle}
+                      onChange={(e) => setFormData({ ...formData, whyLocalSuperTitle: e.target.value })}
+                      placeholder="Leave empty if you don't want any outer heading"
+                      className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-teal-400"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-1.5">
+                      Card Title (Inside Box)
                     </label>
                     <input
                       type="text"
@@ -706,41 +758,293 @@ export default function AdminLocationsPage() {
                     />
                   </div>
 
-                  {/* Local Section Photo */}
-                  <div className="p-3.5 rounded-xl bg-black/30 border border-white/10 space-y-2">
-                    <div className="text-xs font-bold text-teal-400 uppercase tracking-wider flex items-center gap-1.5">
-                      <ImageIcon className="w-4 h-4" /> Section 2 Right Showcase Photo
-                    </div>
-                    <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
-                      <div className="relative w-24 h-16 rounded-lg overflow-hidden bg-black/40 border border-white/15 shrink-0">
-                        {formData.whyLocalImage ? (
-                          <img src={formData.whyLocalImage} alt="Market Preview" className="w-full h-full object-cover" />
-                        ) : (
-                          <div className="w-full h-full flex items-center justify-center text-[10px] text-gray-500">No Photo</div>
-                        )}
+                  {/* Local Section Photo & Position */}
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div className="sm:col-span-2 p-3.5 rounded-xl bg-black/30 border border-white/10 space-y-2">
+                      <div className="text-xs font-bold text-teal-400 uppercase tracking-wider flex items-center gap-1.5">
+                        <ImageIcon className="w-4 h-4" /> Section 2 Showcase Photo
                       </div>
-                      <div className="flex-1 space-y-1.5 w-full">
-                        <input
-                          type="text"
-                          value={formData.whyLocalImage}
-                          onChange={(e) => setFormData({ ...formData, whyLocalImage: e.target.value })}
-                          placeholder="Local section photo URL..."
-                          className="w-full px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-white text-xs"
-                        />
-                        <label className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-gray-300 text-xs cursor-pointer">
-                          <Upload className="w-3 h-3 text-teal-400" />
-                          <span>{uploadingLocal ? "Uploading..." : "Upload Market Section Photo"}</span>
+                      <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
+                        <div className="relative w-24 h-16 rounded-lg overflow-hidden bg-black/40 border border-white/15 shrink-0">
+                          {formData.whyLocalImage ? (
+                            <img src={formData.whyLocalImage} alt="Market Preview" className="w-full h-full object-cover" />
+                          ) : (
+                            <div className="w-full h-full flex items-center justify-center text-[10px] text-gray-500">No Photo</div>
+                          )}
+                        </div>
+                        <div className="flex-1 space-y-1.5 w-full">
                           <input
-                            type="file"
-                            accept="image/*"
-                            className="hidden"
-                            onChange={(e) => handleUploadImage(e.target.files?.[0], "whyLocalImage", setUploadingLocal)}
+                            type="text"
+                            value={formData.whyLocalImage}
+                            onChange={(e) => setFormData({ ...formData, whyLocalImage: e.target.value })}
+                            placeholder="Local section photo URL..."
+                            className="w-full px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-white text-xs"
                           />
-                        </label>
+                          <label className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-gray-300 text-xs cursor-pointer">
+                            <Upload className="w-3 h-3 text-teal-400" />
+                            <span>{uploadingLocal ? "Uploading..." : "Upload Market Section Photo"}</span>
+                            <input
+                              type="file"
+                              accept="image/*"
+                              className="hidden"
+                              onChange={(e) => handleUploadImage(e.target.files?.[0], "whyLocalImage", setUploadingLocal)}
+                            />
+                          </label>
+                        </div>
                       </div>
+                    </div>
+
+                    {/* Section 2 Image Side */}
+                    <div className="p-3.5 rounded-xl bg-black/30 border border-white/10 flex flex-col justify-between">
+                      <label className="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-1.5">
+                        Image Side
+                      </label>
+                      <div className="grid grid-cols-2 gap-2">
+                        <button
+                          type="button"
+                          onClick={() => setFormData({ ...formData, whyLocalImagePosition: "left" })}
+                          className={`py-2 rounded-lg text-xs font-semibold border transition-all ${
+                            formData.whyLocalImagePosition === "left"
+                              ? "bg-teal-500/20 border-teal-400 text-teal-300"
+                              : "bg-white/5 border-white/10 text-gray-400 hover:text-white"
+                          }`}
+                        >
+                          Left Side
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setFormData({ ...formData, whyLocalImagePosition: "right" })}
+                          className={`py-2 rounded-lg text-xs font-semibold border transition-all ${
+                            (formData.whyLocalImagePosition || "right") === "right"
+                              ? "bg-teal-500/20 border-teal-400 text-teal-300"
+                              : "bg-white/5 border-white/10 text-gray-400 hover:text-white"
+                          }`}
+                        >
+                          Right Side
+                        </button>
+                      </div>
+                      <span className="text-[10px] text-gray-500 mt-1">Controls Section 2 image side</span>
                     </div>
                   </div>
                 </div>
+              </div>
+
+              {/* ============================================================ */}
+              {/* DYNAMIC ADDITIONAL SECTIONS (Same Style Cards with + Button) */}
+              {/* ============================================================ */}
+              <div className="space-y-4">
+                <div className="flex items-center justify-between p-3.5 rounded-xl bg-gradient-to-r from-teal-500/10 via-cyan-500/10 to-transparent border border-teal-500/20">
+                  <div>
+                    <h4 className="text-sm font-bold text-white flex items-center gap-2">
+                      <span>Extra Card Sections</span>
+                      <span className="px-2 py-0.5 rounded-full bg-teal-500/20 text-teal-300 text-[11px] font-mono">
+                        {(formData.customSections || []).length} Added
+                      </span>
+                    </h4>
+                    <p className="text-xs text-gray-400">Add more sections with the same cyberpunk card + photo layout.</p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setFormData((prev) => ({
+                        ...prev,
+                        customSections: [
+                          ...(prev.customSections || []),
+                          {
+                            superTitle: "",
+                            title: "",
+                            content: "",
+                            image: "",
+                            imagePosition: "right"
+                          }
+                        ]
+                      }));
+                    }}
+                    className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-teal-500 to-cyan-500 text-black font-bold text-xs shadow-[0_0_15px_rgba(20,184,166,0.3)] hover:scale-105 active:scale-95 transition-all"
+                  >
+                    <Plus className="w-4 h-4" />
+                    <span>Add New Section</span>
+                  </button>
+                </div>
+
+                {(formData.customSections || []).map((sec, sIdx) => (
+                  <div key={sIdx} className="p-5 rounded-2xl bg-white/[0.03] border border-cyan-500/30 space-y-4 relative group">
+                    <div className="flex items-center justify-between border-b border-white/10 pb-3">
+                      <div className="flex items-center gap-2">
+                        <span className="px-2.5 py-0.5 rounded-full bg-cyan-500/20 border border-cyan-500/40 text-cyan-300 text-xs font-bold font-mono">
+                          EXTRA SECTION #{sIdx + 1}
+                        </span>
+                        <span className="text-sm font-bold text-white">
+                          {sec.title || sec.superTitle || "Untitled Extra Section"}
+                        </span>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setFormData((prev) => ({
+                            ...prev,
+                            customSections: prev.customSections.filter((_, idx) => idx !== sIdx)
+                          }));
+                        }}
+                        className="p-1.5 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 text-rose-400 text-xs flex items-center gap-1 transition-colors"
+                        title="Delete Section"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                        <span>Remove</span>
+                      </button>
+                    </div>
+
+                    <div className="space-y-3">
+                      <div>
+                        <label className="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-1.5">
+                          Section Main Heading (Outside Box) <span className="text-gray-400 font-normal lowercase">(optional - leave blank to hide)</span>
+                        </label>
+                        <input
+                          type="text"
+                          value={sec.superTitle || ""}
+                          onChange={(e) => {
+                            const val = e.target.value;
+                            setFormData((prev) => {
+                              const updated = [...prev.customSections];
+                              updated[sIdx] = { ...updated[sIdx], superTitle: val };
+                              return { ...prev, customSections: updated };
+                            });
+                          }}
+                          placeholder="e.g. Proven Track Record or Leave Empty"
+                          className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-cyan-400"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-1.5">
+                          Card Title (Inside Box) *
+                        </label>
+                        <input
+                          type="text"
+                          value={sec.title || ""}
+                          onChange={(e) => {
+                            const val = e.target.value;
+                            setFormData((prev) => {
+                              const updated = [...prev.customSections];
+                              updated[sIdx] = { ...updated[sIdx], title: val };
+                              return { ...prev, customSections: updated };
+                            });
+                          }}
+                          placeholder="e.g. Scaling Local Brands with Data-Driven Strategies"
+                          className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-cyan-400"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-1.5">
+                          Card Detailed Description *
+                        </label>
+                        <textarea
+                          rows={3}
+                          value={sec.content || ""}
+                          onChange={(e) => {
+                            const val = e.target.value;
+                            setFormData((prev) => {
+                              const updated = [...prev.customSections];
+                              updated[sIdx] = { ...updated[sIdx], content: val };
+                              return { ...prev, customSections: updated };
+                            });
+                          }}
+                          placeholder="Write detailed paragraph content for this section..."
+                          className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-cyan-400"
+                        />
+                      </div>
+
+                      {/* Photo + Position */}
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <div className="sm:col-span-2 p-3.5 rounded-xl bg-black/30 border border-white/10 space-y-2">
+                          <div className="text-xs font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-1.5">
+                            <ImageIcon className="w-4 h-4" /> Section Showcase Photo
+                          </div>
+                          <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
+                            <div className="relative w-24 h-16 rounded-lg overflow-hidden bg-black/40 border border-white/15 shrink-0">
+                              {sec.image ? (
+                                <img src={sec.image} alt="Preview" className="w-full h-full object-cover" />
+                              ) : (
+                                <div className="w-full h-full flex items-center justify-center text-[10px] text-gray-500">No Photo</div>
+                              )}
+                            </div>
+                            <div className="flex-1 space-y-1.5 w-full">
+                              <input
+                                type="text"
+                                value={sec.image || ""}
+                                onChange={(e) => {
+                                  const val = e.target.value;
+                                  setFormData((prev) => {
+                                    const updated = [...prev.customSections];
+                                    updated[sIdx] = { ...updated[sIdx], image: val };
+                                    return { ...prev, customSections: updated };
+                                  });
+                                }}
+                                placeholder="Paste image URL..."
+                                className="w-full px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-white text-xs"
+                              />
+                              <label className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-gray-300 text-xs cursor-pointer">
+                                <Upload className="w-3 h-3 text-cyan-400" />
+                                <span>Upload Image</span>
+                                <input
+                                  type="file"
+                                  accept="image/*"
+                                  className="hidden"
+                                  onChange={(e) => handleUploadCustomSectionImage(e.target.files?.[0], sIdx)}
+                                />
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Image Position */}
+                        <div className="p-3.5 rounded-xl bg-black/30 border border-white/10 flex flex-col justify-between">
+                          <label className="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-1.5">
+                            Image Side
+                          </label>
+                          <div className="grid grid-cols-2 gap-2">
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setFormData((prev) => {
+                                  const updated = [...prev.customSections];
+                                  updated[sIdx] = { ...updated[sIdx], imagePosition: "right" };
+                                  return { ...prev, customSections: updated };
+                                });
+                              }}
+                              className={`py-2 rounded-lg text-xs font-semibold border transition-all ${
+                                (sec.imagePosition || "right") === "right"
+                                  ? "bg-cyan-500/20 border-cyan-400 text-cyan-300"
+                                  : "bg-white/5 border-white/10 text-gray-400 hover:text-white"
+                              }`}
+                            >
+                              Right Side
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setFormData((prev) => {
+                                  const updated = [...prev.customSections];
+                                  updated[sIdx] = { ...updated[sIdx], imagePosition: "left" };
+                                  return { ...prev, customSections: updated };
+                                });
+                              }}
+                              className={`py-2 rounded-lg text-xs font-semibold border transition-all ${
+                                sec.imagePosition === "left"
+                                  ? "bg-cyan-500/20 border-cyan-400 text-cyan-300"
+                                  : "bg-white/5 border-white/10 text-gray-400 hover:text-white"
+                              }`}
+                            >
+                              Left Side
+                            </button>
+                          </div>
+                          <span className="text-[10px] text-gray-500 mt-1">Controls image placement in grid</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
 
               {/* ============================================================ */}
@@ -824,6 +1128,19 @@ export default function AdminLocationsPage() {
                       value={formData.processTitle}
                       onChange={(e) => setFormData({ ...formData, processTitle: e.target.value })}
                       placeholder="The Digital ORRA Development Process"
+                      className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-purple-400"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-1.5">
+                      Section Subtitle / Description
+                    </label>
+                    <input
+                      type="text"
+                      value={formData.processSubtitle || ""}
+                      onChange={(e) => setFormData({ ...formData, processSubtitle: e.target.value })}
+                      placeholder="Transparent milestones, real-time staging previews, and zero guesswork from discovery to deployment."
                       className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-purple-400"
                     />
                   </div>

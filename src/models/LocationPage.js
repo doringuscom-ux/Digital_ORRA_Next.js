@@ -11,9 +11,22 @@ const locationPageSchema = new mongoose.Schema(
     heroImage: { type: String, default: "" },
     
     // Overview / Why Local section
-    whyLocalTitle: { type: String, default: "Why Every Business Needs a Strong Digital Identity" },
+    whyLocalSuperTitle: { type: String, default: "" },
+    whyLocalTitle: { type: String, default: "" },
     whyLocalContent: { type: String },
     whyLocalImage: { type: String, default: "" },
+    whyLocalImagePosition: { type: String, default: "right" },
+
+    // Additional Custom Sections (Like Local Market Dominance card style)
+    customSections: [
+      {
+        superTitle: { type: String, default: "" },
+        title: { type: String, default: "" },
+        content: { type: String, default: "" },
+        image: { type: String, default: "" },
+        imagePosition: { type: String, default: "right" } // "left" or "right"
+      }
+    ],
     
     // Why Choose Digital ORRA
     whyChooseTitle: { type: String, default: "Why Choose Digital ORRA as Your Web Development Partner" },

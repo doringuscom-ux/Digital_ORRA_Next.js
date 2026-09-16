@@ -185,20 +185,22 @@ export default function LocationPageView({ page, slug }) {
           {/* 2. SECTION: WHY EVERY LOCAL BUSINESS NEEDS DIGITAL IDENTITY */}
           {page.whyLocalContent && (
             <section className="mb-12 sm:mb-16 relative">
-              {/* Top Section Heading (Outside the box) */}
-              <div className="text-center max-w-4xl mx-auto mb-6 sm:mb-8 relative z-10">
-                {/* Ambient glow behind heading */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-16 bg-cyan-500/20 blur-3xl rounded-full pointer-events-none" />
+              {/* Top Section Heading (Outside the box) - only render if heading is provided */}
+              {page.whyLocalSuperTitle && page.whyLocalSuperTitle.trim() !== "" && (
+                <div className="text-center max-w-4xl mx-auto mb-6 sm:mb-8 relative z-10">
+                  {/* Ambient glow behind heading */}
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-16 bg-cyan-500/20 blur-3xl rounded-full pointer-events-none" />
 
-                {/* Grand Section Title */}
-                <div className="flex items-center justify-center gap-4 sm:gap-6">
-                  <div className="hidden sm:block h-[1px] w-12 sm:w-20 bg-gradient-to-r from-transparent to-cyan-400/60" />
-                  <h3 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-white">
-                    Local Market <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-teal-300 to-[#FF3399]">Dominance</span>
-                  </h3>
-                  <div className="hidden sm:block h-[1px] w-12 sm:w-20 bg-gradient-to-l from-transparent to-cyan-400/60" />
+                  {/* Grand Section Title */}
+                  <div className="flex items-center justify-center gap-4 sm:gap-6">
+                    <div className="hidden sm:block h-[1px] w-12 sm:w-20 bg-gradient-to-r from-transparent to-cyan-400/60" />
+                    <h3 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-white text-center">
+                      {page.whyLocalSuperTitle}
+                    </h3>
+                    <div className="hidden sm:block h-[1px] w-12 sm:w-20 bg-gradient-to-l from-transparent to-cyan-400/60" />
+                  </div>
                 </div>
-              </div>
+              )}
 
               {/* Outer ambient aura */}
               <div className="absolute -inset-1 rounded-[36px] bg-gradient-to-r from-cyan-500/20 via-pink-500/10 to-indigo-500/20 blur-2xl opacity-50 pointer-events-none" />
@@ -211,54 +213,31 @@ export default function LocationPageView({ page, slug }) {
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center relative z-10">
                   
                   {/* Left Content inside the card */}
-                  <div className="lg:col-span-7 space-y-4">
-                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tight leading-[1.25]">
-                      {page.whyLocalTitle || `Why Every ${city} Business Needs a Strong Digital Identity`}
-                    </h2>
+                  <div className={`lg:col-span-7 space-y-4 ${page.whyLocalImagePosition === "left" ? "lg:order-2" : ""}`}>
+                    {page.whyLocalTitle && (
+                      <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tight leading-[1.25]">
+                        {page.whyLocalTitle}
+                      </h2>
+                    )}
 
-                    <p className="text-base sm:text-lg text-gray-200 leading-relaxed font-normal">
+                    <p className="text-base sm:text-lg text-gray-200 leading-relaxed font-normal whitespace-pre-line">
                       {page.whyLocalContent}
                     </p>
-
-                    {/* Rich Benefit Badges */}
-                    <div className="pt-2 flex flex-wrap gap-3">
-                      <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#09152b] border border-cyan-400/30 text-xs sm:text-sm font-semibold text-cyan-200">
-                        <CheckCircle className="w-4 h-4 text-cyan-400" />
-                        <span>High Google SERP Ranking</span>
-                      </div>
-                      <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#240c1e] border border-[#FF3399]/30 text-xs sm:text-sm font-semibold text-pink-200">
-                        <CheckCircle className="w-4 h-4 text-[#FF3399]" />
-                        <span>Inbound Lead Automation</span>
-                      </div>
-                      <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#0b211a] border border-emerald-400/30 text-xs sm:text-sm font-semibold text-emerald-200">
-                        <CheckCircle className="w-4 h-4 text-emerald-400" />
-                        <span>Brand Trust & Authority</span>
-                      </div>
-                    </div>
                   </div>
 
-                  {/* Right Image with Floating Interactive Showcase */}
-                  <div className="lg:col-span-5 relative">
+                  {/* Right/Left Image Showcase */}
+                  <div className={`lg:col-span-5 relative ${page.whyLocalImagePosition === "left" ? "lg:order-1" : ""}`}>
                     <div className="relative group">
                       <div className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-cyan-500 to-[#FF3399] opacity-30 blur-xl group-hover:opacity-50 transition duration-700" />
                       
                       <div className="relative rounded-2xl overflow-hidden border border-white/20 shadow-2xl bg-[#070e1f]">
-                        <div className="h-56 sm:h-64 w-full relative overflow-hidden">
+                        <div className="h-64 sm:h-72 w-full relative overflow-hidden">
                           <img 
                             src={defaultMarketImg} 
                             alt={`Business Growth in ${city}`} 
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                           />
-                          <div className="absolute inset-0 bg-gradient-to-t from-[#070e1f] via-transparent to-transparent" />
-                        </div>
-
-                        {/* Floating Live Badge */}
-                        <div className="p-3 bg-[#070e1f] border-t border-white/10 flex items-center justify-between">
-                          <div className="flex items-center gap-2 text-xs text-white font-semibold">
-                            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                            Verified Panchkula Growth
-                          </div>
-                          <span className="text-[11px] text-cyan-300 font-mono font-semibold">Top SERP Results</span>
+                          <div className="absolute inset-0 bg-gradient-to-t from-[#070e1f]/40 via-transparent to-transparent" />
                         </div>
                       </div>
                     </div>
@@ -268,6 +247,73 @@ export default function LocationPageView({ page, slug }) {
               </div>
             </section>
           )}
+
+          {/* DYNAMIC ADDITIONAL CARD SECTIONS (Rendered if user added extra sections in admin) */}
+          {Array.isArray(page.customSections) && page.customSections.map((sec, idx) => {
+            if (!sec.title && !sec.content) return null;
+            const isLeftImage = sec.imagePosition === "left";
+            return (
+              <section key={idx} className="mb-12 sm:mb-16 relative">
+                {/* Optional Super Title (Outside Box) - Only if text provided, 0 space if empty */}
+                {sec.superTitle && sec.superTitle.trim() !== "" && (
+                  <div className="text-center max-w-4xl mx-auto mb-6 sm:mb-8 relative z-10">
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-16 bg-cyan-500/20 blur-3xl rounded-full pointer-events-none" />
+                    <div className="flex items-center justify-center gap-4 sm:gap-6">
+                      <div className="hidden sm:block h-[1px] w-12 sm:w-20 bg-gradient-to-r from-transparent to-cyan-400/60" />
+                      <h3 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-white text-center">
+                        {sec.superTitle}
+                      </h3>
+                      <div className="hidden sm:block h-[1px] w-12 sm:w-20 bg-gradient-to-l from-transparent to-cyan-400/60" />
+                    </div>
+                  </div>
+                )}
+
+                {/* Ambient glow wrapper */}
+                <div className="absolute -inset-1 rounded-[36px] bg-gradient-to-r from-teal-500/20 via-cyan-500/10 to-indigo-500/20 blur-2xl opacity-50 pointer-events-none" />
+
+                <div className="relative rounded-[32px] p-7 sm:p-9 md:p-11 bg-[#0b1329] border border-cyan-500/30 backdrop-blur-2xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.6)]">
+                  {/* Internal ambient glow */}
+                  <div className="absolute -top-20 -right-20 w-80 h-80 bg-cyan-500/15 rounded-full blur-3xl pointer-events-none" />
+                  <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-[#FF3399]/15 rounded-full blur-3xl pointer-events-none" />
+
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center relative z-10">
+                    {/* Content Column */}
+                    <div className={`lg:col-span-7 space-y-4 ${isLeftImage ? "lg:order-2" : ""}`}>
+                      {sec.title && (
+                        <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tight leading-[1.25]">
+                          {sec.title}
+                        </h2>
+                      )}
+                      {sec.content && (
+                        <p className="text-base sm:text-lg text-gray-200 leading-relaxed font-normal whitespace-pre-line">
+                          {sec.content}
+                        </p>
+                      )}
+                    </div>
+
+                    {/* Image Column */}
+                    {sec.image && (
+                      <div className={`lg:col-span-5 relative ${isLeftImage ? "lg:order-1" : ""}`}>
+                        <div className="relative group">
+                          <div className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-teal-500 to-cyan-400 opacity-30 blur-xl group-hover:opacity-50 transition duration-700" />
+                          <div className="relative rounded-2xl overflow-hidden border border-white/20 shadow-2xl bg-[#070e1f]">
+                            <div className="h-64 sm:h-72 w-full relative overflow-hidden">
+                              <img 
+                                src={sec.image} 
+                                alt={sec.title || "Section Showcase"} 
+                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                              />
+                              <div className="absolute inset-0 bg-gradient-to-t from-[#070e1f]/40 via-transparent to-transparent" />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </section>
+            );
+          })}
 
           {/* 3. SECTION: WHY CHOOSE DIGITAL ORRA */}
           {page.whyChooseReasons && page.whyChooseReasons.length > 0 && (
@@ -456,9 +502,11 @@ export default function LocationPageView({ page, slug }) {
                 <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-2.5">
                   {page.processTitle || "The Digital ORRA Development Process"}
                 </h2>
-                <p className="text-gray-300 text-sm sm:text-base max-w-2xl mx-auto font-normal">
-                  Transparent milestones, real-time staging previews, and zero guesswork from discovery to deployment.
-                </p>
+                {(page.processSubtitle !== undefined ? page.processSubtitle : "Transparent milestones, real-time staging previews, and zero guesswork from discovery to deployment.") && (
+                  <p className="text-gray-300 text-sm sm:text-base max-w-2xl mx-auto font-normal">
+                    {page.processSubtitle !== undefined ? page.processSubtitle : "Transparent milestones, real-time staging previews, and zero guesswork from discovery to deployment."}
+                  </p>
+                )}
               </div>
 
               {/* Connected Roadmap Timeline Layout */}
