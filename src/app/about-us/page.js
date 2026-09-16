@@ -177,6 +177,7 @@ export default function AboutUsPage() {
                         <img 
                           src={serv.gif} 
                           alt={serv.title} 
+                          title={`${serv.title} - Digital ORRA`}
                           className="w-9 h-9 object-contain flex-shrink-0"
                         />
                       )}

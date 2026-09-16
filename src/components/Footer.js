@@ -115,6 +115,7 @@ export default function Footer({ hideCta = false }) {
                 <Image 
                   src="/DO JPG.jpeg" 
                   alt="Digital ORRA Logo" 
+                  title="Digital ORRA Logo"
                   width={195} 
                   height={62} 
                   style={{ width: "auto", height: "auto" }}
@@ -158,6 +159,7 @@ export default function Footer({ hideCta = false }) {
               </h4>
               <ul className="flex flex-col gap-3 sm:gap-3.5">
                 {[
+                  { name: 'Our Locations', href: '/locations' },
                   { name: 'About Us', href: '/about-us' },
                   { name: 'Company Profile', href: '/company-profile' },
                   { name: 'Our Services', href: '/services' },
@@ -265,6 +267,7 @@ export default function Footer({ hideCta = false }) {
             &copy; {currentYear} Digital ORRA. All rights reserved.
           </p>
           <div className="flex flex-wrap gap-5 sm:gap-6 text-sm font-light text-gray-400">
+            <Link href="/locations" className="hover:text-cyan-400 font-medium text-gray-300 transition-colors">Locations</Link>
             <Link href="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link>
             <Link href="/sitemap" className="hover:text-cyan-400 transition-colors">Sitemap</Link>
             <Link href="/privacy-policy" className="hover:text-white transition-colors">Terms of Service</Link>

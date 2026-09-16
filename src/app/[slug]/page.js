@@ -177,6 +177,15 @@ export default function UniversalSlugPage() {
             }
             ogUrl.content = currentCanonical;
 
+            // Robots Meta Tag
+            let metaRobots = document.querySelector('meta[name="robots"]');
+            if (!metaRobots) {
+              metaRobots = document.createElement("meta");
+              metaRobots.name = "robots";
+              document.head.appendChild(metaRobots);
+            }
+            metaRobots.content = "index, follow";
+
             // Lazy fetch recent blogs in background without blocking
             fetch('/api/blogs')
               .then(r => r.ok ? r.json() : [])

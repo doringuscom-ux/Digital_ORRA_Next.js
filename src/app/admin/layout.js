@@ -276,6 +276,7 @@ export default function AdminLayout({ children }) {
               <Image
                 src="/DO JPG.jpeg"
                 alt="Digital ORRA Logo"
+                title="Digital ORRA Logo"
                 width={100}
                 height={32}
                 style={{ width: "auto", height: "auto" }}

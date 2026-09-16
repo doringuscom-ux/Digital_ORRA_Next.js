@@ -1,5 +1,6 @@
 import { Outfit } from "next/font/google";
 import "./globals.css";
+import GlobalImageSeoObserver from "../components/GlobalImageSeoObserver";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -9,8 +10,41 @@ const outfit = Outfit({
 });
 
 export const metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://digitalorra.com"),
   title: "DIGITAL ORRA | Architects of Digital Dominance",
   description: "Premium Digital Marketing Agency",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+};
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Digital ORRA",
+  "url": "https://digitalorra.com",
+  "logo": "https://digitalorra.com/DO%20JPG.jpeg",
+  "image": "https://digitalorra.com/DO%20JPG.jpeg",
+  "description": "Premium Digital Marketing & Web Development Agency in Panchkula & Chandigarh Tricity",
+  "telephone": "+91 90564 33303",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Panchkula",
+    "addressRegion": "Haryana",
+    "addressCountry": "IN"
+  },
+  "sameAs": [
+    "https://www.instagram.com/digitalorra",
+    "https://www.facebook.com/digitalorra"
+  ]
 };
 
 export default function RootLayout({ children }) {
@@ -20,7 +54,14 @@ export default function RootLayout({ children }) {
       suppressHydrationWarning
       className={`${outfit.variable} h-full antialiased`}
     >
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
+      </head>
       <body suppressHydrationWarning className={`${outfit.className} min-h-full flex flex-col font-sans`}>
+        <GlobalImageSeoObserver />
         {children}
       </body>
     </html>

@@ -154,7 +154,8 @@ export default function LocationPageView({ page, slug }) {
                     <div className="relative h-64 sm:h-72 w-full rounded-2xl overflow-hidden group">
                       <img 
                         src={defaultHeroImg} 
-                        alt={page.title}
+                        alt={page.heroHeadline || page.title || `Web Solutions & Digital Growth in ${city}`}
+                        title={page.heroSubheadline ? `${page.heroHeadline || page.title} - ${page.heroSubheadline.slice(0, 100)}` : (page.heroHeadline || page.title)}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-[#091122]/40 via-transparent to-transparent" />
@@ -234,7 +235,8 @@ export default function LocationPageView({ page, slug }) {
                         <div className="h-64 sm:h-72 w-full relative overflow-hidden">
                           <img 
                             src={defaultMarketImg} 
-                            alt={`Business Growth in ${city}`} 
+                            alt={page.whyLocalTitle || page.whyLocalSuperTitle || `Business Growth in ${city}`} 
+                            title={page.whyLocalSuperTitle ? `${page.whyLocalSuperTitle} - ${page.whyLocalTitle || page.whyLocalContent?.slice(0, 100) || city}` : (page.whyLocalTitle || `Digital Growth in ${city}`)}
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-[#070e1f]/40 via-transparent to-transparent" />
@@ -300,7 +302,8 @@ export default function LocationPageView({ page, slug }) {
                             <div className="h-64 sm:h-72 w-full relative overflow-hidden">
                               <img 
                                 src={sec.image} 
-                                alt={sec.title || "Section Showcase"} 
+                                alt={sec.title || sec.superTitle || `Showcase in ${city}`} 
+                                title={sec.superTitle ? `${sec.superTitle} - ${sec.title || sec.content?.slice(0, 100) || ''}` : (sec.title || sec.content?.slice(0, 100) || `Services in ${city}`)}
                                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                               />
                               <div className="absolute inset-0 bg-gradient-to-t from-[#070e1f]/40 via-transparent to-transparent" />
@@ -446,6 +449,7 @@ export default function LocationPageView({ page, slug }) {
                         <img
                           src={serv.gif}
                           alt={serv.title}
+                          title={`${serv.title} - ${serv.desc ? serv.desc.slice(0, 100) : 'Digital ORRA'}`}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         />
                         {/* Number Badge */}
@@ -605,7 +609,8 @@ export default function LocationPageView({ page, slug }) {
                     <div className="rounded-2xl overflow-hidden border border-white/15 shadow-xl h-52 sm:h-60">
                       <img 
                         src={defaultAdvantageImg} 
-                        alt="Global Standards Web Studio" 
+                        alt={page.localAdvantageTitle || `Digital ORRA Regional Office in ${city}`} 
+                        title={page.localAdvantageContent ? `${page.localAdvantageTitle || 'Digital ORRA'} - ${page.localAdvantageContent.slice(0, 100)}` : (page.localAdvantageTitle || `Offices in ${city}`)}
                         className="w-full h-full object-cover"
                       />
                     </div>

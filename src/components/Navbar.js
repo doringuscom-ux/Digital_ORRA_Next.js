@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { 
   Menu, 
   X, 
+  Home,
   ArrowRight, 
   PhoneCall, 
   Sparkles,
@@ -51,7 +52,7 @@ export default function Navbar() {
   }, [mobileMenuOpen]);
 
   const navLinks = [
-    { name: "About Us", href: "/about-us", icon: Globe },
+    { name: "Home", href: "/", icon: Home },
     { name: "Services", href: "/services", icon: Layers },
     { name: "Courses", href: "/courses", icon: GraduationCap },
     { name: "Our Team", href: "/our-team", icon: Users },
@@ -82,6 +83,7 @@ export default function Navbar() {
               <Image
                 src="/logo.webp"
                 alt="Digital ORRA Logo"
+                title="Digital ORRA Logo"
                 width={140}
                 height={44}
                 style={{ width: "auto", height: "auto" }}
@@ -116,13 +118,15 @@ export default function Navbar() {
 
           {/* Right Action + Mobile Menu Hamburger */}
           <div className="flex items-center gap-2.5 sm:gap-3">
-            <Link
-              href="/contact#form"
+            <a
+              href="https://audit.digitalorra.com/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="hidden sm:inline-flex btn-glow-pink px-4 sm:px-6 py-2 sm:py-2.5 text-xs sm:text-[14px] font-bold items-center gap-1.5 shadow-[0_0_20px_rgba(255,51,153,0.35)]"
             >
-              <span>Get Proposal</span>
+              <span>Free Audit</span>
               <ArrowRight className="w-3.5 h-3.5 hidden sm:inline-block" />
-            </Link>
+            </a>
 
             {/* Mobile / Tablet Hamburger Toggle Button */}
             <button
@@ -155,6 +159,7 @@ export default function Navbar() {
                     <Image
                       src="/logo.webp"
                       alt="Digital ORRA Logo"
+                      title="Digital ORRA Logo"
                       width={150}
                       height={48}
                       style={{ width: "auto", height: "auto" }}
@@ -209,14 +214,16 @@ export default function Navbar() {
 
             {/* Bottom Drawer Actions */}
             <div className="pt-8 border-t border-white/10 mt-8 space-y-3">
-              <Link
-                href="/contact#form"
+              <a
+                href="https://audit.digitalorra.com/"
+                target="_blank"
+                rel="noopener noreferrer"
                 onClick={() => setMobileMenuOpen(false)}
                 className="btn-glow-pink w-full py-3.5 text-center text-sm font-black flex items-center justify-center gap-2 rounded-2xl shadow-xl"
               >
-                <span>Get Free Growth Proposal</span>
+                <span>Free Audit</span>
                 <ArrowRight className="w-4 h-4" />
-              </Link>
+              </a>
 
               <a
                 href="https://wa.me/919896384224?text=Hi%20Digital%20ORRA,%20I%20want%20to%20discuss%20a%20project."

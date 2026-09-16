@@ -39,6 +39,7 @@ export default function HtmlSitemapPage() {
     { title: "Contact Us", url: `${baseUrl}/contact`, path: "/contact", priority: "0.8", category: "core" },
     { title: "FAQs", url: `${baseUrl}/faqs`, path: "/faqs", priority: "0.6", category: "core" },
     { title: "Privacy Policy", url: `${baseUrl}/privacy-policy`, path: "/privacy-policy", priority: "0.6", category: "core" },
+    { title: "Our Locations Hub", url: `${baseUrl}/locations`, path: "/locations", priority: "0.9", category: "core" },
     { title: "Scan QR", url: `${baseUrl}/scan-qr`, path: "/scan-qr", priority: "0.6", category: "core" },
   ];
 

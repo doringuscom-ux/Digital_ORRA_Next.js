@@ -141,6 +141,7 @@ export default function ScanQrPage() {
                 <Image 
                   src="/DO JPG.jpeg" 
                   alt="Digital ORRA" 
+                  title="Digital ORRA Logo"
                   width={220} 
                   height={70} 
                   className="object-contain h-12 sm:h-14 w-auto"

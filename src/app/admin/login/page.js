@@ -103,6 +103,7 @@ export default function AdminLoginPage() {
               <Image 
                 src="/DO JPG.jpeg" 
                 alt="Digital ORRA Logo" 
+                title="Digital ORRA Logo"
                 width={130} 
                 height={42} 
                 style={{ width: "auto", height: "auto" }}

@@ -4,6 +4,49 @@ import { useEffect } from "react";
 
 export default function DynamicSeoHead({ path, customTitle, customDesc, customKeywords }) {
   useEffect(() => {
+    function setCanonicalAndOgUrl(forcedUrl) {
+      try {
+        let canonicalUrl = forcedUrl;
+        if (!canonicalUrl) {
+          if (typeof window !== "undefined") {
+            canonicalUrl = `${window.location.origin}${window.location.pathname}`;
+          } else if (path) {
+            canonicalUrl = `https://digitalorra.com${path === "/" ? "" : path}`;
+          }
+        }
+        if (canonicalUrl) {
+          let canLink = document.querySelector('link[rel="canonical"]');
+          if (!canLink) {
+            canLink = document.createElement("link");
+            canLink.setAttribute("rel", "canonical");
+            document.head.appendChild(canLink);
+          }
+          canLink.setAttribute("href", canonicalUrl);
+
+          let ogUrl = document.querySelector('meta[property="og:url"]');
+          if (!ogUrl) {
+            ogUrl = document.createElement("meta");
+            ogUrl.setAttribute("property", "og:url");
+            document.head.appendChild(ogUrl);
+          }
+          ogUrl.content = canonicalUrl;
+        }
+      } catch (e) {}
+    }
+
+    function setRobotsTag(robotsVal) {
+      try {
+        const val = robotsVal || "index, follow";
+        let metaRobots = document.querySelector('meta[name="robots"]');
+        if (!metaRobots) {
+          metaRobots = document.createElement("meta");
+          metaRobots.name = "robots";
+          document.head.appendChild(metaRobots);
+        }
+        metaRobots.content = val;
+      } catch (e) {}
+    }
+
     if (customTitle) {
       document.title = customTitle;
       if (customDesc) {
@@ -15,6 +58,8 @@ export default function DynamicSeoHead({ path, customTitle, customDesc, customKe
         }
         metaDesc.content = customDesc;
       }
+      setCanonicalAndOgUrl();
+      setRobotsTag();
       return;
     }
 
@@ -50,15 +95,7 @@ export default function DynamicSeoHead({ path, customTitle, customDesc, customKe
             }
 
             // Update robots
-            if (data.robots) {
-              let metaRobots = document.querySelector('meta[name="robots"]');
-              if (!metaRobots) {
-                metaRobots = document.createElement("meta");
-                metaRobots.name = "robots";
-                document.head.appendChild(metaRobots);
-              }
-              metaRobots.content = data.robots;
-            }
+            setRobotsTag(data.robots);
 
             // OpenGraph Title & Description
             let ogTitle = document.querySelector('meta[property="og:title"]');
@@ -89,31 +126,46 @@ export default function DynamicSeoHead({ path, customTitle, customDesc, customKe
             }
 
             // Dynamic Canonical URL: Always points to currently open page URL
-            let canonicalUrl = data.canonicalUrl;
-            if (typeof window !== "undefined") {
-              // Automatically use current page URL (without query parameters/hash)
-              canonicalUrl = `${window.location.origin}${window.location.pathname}`;
-            } else if (path) {
-              canonicalUrl = `https://digitalorra.com${path === '/' ? '' : path}`;
-            }
+            setCanonicalAndOgUrl(data.canonicalUrl);
 
-            if (canonicalUrl) {
-              let canLink = document.querySelector('link[rel="canonical"]');
-              if (!canLink) {
-                canLink = document.createElement("link");
-                canLink.setAttribute("rel", "canonical");
-                document.head.appendChild(canLink);
+            // Schema.org Structured Data Injection
+            try {
+              let existingScript = document.querySelector('script[data-seo-schema="dynamic"]');
+              if (existingScript) {
+                existingScript.remove();
               }
-              canLink.setAttribute("href", canonicalUrl);
+              const script = document.createElement("script");
+              script.type = "application/ld+json";
+              script.setAttribute("data-seo-schema", "dynamic");
 
-              let ogUrl = document.querySelector('meta[property="og:url"]');
-              if (!ogUrl) {
-                ogUrl = document.createElement("meta");
-                ogUrl.setAttribute("property", "og:url");
-                document.head.appendChild(ogUrl);
+              if (data.structuredData && data.structuredData.trim()) {
+                script.textContent = data.structuredData.trim();
+              } else {
+                // Default Rich Organization & LocalBusiness Schema
+                const defaultSchema = {
+                  "@context": "https://schema.org",
+                  "@type": "ProfessionalService",
+                  "name": "Digital ORRA",
+                  "url": "https://digitalorra.com",
+                  "logo": "https://digitalorra.com/DO%20JPG.jpeg",
+                  "image": "https://digitalorra.com/DO%20JPG.jpeg",
+                  "description": data.metaDescription || "Leading Digital Marketing Agency providing SEO, Web Design, and Ads.",
+                  "telephone": "+91 90564 33303",
+                  "address": {
+                    "@type": "PostalAddress",
+                    "addressLocality": "Panchkula",
+                    "addressRegion": "Haryana",
+                    "addressCountry": "IN"
+                  },
+                  "sameAs": [
+                    "https://www.instagram.com/digitalorra",
+                    "https://www.facebook.com/digitalorra"
+                  ]
+                };
+                script.textContent = JSON.stringify(defaultSchema);
               }
-              ogUrl.content = canonicalUrl;
-            }
+              document.head.appendChild(script);
+            } catch (schemaErr) {}
           }
         }
       } catch (err) {

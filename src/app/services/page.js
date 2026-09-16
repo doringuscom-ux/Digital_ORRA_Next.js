@@ -371,6 +371,7 @@ export default function ServicesPage() {
           <img
             src="https://res.cloudinary.com/fykd8cyh/image/upload/v1789207193/93133ff7-fcbc-41d1-bea7-6155ed5a47ca.png"
             alt="Need a Custom Solution for Your Business? - Contact Digital ORRA"
+            title="Need a Custom Solution for Your Business? - Contact Digital ORRA"
             className="w-full h-auto object-cover block"
             loading="lazy"
           />

@@ -63,6 +63,15 @@ export default function BlogDetailPage() {
               document.head.appendChild(ogUrl);
             }
             ogUrl.content = currentCanonical;
+
+            // Robots Meta Tag
+            let metaRobots = document.querySelector('meta[name="robots"]');
+            if (!metaRobots) {
+              metaRobots = document.createElement("meta");
+              metaRobots.name = "robots";
+              document.head.appendChild(metaRobots);
+            }
+            metaRobots.content = "index, follow";
           }
         }
 
