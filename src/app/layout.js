@@ -11,8 +11,41 @@ const outfit = Outfit({
 
 export const metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://digitalorra.com"),
+  alternates: {
+    canonical: "./",
+  },
+  icons: {
+    icon: [
+      { url: "/icon.png", type: "image/png" },
+      { url: "/favicon.png", type: "image/png" },
+    ],
+    shortcut: "/icon.png",
+    apple: "/icon.png",
+  },
   title: "DIGITAL ORRA | Architects of Digital Dominance",
   description: "Premium Digital Marketing Agency",
+  openGraph: {
+    title: "DIGITAL ORRA | Architects of Digital Dominance",
+    description: "Premium Digital Marketing & Web Development Agency in Panchkula & Chandigarh Tricity",
+    url: "https://digitalorra.com",
+    siteName: "Digital ORRA",
+    images: [
+      {
+        url: "/DO JPG.jpeg",
+        width: 1200,
+        height: 630,
+        alt: "Digital ORRA Logo",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "DIGITAL ORRA | Architects of Digital Dominance",
+    description: "Premium Digital Marketing & Web Development Agency in Panchkula & Chandigarh Tricity",
+    images: ["/DO JPG.jpeg"],
+  },
   robots: {
     index: true,
     follow: true,
