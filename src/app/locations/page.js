@@ -18,8 +18,88 @@ import {
   TrendingUp, 
   ExternalLink,
   ChevronRight,
-  Layers
+  Layers,
+  Video,
+  Share2,
+  SearchCode,
+  Megaphone,
+  Code2,
+  Palette
 } from "lucide-react";
+
+// Intelligent service detector & aesthetic theme mapper
+function getServiceTheme(title = "", slug = "") {
+  const str = `${title} ${slug}`.toLowerCase();
+
+  if (str.includes("video") || str.includes("editing") || str.includes("reels") || str.includes("animation")) {
+    return {
+      label: "Video Production",
+      icon: Video,
+      iconColor: "text-rose-400",
+      bgIcon: "bg-rose-500/15 border-rose-500/30 group-hover:bg-rose-500/25 group-hover:border-rose-500/50",
+      badgeBg: "bg-rose-500/10 text-rose-300 border-rose-500/20",
+      borderHover: "hover:border-rose-500/50 hover:shadow-[0_20px_50px_rgba(244,63,94,0.15)]",
+      glowGradient: "group-hover:via-rose-500",
+      glowColor: "bg-rose-500/20",
+      highlights: ["4K Cine Color Grading", "Viral Hooks & Reels", "YouTube & Ads"]
+    };
+  }
+
+  if (str.includes("social") || str.includes("smm") || str.includes("instagram")) {
+    return {
+      label: "Social Media Growth",
+      icon: Share2,
+      iconColor: "text-fuchsia-400",
+      bgIcon: "bg-fuchsia-500/15 border-fuchsia-500/30 group-hover:bg-fuchsia-500/25 group-hover:border-fuchsia-500/50",
+      badgeBg: "bg-fuchsia-500/10 text-fuchsia-300 border-fuchsia-500/20",
+      borderHover: "hover:border-fuchsia-500/50 hover:shadow-[0_20px_50px_rgba(217,70,239,0.15)]",
+      glowGradient: "group-hover:via-[#FF3399]",
+      glowColor: "bg-fuchsia-500/20",
+      highlights: ["Viral Growth Loops", "Community Curation", "Multi-Platform ROI"]
+    };
+  }
+
+  if (str.includes("seo") || str.includes("ranking") || str.includes("search")) {
+    return {
+      label: "SEO & Traffic",
+      icon: SearchCode,
+      iconColor: "text-emerald-400",
+      bgIcon: "bg-emerald-500/15 border-emerald-500/30 group-hover:bg-emerald-500/25 group-hover:border-emerald-500/50",
+      badgeBg: "bg-emerald-500/10 text-emerald-300 border-emerald-500/20",
+      borderHover: "hover:border-emerald-500/50 hover:shadow-[0_20px_50px_rgba(16,185,129,0.15)]",
+      glowGradient: "group-hover:via-emerald-400",
+      glowColor: "bg-emerald-500/20",
+      highlights: ["Rank #1 Google SERP", "High-Intent Backlinks", "Technical Schema"]
+    };
+  }
+
+  if (str.includes("marketing") || str.includes("digital") || str.includes("ads") || str.includes("ppc")) {
+    return {
+      label: "Digital Marketing",
+      icon: Megaphone,
+      iconColor: "text-amber-400",
+      bgIcon: "bg-amber-500/15 border-amber-500/30 group-hover:bg-amber-500/25 group-hover:border-amber-500/50",
+      badgeBg: "bg-amber-500/10 text-amber-300 border-amber-500/20",
+      borderHover: "hover:border-amber-500/50 hover:shadow-[0_20px_50px_rgba(245,158,11,0.15)]",
+      glowGradient: "group-hover:via-amber-400",
+      glowColor: "bg-amber-500/20",
+      highlights: ["High ROAS Meta Ads", "Full-Funnel CRO", "Targeted Retargeting"]
+    };
+  }
+
+  // Default: Web Designing & Development
+  return {
+    label: "Web Engineering",
+    icon: Code2,
+    iconColor: "text-cyan-400",
+    bgIcon: "bg-cyan-500/15 border-cyan-500/30 group-hover:bg-cyan-500/25 group-hover:border-cyan-500/50",
+    badgeBg: "bg-cyan-500/10 text-cyan-300 border-cyan-500/20",
+    borderHover: "hover:border-cyan-400/50 hover:shadow-[0_20px_50px_rgba(6,182,212,0.15)]",
+    glowGradient: "group-hover:via-cyan-400",
+    glowColor: "bg-cyan-500/20",
+    highlights: ["Ultra-Fast Next.js", "Bespoke Cyber UI/UX", "100% Mobile Responsive"]
+  };
+}
 
 export default function LocationsDirectoryPage() {
   const [locations, setLocations] = useState([]);
@@ -174,48 +254,56 @@ export default function LocationsDirectoryPage() {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
               {filteredLocations.map((loc) => {
-                const coverImage = 
-                  loc.heroImage || 
-                  loc.whyLocalImage || 
-                  "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80";
+                const theme = getServiceTheme(loc.title, loc.slug);
+                const IconComponent = theme.icon;
 
                 return (
                   <Link
                     key={loc._id || loc.slug}
                     href={`/${loc.slug}`}
-                    className="group relative rounded-3xl bg-[#0b1329] border border-white/15 hover:border-cyan-400/50 hover:shadow-[0_20px_50px_rgba(6,182,212,0.2)] transition-all duration-500 flex flex-col justify-between overflow-hidden"
+                    className={`group relative rounded-3xl bg-[#0b1329]/90 backdrop-blur-xl border border-white/10 ${theme.borderHover} hover:shadow-[0_20px_50px_rgba(0,0,0,0.6)] transition-all duration-500 flex flex-col justify-between overflow-hidden p-6 sm:p-7 hover:-translate-y-1.5`}
                   >
                     {/* Top Glow Edge */}
-                    <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400/40 to-transparent group-hover:via-[#FF3399] transition-all duration-700"></div>
+                    <div className={`absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-white/20 to-transparent ${theme.glowGradient} transition-all duration-700`}></div>
+
+                    {/* Ambient subtle background glow */}
+                    <div className={`absolute -top-16 -right-16 w-36 h-36 rounded-full blur-3xl opacity-0 group-hover:opacity-40 transition-opacity duration-700 pointer-events-none ${theme.glowColor}`}></div>
 
                     <div>
-                      {/* Image Thumbnail */}
-                      <div className="relative w-full h-48 sm:h-52 overflow-hidden bg-[#040814]">
-                        <img
-                          src={coverImage}
-                          alt={loc.title || `Digital ORRA Agency in ${loc.city || 'City'}`}
-                          title={loc.heroHeadline ? `${loc.title} - ${loc.heroHeadline}` : loc.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#0b1329] via-[#0b1329]/30 to-transparent" />
-
-                        {/* City Badge */}
-                        <div className="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-[#070D1E]/90 border border-white/20 backdrop-blur-md flex items-center gap-1.5 shadow-lg">
-                          <MapPin className="w-3.5 h-3.5 text-[#FF3399]" />
-                          <span className="text-xs font-bold tracking-wide text-white">
-                            {loc.city || "Panchkula"}
-                          </span>
+                      {/* Top Header with City Badge & Category Icon */}
+                      <div className="flex items-center justify-between gap-3 mb-6">
+                        {/* Service Category Icon */}
+                        <div className={`w-13 h-13 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center p-3 border transition-all duration-500 shadow-lg ${theme.bgIcon} group-hover:scale-110`}>
+                          <IconComponent className={`w-6 h-6 sm:w-7 sm:h-7 ${theme.iconColor}`} />
                         </div>
 
-                        {/* Verified Live Badge */}
-                        <div className="absolute top-3.5 right-3.5 px-2.5 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 backdrop-blur-md flex items-center gap-1.5 text-emerald-300 text-[11px] font-semibold">
-                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                          <span>Active Hub</span>
+                        {/* Badges Stack */}
+                        <div className="flex flex-col items-end gap-1.5">
+                          {/* City Badge */}
+                          <div className="px-3 py-1 rounded-full bg-[#070D1E]/90 border border-white/20 backdrop-blur-md flex items-center gap-1.5 shadow-md">
+                            <MapPin className="w-3.5 h-3.5 text-[#FF3399]" />
+                            <span className="text-xs font-bold tracking-wide text-white">
+                              {loc.city || "Panchkula"}
+                            </span>
+                          </div>
+
+                          {/* Live Hub Indicator */}
+                          <div className="px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center gap-1.5 text-emerald-300 text-[10px] font-semibold">
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                            <span>Active Hub</span>
+                          </div>
                         </div>
                       </div>
 
+                      {/* Category Pill */}
+                      <div className="mb-3">
+                        <span className={`inline-block px-2.5 py-0.5 rounded-md text-[11px] font-semibold tracking-wider uppercase border ${theme.badgeBg}`}>
+                          {theme.label}
+                        </span>
+                      </div>
+
                       {/* Content */}
-                      <div className="p-6 sm:p-7 space-y-3">
+                      <div className="space-y-3">
                         <h2 className="text-lg sm:text-xl font-extrabold text-white group-hover:text-cyan-300 transition-colors leading-snug line-clamp-2">
                           {loc.title}
                         </h2>
@@ -224,16 +312,25 @@ export default function LocationsDirectoryPage() {
                           {loc.heroSubheadline || loc.whyLocalContent || "Premier web development, UI/UX designing, and full-funnel digital marketing services."}
                         </p>
                       </div>
+
+                      {/* Feature Highlights Pills */}
+                      <div className="mt-5 flex flex-wrap gap-1.5">
+                        {theme.highlights.map((h, i) => (
+                          <span
+                            key={i}
+                            className="text-[11px] px-2.5 py-1 rounded-lg bg-white/[0.04] border border-white/10 text-gray-300 font-medium group-hover:border-white/20 transition-colors"
+                          >
+                            {h}
+                          </span>
+                        ))}
+                      </div>
                     </div>
 
                     {/* Bottom Action Footer */}
-                    <div className="px-6 sm:px-7 py-4 border-t border-white/10 bg-white/[0.02] flex items-center justify-between">
-                      <span className="text-xs font-mono text-pink-400 font-semibold group-hover:text-pink-300 transition-colors">
-                        /{loc.slug}
-                      </span>
-                      <div className="flex items-center gap-1.5 text-xs font-bold text-white group-hover:text-cyan-300 group-hover:translate-x-1 transition-all">
+                    <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-end">
+                      <div className="flex items-center gap-1.5 text-xs font-bold text-gray-300 group-hover:text-cyan-300 group-hover:translate-x-1 transition-all">
                         <span>Explore Hub</span>
-                        <ArrowRight className="w-3.5 h-3.5" />
+                        <ArrowRight className="w-3.5 h-3.5 text-cyan-400" />
                       </div>
                     </div>
                   </Link>
@@ -242,44 +339,17 @@ export default function LocationsDirectoryPage() {
             </div>
           )}
 
-          {/* Bottom Regional HQ CTA */}
-          <div className="mt-16 sm:mt-24 p-8 sm:p-12 rounded-3xl bg-gradient-to-r from-[#0F1B4C]/80 via-[#0A1128] to-[#1E0B36]/80 border border-white/15 relative overflow-hidden shadow-2xl">
-            <div className="absolute -top-24 -right-24 w-72 h-72 bg-[#FF3399]/20 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-cyan-500/20 rounded-full blur-3xl pointer-events-none" />
-
-            <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-              <div className="lg:col-span-8 space-y-3">
-                <span className="text-xs font-bold tracking-wider uppercase text-cyan-400 flex items-center gap-2">
-                  <ShieldCheck className="w-4 h-4" /> Expand Your Local Presence
-                </span>
-                <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight">
-                  Need a dedicated local landing page for your city?
-                </h3>
-                <p className="text-sm sm:text-base text-gray-300 leading-relaxed font-light max-w-2xl">
-                  Contact our strategy team to engineer a high-speed, SEO-optimized local hub designed to dominate your regional market.
-                </p>
-              </div>
-
-              <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-3.5">
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full bg-gradient-to-r from-[#FF007A] to-[#FF3399] text-white font-bold text-sm shadow-[0_0_25px_rgba(255,0,122,0.4)] hover:scale-105 active:scale-95 transition-all text-center"
-                >
-                  <span>Talk to Our Team</span>
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-                <a
-                  href="https://audit.digitalorra.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-white/10 hover:bg-white/15 border border-white/20 text-white font-bold text-sm transition-all text-center"
-                >
-                  <span>Get Free SEO Audit</span>
-                  <ExternalLink className="w-4 h-4 text-cyan-400" />
-                </a>
-              </div>
-            </div>
-          </div>
+          {/* Bottom Regional HQ CTA Banner Image */}
+          <Link
+            href="/contact"
+            className="mt-16 sm:mt-24 block relative rounded-3xl overflow-hidden border border-white/15 hover:border-cyan-400/50 shadow-2xl transition-all duration-300 hover:scale-[1.01] cursor-pointer group"
+          >
+            <img
+              src="https://res.cloudinary.com/fykd8cyh/image/upload/v1789629445/Loction_page.png"
+              alt="Need a dedicated local landing page for your city? Talk to Our Team"
+              className="w-full h-auto object-cover block"
+            />
+          </Link>
 
         </div>
       </main>
