@@ -5,15 +5,15 @@ import Link from 'next/link';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import DynamicSeoHead from '../../components/DynamicSeoHead';
-import { 
-  ArrowRight, 
-  Megaphone, 
-  Code2, 
-  Video, 
-  Users2, 
-  Layers, 
-  Cpu, 
-  Target, 
+import {
+  ArrowRight,
+  Megaphone,
+  Code2,
+  Video,
+  Users2,
+  Layers,
+  Cpu,
+  Target,
   TrendingUp,
   Sparkles,
   Search,
@@ -93,7 +93,7 @@ export default function ServicesPage() {
 
   const filteredCatalog = services.filter(service => {
     const matchesCat = activeCat === "all" || service.category === activeCat;
-    const matchesSearch = searchQuery.trim() === "" || 
+    const matchesSearch = searchQuery.trim() === "" ||
       (service.title && service.title.toLowerCase().includes(searchQuery.toLowerCase())) ||
       (service.shortDesc && service.shortDesc.toLowerCase().includes(searchQuery.toLowerCase())) ||
       (service.desc && service.desc.toLowerCase().includes(searchQuery.toLowerCase())) ||
@@ -108,16 +108,16 @@ export default function ServicesPage() {
       <Navbar />
 
       {/* Main Services Catalog Section with Edge-to-Edge Watermark */}
-      <section className="relative w-full pt-32 pb-8 md:pt-40 md:pb-10 overflow-hidden">
+      <section className="relative w-full pt-34 pb-8 md:pt-40 md:pb-10 overflow-hidden">
         {/* Giant Edge-to-Edge Background Watermark */}
-        <div style={{ pointerEvents: 'none' }} className="absolute top-20 md:top-24 left-0 w-full flex justify-center pointer-events-none select-none overflow-hidden z-0 [mask-image:linear-gradient(to_bottom,black_75%,transparent_100%)]">
-          <h1 
-            style={{ 
+        <div style={{ pointerEvents: 'none' }} className="absolute top-25 md:top-24 left-0 w-full flex justify-center pointer-events-none select-none overflow-hidden z-0 [mask-image:linear-gradient(to_bottom,black_75%,transparent_100%)]">
+          <h1
+            style={{
               pointerEvents: 'none',
               background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.5) 55%, rgba(255, 255, 255, 0.18) 100%)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent'
-            }} 
+            }}
             className="text-[8vw] md:text-[8.5vw] font-black uppercase tracking-wider whitespace-nowrap select-none"
           >
             OUR SERVICES
@@ -127,12 +127,12 @@ export default function ServicesPage() {
         {/* Ambient Center Glow */}
         <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-cyan-500/10 blur-[160px] pointer-events-none z-0"></div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-32 md:pt-44">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-7 sm:pt-10 md:pt-44">
           <h2 className="sr-only">Explore Comprehensive Digital Marketing, Development & Performance Solutions</h2>
-          
+
           {/* Controls Bar: Search Bar + Filter Tabs */}
           <div className="relative z-20 mb-4 p-2.5 rounded-2xl md:rounded-full bg-[#0B132B] border border-white/15 shadow-[0_10px_35px_rgba(0,0,0,0.6)] flex flex-col md:flex-row items-center justify-between gap-3">
-            
+
             {/* Quick Search Input */}
             <div className="relative w-full md:w-72">
               <Search className="w-4 h-4 text-cyan-400 absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none" />
@@ -154,16 +154,15 @@ export default function ServicesPage() {
             </div>
 
             {/* Filter Category Tabs */}
-            <div className="flex flex-wrap items-center justify-center gap-1.5 w-full md:w-auto overflow-x-auto py-1">
+            <div className="flex flex-nowrap items-center justify-start md:justify-center gap-1.5 w-full md:w-auto overflow-x-auto py-1 scrollbar-none [-webkit-overflow-scrolling:touch]">
               {CATEGORIES.map(cat => (
                 <button
                   key={cat.id}
                   onClick={() => setActiveCat(cat.id)}
-                  className={`px-3.5 sm:px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-300 ${
-                    activeCat === cat.id 
-                      ? 'bg-gradient-to-r from-[#FF66B2] via-pink-400 to-[#FF85C0] text-white shadow-[0_0_18px_rgba(255,102,178,0.45)]' 
-                      : 'text-gray-300 hover:text-white hover:bg-white/[0.06]'
-                  }`}
+                  className={`px-3.5 sm:px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap shrink-0 transition-all duration-300 ${activeCat === cat.id
+                    ? 'bg-gradient-to-r from-[#FF66B2] via-pink-400 to-[#FF85C0] text-white shadow-[0_0_18px_rgba(255,102,178,0.45)]'
+                    : 'text-gray-300 hover:text-white hover:bg-white/[0.06]'
+                    }`}
                 >
                   {cat.label}
                 </button>
@@ -207,66 +206,66 @@ export default function ServicesPage() {
                 .map((service, sIdx) => {
                   const IconComponent = iconMap[service.iconName] || Globe;
                   const serviceSlug = service.id || service.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
-                  
+
                   return (
                     <Link
                       key={service.id || service._id || sIdx}
                       href={`/${serviceSlug}`}
                       className="group relative rounded-3xl bg-gradient-to-b from-[#111A38]/95 via-[#0A1128]/98 to-[#060B1A] border border-white/15 hover:border-cyan-400/60 p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(0,0,0,0.8),0_0_30px_rgba(6,182,212,0.2)] cursor-pointer min-h-[290px]"
                     >
-                    {/* Top Accent Line */}
-                    <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent group-hover:via-[var(--color-primary-pink)] transition-all duration-500"></div>
+                      {/* Top Accent Line */}
+                      <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent group-hover:via-[var(--color-primary-pink)] transition-all duration-500"></div>
 
-                    <div>
-                      {/* Header Row: Icon + Category Badge + Tag */}
-                      <div className="flex items-center justify-between gap-3 mb-5">
-                        <div className="w-12 h-12 rounded-2xl bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 flex items-center justify-center group-hover:scale-105 group-hover:bg-cyan-500/25 group-hover:text-white transition-all duration-300 shadow-md flex-shrink-0">
-                          <IconComponent className="w-6 h-6" />
-                        </div>
-                        
-                        <div className="flex flex-wrap items-center justify-end gap-2">
-                          <span className="text-[12px] font-medium tracking-wide px-3 py-1 rounded-full bg-white/10 border border-white/20 text-white shadow-sm">
-                            {service.category}
-                          </span>
-                          {service.tag && (
-                            <span className="text-[12px] font-semibold text-pink-300 px-2.5 py-1 rounded-full bg-pink-500/15 border border-pink-500/30">
-                              #{service.tag}
+                      <div>
+                        {/* Header Row: Icon + Category Badge + Tag */}
+                        <div className="flex items-center justify-between gap-3 mb-5">
+                          <div className="w-12 h-12 rounded-2xl bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 flex items-center justify-center group-hover:scale-105 group-hover:bg-cyan-500/25 group-hover:text-white transition-all duration-300 shadow-md flex-shrink-0">
+                            <IconComponent className="w-6 h-6" />
+                          </div>
+
+                          <div className="flex flex-wrap items-center justify-end gap-2">
+                            <span className="text-[12px] font-medium tracking-wide px-3 py-1 rounded-full bg-white/10 border border-white/20 text-white shadow-sm">
+                              {service.category}
                             </span>
-                          )}
+                            {service.tag && (
+                              <span className="text-[12px] font-semibold text-pink-300 px-2.5 py-1 rounded-full bg-pink-500/15 border border-pink-500/30">
+                                #{service.tag}
+                              </span>
+                            )}
+                          </div>
                         </div>
+
+                        {/* Main Title - Pure Solid White, High Contrast & Razor Sharp */}
+                        <h3 className="text-xl sm:text-[22px] font-bold text-white mb-4 group-hover:text-cyan-300 transition-colors leading-snug tracking-tight">
+                          {service.title}
+                        </h3>
+
+                        {/* Key Features / Bullet points */}
+                        {service.features && service.features.length > 0 && (
+                          <div className="space-y-2.5 pt-3 border-t border-white/10 mb-5">
+                            {service.features.slice(0, 3).map((feat, fIdx) => (
+                              <div key={fIdx} className="flex items-start gap-2.5 text-[13.5px] text-gray-200 font-medium leading-tight">
+                                <CheckCircle2 className="w-4 h-4 text-cyan-400 flex-shrink-0 mt-0.5" />
+                                <span className="leading-snug">{feat}</span>
+                              </div>
+                            ))}
+                          </div>
+                        )}
                       </div>
 
-                      {/* Main Title - Pure Solid White, High Contrast & Razor Sharp */}
-                      <h3 className="text-xl sm:text-[22px] font-bold text-white mb-4 group-hover:text-cyan-300 transition-colors leading-snug tracking-tight">
-                        {service.title}
-                      </h3>
-
-                      {/* Key Features / Bullet points */}
-                      {service.features && service.features.length > 0 && (
-                        <div className="space-y-2.5 pt-3 border-t border-white/10 mb-5">
-                          {service.features.slice(0, 3).map((feat, fIdx) => (
-                            <div key={fIdx} className="flex items-start gap-2.5 text-[13.5px] text-gray-200 font-medium leading-tight">
-                              <CheckCircle2 className="w-4 h-4 text-cyan-400 flex-shrink-0 mt-0.5" />
-                              <span className="leading-snug">{feat}</span>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Bottom Action Footer */}
-                    <div className="pt-4 border-t border-white/15 flex items-center justify-between mt-auto">
-                      <span className="text-[14px] font-bold text-cyan-300 group-hover:text-pink-400 inline-flex items-center gap-2 transition-colors">
-                        <span>Explore Full Details</span>
-                        <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform" />
-                      </span>
-                      <span className="text-xs font-mono text-gray-400 font-bold">
-                        {String(sIdx + 1).padStart(2, '0')}
-                      </span>
-                    </div>
-                  </Link>
-                );
-              })}
+                      {/* Bottom Action Footer */}
+                      <div className="pt-4 border-t border-white/15 flex items-center justify-between mt-auto">
+                        <span className="text-[14px] font-bold text-cyan-300 group-hover:text-pink-400 inline-flex items-center gap-2 transition-colors">
+                          <span>Explore Full Details</span>
+                          <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform" />
+                        </span>
+                        <span className="text-xs font-mono text-gray-400 font-bold">
+                          {String(sIdx + 1).padStart(2, '0')}
+                        </span>
+                      </div>
+                    </Link>
+                  );
+                })}
             </div>
           )}
 
@@ -276,7 +275,7 @@ export default function ServicesPage() {
       {/* Detail Slideover / Modal for Deep Dive (No clutter, easy reading) */}
       {selectedService && (
         <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 sm:p-6 bg-black/85 backdrop-blur-xl animate-fade-in">
-          <div 
+          <div
             className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl bg-[#0B1229] border border-white/20 p-6 sm:p-8 shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
