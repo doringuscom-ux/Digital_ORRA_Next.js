@@ -222,8 +222,8 @@ export default function Portfolio() {
               />
             </div>
             
-            {/* Modal Bottom Bar */}
-            <div className="w-full p-4 sm:p-5 bg-[#0A1128] border-t border-white/10 flex items-center justify-between gap-4">
+            {/* Modal Bottom Bar - Hidden on mobile, visible on desktop/tablet */}
+            <div className="hidden sm:flex w-full p-4 sm:p-5 bg-[#0A1128] border-t border-white/10 items-center justify-between gap-4">
               <div className="flex items-center gap-2.5">
                 <span className="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-400/30">
                   {selectedItem.category}
