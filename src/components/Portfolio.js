@@ -1,11 +1,12 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-import { ExternalLink, Layers, Loader2 } from 'lucide-react';
+import { ExternalLink, Layers, Loader2, X, ChevronLeft, ChevronRight, ZoomIn } from 'lucide-react';
 import './Portfolio.css';
 
 export default function Portfolio() {
   const [portfolios, setPortfolios] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedItem, setSelectedItem] = useState(null);
 
   useEffect(() => {
     fetchPortfolios();
@@ -66,6 +67,24 @@ export default function Portfolio() {
     ? displayData 
     : displayData.filter(item => item.category === activeFilter);
 
+  const currentIndex = selectedItem ? filteredData.findIndex(i => i._id === selectedItem._id) : -1;
+
+  const nextItem = () => {
+    if (currentIndex >= 0 && currentIndex < filteredData.length - 1) {
+      setSelectedItem(filteredData[currentIndex + 1]);
+    } else {
+      setSelectedItem(filteredData[0]);
+    }
+  };
+
+  const prevItem = () => {
+    if (currentIndex > 0) {
+      setSelectedItem(filteredData[currentIndex - 1]);
+    } else {
+      setSelectedItem(filteredData[filteredData.length - 1]);
+    }
+  };
+
   return (
     <section className="portfolio-section" id="portfolio">
       {/* Background Ambience */}
@@ -121,9 +140,19 @@ export default function Portfolio() {
           <>
             <div className="port-grid relative z-20">
               {filteredData.slice(0, visibleCount).map((item) => (
-                <div key={item._id} className="port-card group">
-                  <div className="port-image-wrapper">
+                <div 
+                  key={item._id} 
+                  className="port-card group cursor-pointer"
+                  onClick={() => setSelectedItem(item)}
+                >
+                  <div className="port-image-wrapper relative">
                     <img src={item.image} alt={item.title} className="port-image" />
+                    {/* Hover Overlay with Zoom Icon */}
+                    <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none">
+                      <div className="w-12 h-12 rounded-full bg-[#0B1320]/80 backdrop-blur-md border border-cyan-400/50 text-cyan-300 flex items-center justify-center shadow-lg transform scale-75 group-hover:scale-100 transition-transform duration-300">
+                        <ZoomIn className="w-5 h-5" />
+                      </div>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -143,6 +172,75 @@ export default function Portfolio() {
           </>
         )}
       </div>
+
+      {/* Full Resolution Image Lightbox Modal */}
+      {selectedItem && (
+        <div 
+          onClick={() => setSelectedItem(null)}
+          className="fixed inset-0 z-[300] bg-black/90 backdrop-blur-xl flex items-center justify-center p-4 sm:p-8 transition-all animate-fadeIn"
+        >
+          {/* Close Button */}
+          <button 
+            onClick={() => setSelectedItem(null)}
+            className="absolute top-5 right-5 z-20 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 flex items-center justify-center text-white transition-colors cursor-pointer"
+            aria-label="Close"
+          >
+            <X className="w-5 h-5" />
+          </button>
+
+          {/* Navigation Arrows */}
+          {filteredData.length > 1 && (
+            <>
+              <button 
+                onClick={(e) => { e.stopPropagation(); prevItem(); }}
+                className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-black/60 hover:bg-cyan-500 hover:text-black border border-white/20 flex items-center justify-center text-white transition-all cursor-pointer shadow-xl"
+                aria-label="Previous"
+              >
+                <ChevronLeft className="w-6 h-6" />
+              </button>
+
+              <button 
+                onClick={(e) => { e.stopPropagation(); nextItem(); }}
+                className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-black/60 hover:bg-cyan-500 hover:text-black border border-white/20 flex items-center justify-center text-white transition-all cursor-pointer shadow-xl"
+                aria-label="Next"
+              >
+                <ChevronRight className="w-6 h-6" />
+              </button>
+            </>
+          )}
+
+          {/* Modal Container */}
+          <div 
+            onClick={(e) => e.stopPropagation()} 
+            className="relative max-w-4xl max-h-[88vh] rounded-3xl overflow-hidden border border-white/20 shadow-[0_25px_60px_rgba(0,0,0,0.95)] flex flex-col items-center bg-[#070D1E]"
+          >
+            <div className="w-full flex items-center justify-center p-4 sm:p-8 bg-white min-h-[300px] max-h-[70vh] overflow-hidden">
+              <img 
+                src={selectedItem.image} 
+                alt={selectedItem.title || 'Digital ORRA Portfolio'} 
+                className="max-h-[65vh] w-auto max-w-full object-contain select-none"
+              />
+            </div>
+            
+            {/* Modal Bottom Bar */}
+            <div className="w-full p-4 sm:p-5 bg-[#0A1128] border-t border-white/10 flex items-center justify-between gap-4">
+              <div className="flex items-center gap-2.5">
+                <span className="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-400/30">
+                  {selectedItem.category}
+                </span>
+                {selectedItem.title && (
+                  <span className="text-sm font-semibold text-white truncate max-w-[200px] sm:max-w-xs">
+                    {selectedItem.title}
+                  </span>
+                )}
+              </div>
+              <span className="text-xs font-mono text-gray-400 flex-shrink-0">
+                {currentIndex + 1} / {filteredData.length}
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

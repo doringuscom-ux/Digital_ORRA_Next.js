@@ -92,9 +92,9 @@ export default function BlogsPage() {
       </div>
 
       {/* Main Header with Edge-to-Edge Watermark */}
-      <section className="relative w-full pt-32 pb-16 md:pt-40 md:pb-20 overflow-hidden">
+      <section className="relative w-full pt-34 pb-16 md:pt-40 md:pb-20 overflow-hidden">
         {/* Giant Edge-to-Edge Watermark */}
-        <div style={{ pointerEvents: 'none' }} className="absolute top-20 md:top-24 left-0 w-full flex justify-center pointer-events-none select-none overflow-hidden z-0 [mask-image:linear-gradient(to_bottom,black_75%,transparent_100%)]">
+        <div style={{ pointerEvents: 'none' }} className="absolute top-25 md:top-24 left-0 w-full flex justify-center pointer-events-none select-none overflow-hidden z-0 [mask-image:linear-gradient(to_bottom,black_75%,transparent_100%)]">
           <h1 
             style={{ 
               pointerEvents: 'none',
@@ -108,12 +108,12 @@ export default function BlogsPage() {
           </h1>
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-32 md:pt-44">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-7 sm:pt-10 md:pt-44">
           <h2 className="sr-only">Latest Digital Marketing Insights, Trends & Case Studies</h2>
           
           {/* Top Category Filter Bar (Clean, Open & Full-Width in a Single Row) */}
           <div className="relative z-20 mb-8 w-full flex items-center justify-center">
-            <div className="flex items-center justify-center gap-2 sm:gap-2.5 overflow-x-auto no-scrollbar py-2 px-2 w-full max-w-7xl">
+            <div className="flex items-center justify-start md:justify-center gap-2 sm:gap-2.5 overflow-x-auto scrollbar-none no-scrollbar flex-nowrap py-2 px-2 w-full max-w-7xl [-webkit-overflow-scrolling:touch]">
               {categories.map(cat => (
                 <button
                   key={cat.id}

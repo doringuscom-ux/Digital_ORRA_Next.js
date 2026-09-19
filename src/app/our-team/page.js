@@ -51,9 +51,9 @@ export default function OurTeamPage() {
       </div>
 
       {/* Main Header with Giant Watermark */}
-      <section className="relative w-full pt-24 pb-12 sm:pt-28 md:pt-36 md:pb-20 overflow-hidden">
+      <section className="relative w-full pt-34 pb-12 sm:pt-28 md:pt-36 md:pb-20 overflow-hidden">
         {/* Giant Edge-to-Edge Watermark (Properly below the floating Navbar) */}
-        <div style={{ pointerEvents: 'none' }} className="absolute top-18 sm:top-20 md:top-20 left-0 w-full flex justify-center pointer-events-none select-none overflow-hidden z-0 [mask-image:linear-gradient(to_bottom,black_75%,transparent_100%)]">
+        <div style={{ pointerEvents: 'none' }} className="absolute top-25 md:top-20 left-0 w-full flex justify-center pointer-events-none select-none overflow-hidden z-0 [mask-image:linear-gradient(to_bottom,black_75%,transparent_100%)]">
           <h1 
             style={{ 
               pointerEvents: 'none',
@@ -67,7 +67,7 @@ export default function OurTeamPage() {
           </h1>
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-28 sm:pt-32 md:pt-40 text-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-7 sm:pt-10 md:pt-40 text-center">
           <h2 className="sr-only">Meet the Creative Minds & Growth Specialists Behind Digital ORRA</h2>
 
           {/* Clean Team Photo Grid (Exact Order Set by Admin) */}

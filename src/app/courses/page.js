@@ -85,9 +85,9 @@ export default function CoursesPage() {
       </div>
 
       {/* Main Header / Hero Section */}
-      <section className="relative w-full pt-32 pb-16 md:pt-40 md:pb-20 overflow-hidden">
+      <section className="relative w-full pt-34 pb-16 md:pt-40 md:pb-20 overflow-hidden">
         {/* Giant Edge-to-Edge Watermark */}
-        <div style={{ pointerEvents: 'none' }} className="absolute top-20 md:top-24 left-0 w-full flex justify-center pointer-events-none select-none overflow-hidden z-0 [mask-image:linear-gradient(to_bottom,black_75%,transparent_100%)]">
+        <div style={{ pointerEvents: 'none' }} className="absolute top-25 md:top-24 left-0 w-full flex justify-center pointer-events-none select-none overflow-hidden z-0 [mask-image:linear-gradient(to_bottom,black_75%,transparent_100%)]">
           <h1 
             style={{ 
               pointerEvents: 'none',
@@ -101,12 +101,12 @@ export default function CoursesPage() {
           </h1>
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-32 md:pt-44">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-7 sm:pt-10 md:pt-44">
           <h2 className="sr-only">Professional Digital Marketing & Tech Certification Programs</h2>
           
           {/* Category Filter Tabs: Clean, Centered & Strictly 1 Single Line */}
           <div className="relative z-20 mb-8 w-full flex items-center justify-center">
-            <div className="flex items-center justify-center gap-1.5 sm:gap-2 py-1 px-1 w-full max-w-6xl overflow-x-auto no-scrollbar flex-nowrap">
+            <div className="flex items-center justify-start md:justify-center gap-1.5 sm:gap-2 py-1 px-1 w-full max-w-6xl overflow-x-auto scrollbar-none no-scrollbar flex-nowrap [-webkit-overflow-scrolling:touch]">
               {dynamicCategories.map(cat => (
                 <button
                   key={cat.id}
