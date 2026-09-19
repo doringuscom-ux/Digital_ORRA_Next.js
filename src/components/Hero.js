@@ -44,8 +44,8 @@ export default function Hero() {
   return (
     <section className="relative w-full min-h-screen flex flex-col justify-end bg-[#0A1128] overflow-hidden pt-44 md:pt-56 pb-8 sm:pb-2">
 
-      {/* Background Video Layer: On mobile height is 70vh with deep fade so no hard edge or line appears, on desktop full height */}
-      <div className="absolute top-0 left-0 right-0 h-[70vh] sm:h-full w-full z-0 overflow-hidden bg-[#0A1128] pointer-events-none">
+      {/* Background Video Layer: Full height with bottom fade so video blends smoothly into background on all screens */}
+      <div className="absolute top-0 left-0 right-0 h-full w-full z-0 overflow-hidden bg-[#0A1128] pointer-events-none">
         {/* Animated Glowing Orbs */}
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-[var(--color-primary-pink)]/25 blur-[120px] animate-pulse"></div>
         <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-cyan-600/20 blur-[120px] animate-pulse" style={{ animationDelay: "2s" }}></div>
@@ -58,11 +58,12 @@ export default function Hero() {
           playsInline
           preload="metadata"
           suppressHydrationWarning
-          className="w-full h-full object-cover sm:object-cover  absolute inset-0 z-20 scale-100"
+          className="w-full h-full object-cover absolute inset-0 z-20 scale-100"
         >
           <source src="/hero-bg.webm" type="video/webm" />
         </video>
-        {/* Video Overlays removed for full original clarity */}
+        {/* Deep bottom fade so video never cuts awkwardly across text or buttons */}
+        <div className="absolute inset-x-0 bottom-0 h-48 sm:h-64 bg-gradient-to-t from-[#0A1128] via-[#0A1128]/80 to-transparent z-20 pointer-events-none"></div>
       </div>
 
       {/* Hero Main Content */}
