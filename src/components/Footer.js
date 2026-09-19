@@ -2,38 +2,38 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { 
-  Mail, 
-  Phone, 
-  MapPin, 
+import {
+  Mail,
+  Phone,
+  MapPin,
   ArrowRight
 } from 'lucide-react';
 
 const FacebookIcon = ({ className }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
   </svg>
 );
 
 const TwitterIcon = ({ className }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/>
+    <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" />
   </svg>
 );
 
 const InstagramIcon = ({ className }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
-    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+    <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
   </svg>
 );
 
 const LinkedinIcon = ({ className }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
-    <rect width="4" height="12" x="2" y="9"/>
-    <circle cx="4" cy="4" r="2"/>
+    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+    <rect width="4" height="12" x="2" y="9" />
+    <circle cx="4" cy="4" r="2" />
   </svg>
 );
 
@@ -42,18 +42,18 @@ export default function Footer({ hideCta = false }) {
 
   return (
     <footer className="relative bg-[#070E22] pt-12 md:pt-20 overflow-hidden border-t border-white/10">
-      
+
       {/* Ambient Top Light Beam & Glow */}
       <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[350px] bg-gradient-to-b from-white/[0.05] via-cyan-500/[0.06] to-transparent rounded-full blur-[140px] pointer-events-none z-0"></div>
 
       {/* Absolute Massive Background Watermark */}
-      <div className="absolute top-1/2 left-0 w-full flex justify-center -translate-y-1/2 pointer-events-none select-none z-0 opacity-25 mix-blend-screen">
+      <div className="absolute top-1/2 left-0 w-full flex justify-center -translate-y-1/2 pointer-events-none select-none z-0 opacity-90 mix-blend-screen">
         <div className="w-[120%] overflow-hidden whitespace-nowrap">
           <div className="inline-block animate-marquee" style={{ animationDuration: '40s' }}>
             {[1, 2, 3].map((i) => (
-              <span key={i} className="text-[12vw] font-black text-transparent bg-clip-text bg-gradient-to-b from-white/[0.06] to-transparent uppercase tracking-tight px-4">
-                DIGITAL ORRA • WE BUILD DIGITAL DOMINANCE • 
+              <span key={i} className="text-[12vw] font-black text-transparent bg-clip-text bg-gradient-to-b from-white/[0.04] to-transparent uppercase tracking-tight px-4">
+                DIGITAL ORRA • WE BUILD DIGITAL DOMINANCE •
               </span>
             ))}
           </div>
@@ -71,7 +71,7 @@ export default function Footer({ hideCta = false }) {
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff07_1px,transparent_1px),linear-gradient(to_bottom,#ffffff07_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none z-0"></div>
 
       <div className="max-w-[1520px] mx-auto px-6 sm:px-10 lg:px-12 relative z-10">
-        
+
         {/* Massive Typographic CTA (Hidden on Contact Page) */}
         {!hideCta && (
           <div className="flex flex-col md:flex-row items-center justify-between pb-8 md:pb-16 border-b border-white/10 mb-10 md:mb-16 gap-6 md:gap-8">
@@ -84,20 +84,20 @@ export default function Footer({ hideCta = false }) {
                 </span>
               </h2>
             </div>
-            
+
             <div className="hidden md:block flex-shrink-0">
-              <Link 
-                href="/contact" 
+              <Link
+                href="/contact"
                 className="group relative inline-flex items-center justify-center w-40 h-40 md:w-48 md:h-48 rounded-full bg-white/[0.03] border border-white/10 backdrop-blur-md hover:bg-white/[0.05] hover:border-white/20 transition-all duration-500 overflow-hidden"
               >
                 <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/20 to-pink-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                
+
                 <div className="flex flex-col items-center gap-2 relative z-10 text-white">
                   <span className="font-bold tracking-widest uppercase text-sm">Start</span>
                   <ArrowRight className="w-8 h-8 group-hover:translate-x-2 transition-transform duration-500" />
                   <span className="font-bold tracking-widest uppercase text-sm">Project</span>
                 </div>
-                
+
                 {/* Spinning text ring */}
                 <div className="absolute inset-2 border-[0.5px] border-white/10 rounded-full group-hover:rotate-180 transition-transform duration-1000 ease-in-out"></div>
               </Link>
@@ -107,27 +107,27 @@ export default function Footer({ hideCta = false }) {
 
         {/* 4-Column Grid Layout with enhanced proportion */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-12 pb-16">
-          
+
           {/* Column 1: Brand Info (Span 4) */}
           <div className="lg:col-span-4 flex flex-col gap-6 lg:pr-6">
             <Link href="/" className="inline-block group w-max">
               <div className="bg-white px-3.5 py-2.5 rounded-xl inline-block shadow-[0_0_15px_rgba(255,255,255,0.15)] hover:shadow-[0_0_20px_rgba(6,182,212,0.3)] transition-all duration-300">
-                <Image 
-                  src="/DO JPG.jpeg" 
-                  alt="Digital ORRA Logo" 
+                <Image
+                  src="/DO JPG.jpeg"
+                  alt="Digital ORRA Logo"
                   title="Digital ORRA Logo"
-                  width={195} 
-                  height={62} 
+                  width={195}
+                  height={62}
                   style={{ width: "auto", height: "auto" }}
                   className="object-contain max-h-[58px] sm:max-h-[64px]"
                 />
               </div>
             </Link>
-            
+
             <p className="text-gray-400 text-sm leading-relaxed font-light max-w-sm">
               Architects of digital dominance. Empowering brands with cutting-edge marketing, AI integrations, and high-performance development.
             </p>
-            
+
             <div className="flex items-center gap-3 mt-2">
               {[
                 { name: 'Facebook', href: 'https://www.facebook.com/digitalorra', Icon: FacebookIcon, color: 'hover:text-blue-400 hover:border-blue-400/60 hover:bg-blue-500/15 hover:shadow-[0_0_15px_rgba(59,130,246,0.4)]' },
@@ -210,7 +210,7 @@ export default function Footer({ hideCta = false }) {
               <span>Connect</span>
               <span className="w-1.5 h-1.5 rounded-full bg-purple-400"></span>
             </h4>
-            
+
             <ul className="flex flex-col gap-5">
               {/* Address */}
               <li className="flex items-start gap-3.5">
