@@ -56,7 +56,7 @@ export default function BlogsPage() {
   // Extract unique categories
   const formatCategoryLabel = (cat) => {
     if (!cat || cat === 'Uncategorized') return 'Insights & Strategy';
-    return cat.replace(/&amp;/g, '&');
+    return cat.replace(/&#8217;/g, "'").replace(/&amp;/g, '&');
   };
 
   const categories = [

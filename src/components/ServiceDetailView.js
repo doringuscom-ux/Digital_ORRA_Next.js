@@ -6,6 +6,7 @@ import { useParams } from 'next/navigation';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import DynamicSeoHead from './DynamicSeoHead';
+import AuditModal from './AuditModal';
 import { servicesData } from '../data/servicesData';
 import { 
   ArrowRight, 
@@ -57,6 +58,7 @@ const iconMap = {
 export default function ServiceDetailView({ initialService, slug }) {
   const [service, setService] = useState(initialService);
   const [openFaq, setOpenFaq] = useState(0);
+  const [auditModalOpen, setAuditModalOpen] = useState(false);
 
   React.useEffect(() => {
     async function fetchDetail() {
@@ -140,13 +142,14 @@ export default function ServiceDetailView({ initialService, slug }) {
 
                 {/* Primary Actions */}
                 <div className="flex flex-wrap items-center gap-4">
-                  <Link
-                    href="/contact#form"
-                    className="btn-glow-pink px-8 py-3.5 text-sm sm:text-base font-extrabold rounded-full inline-flex items-center gap-2 shadow-[0_0_25px_rgba(255,51,153,0.4)] hover:scale-105 transition-all"
+                  <button
+                    type="button"
+                    onClick={() => setAuditModalOpen(true)}
+                    className="btn-glow-pink px-8 py-3.5 text-sm sm:text-base font-extrabold rounded-full inline-flex items-center gap-2 shadow-[0_0_25px_rgba(255,51,153,0.4)] hover:scale-105 transition-all cursor-pointer"
                   >
                     <span>Free Audit</span>
                     <ArrowRight className="w-4 h-4" />
-                  </Link>
+                  </button>
 
                   <a
                     href={`https://wa.me/919990432321?text=Hi%20Digital%20ORRA,%20I%20am%20interested%20in%20your%20${encodeURIComponent(currentService.title)}%20services.`}
@@ -455,6 +458,12 @@ export default function ServiceDetailView({ initialService, slug }) {
       </div>
 
       <Footer />
+      
+      {/* Free Audit Form Modal */}
+      <AuditModal 
+        isOpen={auditModalOpen} 
+        onClose={() => setAuditModalOpen(false)} 
+      />
     </main>
   );
 }

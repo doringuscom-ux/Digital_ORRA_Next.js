@@ -20,10 +20,12 @@ import {
   FileText,
   Mail
 } from "lucide-react";
+import AuditModal from "./AuditModal";
 
-export default function Navbar() {
+export default function Navbar({ lightTheme = false }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [auditModalOpen, setAuditModalOpen] = useState(false);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -66,18 +68,24 @@ export default function Navbar() {
       <nav className="fixed top-0 left-0 right-0 z-[100] px-3 sm:px-6 py-3 sm:py-4 transition-all duration-300">
         <div
           className={`max-w-7xl mx-auto rounded-full px-4 sm:px-6 md:px-8 py-2 sm:py-2.5 flex items-center justify-between shadow-lg transition-all duration-500 ${
-            scrolled
-              ? "bg-[#070D1E]/95 border border-white/15 shadow-[0_10px_30px_rgba(0,0,0,0.6)] backdrop-blur-xl"
-              : "glass-nav"
+            lightTheme
+              ? scrolled
+                ? "bg-white/95 border border-slate-200 shadow-[0_10px_30px_rgba(15,23,42,0.12)] backdrop-blur-xl"
+                : "bg-white/90 border border-slate-200 shadow-[0_4px_25px_rgba(15,23,42,0.08)] backdrop-blur-xl"
+              : scrolled
+                ? "bg-[#070D1E]/95 border border-white/15 shadow-[0_10px_30px_rgba(0,0,0,0.6)] backdrop-blur-xl"
+                : "glass-nav"
           }`}
         >
           {/* Brand Logo */}
           <Link href="/" className="flex items-center hover:scale-105 transition-transform duration-300">
             <div
               className={`p-1 sm:p-1.5 rounded-xl transition-shadow ${
-                scrolled
-                  ? "bg-white shadow-[0_0_15px_rgba(255,255,255,0.2)]"
-                  : "bg-white shadow-[0_0_15px_rgba(255,255,255,0.2)] hover:shadow-[0_0_20px_rgba(234,0,122,0.4)]"
+                lightTheme
+                  ? "bg-transparent"
+                  : scrolled
+                    ? "bg-white shadow-[0_0_15px_rgba(255,255,255,0.2)]"
+                    : "bg-white shadow-[0_0_15px_rgba(255,255,255,0.2)] hover:shadow-[0_0_20px_rgba(234,0,122,0.4)]"
               }`}
             >
               <Image
@@ -94,7 +102,9 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Navigation Links (Large Screens) */}
-          <div className="hidden lg:flex items-center gap-6 xl:gap-8 text-[16px] xl:text-[17px] font-bold text-gray-200">
+          <div className={`hidden lg:flex items-center gap-6 xl:gap-8 text-[16px] xl:text-[17px] font-bold ${
+            lightTheme ? "text-slate-700" : "text-gray-200"
+          }`}>
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
               return (
@@ -102,14 +112,22 @@ export default function Navbar() {
                   key={link.name}
                   href={link.href}
                   className={`transition-all duration-300 relative py-1 ${
-                    isActive
-                      ? "text-cyan-300 font-extrabold"
-                      : "hover:text-white hover:scale-105"
+                    lightTheme
+                      ? isActive
+                        ? "text-[#FF007A] font-extrabold"
+                        : "text-slate-800 hover:text-[#FF007A] hover:scale-105"
+                      : isActive
+                        ? "text-cyan-300 font-extrabold"
+                        : "hover:text-white hover:scale-105"
                   }`}
                 >
                   {link.name}
                   {isActive && (
-                    <span className="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-cyan-400 to-pink-500 rounded-full" />
+                    <span className={`absolute bottom-0 left-0 w-full h-[2px] rounded-full ${
+                      lightTheme
+                        ? "bg-[#FF007A]"
+                        : "bg-gradient-to-r from-cyan-400 to-pink-500"
+                    }`} />
                   )}
                 </Link>
               );
@@ -118,23 +136,30 @@ export default function Navbar() {
 
           {/* Right Action + Mobile Menu Hamburger */}
           <div className="flex items-center gap-2.5 sm:gap-3">
-            <a
-              href="https://audit.digitalorra.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden sm:inline-flex btn-glow-pink px-4 sm:px-6 py-2 sm:py-2.5 text-xs sm:text-[14px] font-bold items-center gap-1.5 shadow-[0_0_20px_rgba(255,51,153,0.35)]"
+            <button
+              type="button"
+              onClick={() => setAuditModalOpen(true)}
+              className="hidden sm:inline-flex btn-glow-pink px-4 sm:px-6 py-2 sm:py-2.5 text-xs sm:text-[14px] font-bold items-center gap-1.5 shadow-[0_0_20px_rgba(255,51,153,0.35)] cursor-pointer"
             >
               <span>Free Audit</span>
               <ArrowRight className="w-3.5 h-3.5 hidden sm:inline-block" />
-            </a>
+            </button>
 
             {/* Mobile / Tablet Hamburger Toggle Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 sm:p-2.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 text-white transition-all flex items-center justify-center cursor-pointer active:scale-95"
+              className={`lg:hidden p-2 sm:p-2.5 rounded-full border transition-all flex items-center justify-center cursor-pointer active:scale-95 ${
+                lightTheme
+                  ? "bg-slate-100 hover:bg-slate-200 border-slate-300 text-slate-800"
+                  : "bg-white/10 hover:bg-white/20 border border-white/15 text-white"
+              }`}
               aria-label="Toggle Navigation Menu"
             >
-              {mobileMenuOpen ? <X className="w-5 h-5 text-pink-400" /> : <Menu className="w-5 h-5 text-white" />}
+              {mobileMenuOpen ? (
+                <X className="w-5 h-5 text-pink-400" />
+              ) : (
+                <Menu className={`w-5 h-5 ${lightTheme ? "text-slate-800" : "text-white"}`} />
+              )}
             </button>
           </div>
         </div>
@@ -214,16 +239,17 @@ export default function Navbar() {
 
             {/* Bottom Drawer Actions */}
             <div className="pt-8 border-t border-white/10 mt-8 space-y-3">
-              <a
-                href="https://audit.digitalorra.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => setMobileMenuOpen(false)}
-                className="btn-glow-pink w-full py-3.5 text-center text-sm font-black flex items-center justify-center gap-2 rounded-2xl shadow-xl"
+              <button
+                type="button"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  setAuditModalOpen(true);
+                }}
+                className="btn-glow-pink w-full py-3.5 text-center text-sm font-black flex items-center justify-center gap-2 rounded-2xl shadow-xl cursor-pointer"
               >
                 <span>Free Audit</span>
                 <ArrowRight className="w-4 h-4" />
-              </a>
+              </button>
 
               <a
                 href="https://wa.me/919896384224?text=Hi%20Digital%20ORRA,%20I%20want%20to%20discuss%20a%20project."
@@ -242,6 +268,12 @@ export default function Navbar() {
           </div>
         </div>
       )}
+
+      {/* Free Audit Form Modal */}
+      <AuditModal 
+        isOpen={auditModalOpen} 
+        onClose={() => setAuditModalOpen(false)} 
+      />
     </>
   );
 }

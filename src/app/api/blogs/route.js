@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import dbConnect from "@/lib/dbConnect";
 import Blog from "@/models/Blog";
+import { cleanBlogFields } from "@/lib/decodeHtmlEntities";
 
 // GET /api/blogs
 export async function GET() {
@@ -23,7 +24,10 @@ export async function GET() {
       return createdB - createdA;
     });
 
-    return NextResponse.json(blogs, {
+    // Clean entities like &#8217;, &#8216;, etc.
+    const cleanedBlogs = blogs.map((b) => cleanBlogFields(b));
+
+    return NextResponse.json(cleanedBlogs, {
       headers: {
         'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300'
       }

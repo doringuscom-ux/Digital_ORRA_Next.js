@@ -77,10 +77,17 @@ export default function AdminDashboardPage() {
 
         let inquiriesCount = 0;
         let inqList = [];
+        let auditsCount = 0;
         if (contactRes && contactRes.ok) {
           const cData = await contactRes.json();
-          inquiriesCount = cData.count || (Array.isArray(cData.data) ? cData.data.length : 0);
-          inqList = cData.data ? cData.data.slice(0, 5) : [];
+          const allInqs = Array.isArray(cData.data) ? cData.data : (Array.isArray(cData) ? cData : []);
+          inquiriesCount = cData.count || allInqs.length;
+          inqList = allInqs.slice(0, 5);
+          auditsCount = allInqs.filter((item) => {
+            const serv = (item.service || "").toLowerCase();
+            const msg = (item.message || "").toLowerCase();
+            return serv.includes("audit") || msg.includes("audit");
+          }).length;
         }
 
         let blogsCount = 0;
@@ -116,6 +123,7 @@ export default function AdminDashboardPage() {
         if (isSubscribed) {
           setStats({
             inquiries: inquiriesCount,
+            audits: auditsCount,
             blogs: blogsCount,
             courses: coursesCount,
             gallery: galleryCount,
@@ -207,6 +215,26 @@ export default function AdminDashboardPage() {
               <div className="flex items-center gap-1.5 text-xs text-emerald-400 font-medium mt-2">
                 <CheckCircle className="w-3.5 h-3.5" />
                 Active leads →
+              </div>
+            </Link>
+
+            {/* Free Audits Card - Clickable to /admin/audits */}
+            <Link 
+              href="/admin/audits"
+              className="relative group p-6 rounded-2xl bg-[#0F1B4C]/50 border border-pink-500/30 hover:border-pink-500 backdrop-blur-md transition-all duration-300 hover:shadow-[0_10px_30px_rgba(255,51,153,0.3)] block"
+            >
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold text-pink-300 uppercase tracking-wider group-hover:text-white transition-colors">
+                  Free Audits
+                </span>
+                <div className="p-2.5 rounded-xl bg-pink-500/20 text-pink-400 group-hover:scale-110 transition-transform">
+                  <Sparkles className="w-5 h-5" />
+                </div>
+              </div>
+              <div className="text-3xl sm:text-4xl font-black text-white mt-4">{stats.audits || 0}</div>
+              <div className="flex items-center gap-1.5 text-xs text-pink-400 font-medium mt-2">
+                <Sparkles className="w-3.5 h-3.5" />
+                Audit queries →
               </div>
             </Link>
 

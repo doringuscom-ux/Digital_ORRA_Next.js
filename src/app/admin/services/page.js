@@ -8,6 +8,7 @@ import {
   Search,
   Edit,
   Trash2,
+  Copy,
   ExternalLink,
   CheckCircle,
   AlertCircle,
@@ -271,6 +272,51 @@ export default function AdminServicesPage() {
         spotlightEditorRef.current.innerHTML = srv.spotlightContent || "";
       }
     }, 50);
+    setModalOpen(true);
+  };
+
+  // Open modal for Duplicate (Clone an existing service as a new service)
+  const handleDuplicateService = (srv) => {
+    setIsEditing(false);
+    setEditingId(null);
+
+    // Generate unique new slug
+    const newSlug = `${srv.id || "service"}-copy-${Date.now().toString().slice(-4)}`;
+
+    setFormData({
+      id: newSlug,
+      title: `${srv.title || "Service"} (Copy)`,
+      category: srv.category || "Social & Brand",
+      tag: srv.tag || "",
+      shortDesc: srv.shortDesc || srv.desc || "",
+      fullDesc: srv.fullDesc || srv.desc || "",
+      image: srv.image || "",
+      imageAlt: srv.imageAlt || "",
+      iconName: srv.iconName || "Globe",
+      order: services.length + 1,
+      stats: srv.stats && srv.stats.length > 0 ? JSON.parse(JSON.stringify(srv.stats)) : initialFormState.stats,
+      featuresText: Array.isArray(srv.features) ? srv.features.join("\n") : "",
+      deliverables: srv.deliverables && srv.deliverables.length > 0 ? JSON.parse(JSON.stringify(srv.deliverables)) : initialFormState.deliverables,
+      process: srv.process && srv.process.length > 0 ? JSON.parse(JSON.stringify(srv.process)) : initialFormState.process,
+      faqs: srv.faqs && srv.faqs.length > 0 ? JSON.parse(JSON.stringify(srv.faqs)) : initialFormState.faqs,
+      spotlightBadge: srv.spotlightBadge || "",
+      spotlightTitle: srv.spotlightTitle || "",
+      spotlightContent: srv.spotlightContent || "",
+      spotlightImage: srv.spotlightImage || "",
+      spotlightImageAlt: srv.spotlightImageAlt || "",
+      spotlightImagePosition: srv.spotlightImagePosition || "right"
+    });
+
+    setTimeout(() => {
+      if (spotlightEditorRef.current) {
+        spotlightEditorRef.current.innerHTML = srv.spotlightContent || "";
+      }
+    }, 50);
+
+    setFeedback({
+      type: "success",
+      text: `Duplicated "${srv.title}". You can now customize details and click Save!`
+    });
     setModalOpen(true);
   };
 
@@ -697,6 +743,13 @@ export default function AdminServicesPage() {
                 </Link>
 
                 <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => handleDuplicateService(srv)}
+                    className="p-2 rounded-lg bg-white/5 hover:bg-purple-500/20 text-gray-300 hover:text-purple-300 transition-colors"
+                    title="Duplicate / Clone Service"
+                  >
+                    <Copy className="w-4 h-4" />
+                  </button>
                   <button
                     onClick={() => handleOpenEdit(srv)}
                     className="p-2 rounded-lg bg-white/5 hover:bg-cyan-500/20 text-gray-300 hover:text-cyan-300 transition-colors"

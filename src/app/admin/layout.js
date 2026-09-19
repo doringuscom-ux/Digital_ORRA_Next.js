@@ -34,6 +34,7 @@ export default function AdminLayout({ children }) {
 
   const [counts, setCounts] = useState({
     inquiries: 0,
+    audits: 0,
     blogs: 0,
     courses: 0,
     gallery: 0,
@@ -74,9 +75,16 @@ export default function AdminLayout({ children }) {
         ]);
 
         let inqCount = 0;
+        let auditCount = 0;
         if (cRes && cRes.ok) {
           const cData = await cRes.json();
-          inqCount = cData.count || (Array.isArray(cData.data) ? cData.data.length : 0);
+          const inqList = Array.isArray(cData.data) ? cData.data : (Array.isArray(cData) ? cData : []);
+          inqCount = cData.count || inqList.length;
+          auditCount = inqList.filter((item) => {
+            const serv = (item.service || "").toLowerCase();
+            const msg = (item.message || "").toLowerCase();
+            return serv.includes("audit") || msg.includes("audit");
+          }).length;
         }
 
         let blogCount = 0;
@@ -135,6 +143,7 @@ export default function AdminLayout({ children }) {
 
         setCounts({
           inquiries: inqCount,
+          audits: auditCount,
           blogs: blogCount,
           courses: crsCount,
           gallery: galCount,
@@ -188,6 +197,13 @@ export default function AdminLayout({ children }) {
       href: "/admin/inquiries",
       badge: counts.inquiries,
       active: pathname.startsWith("/admin/inquiries"),
+    },
+    {
+      label: "Free Audits",
+      icon: Sparkles,
+      href: "/admin/audits",
+      badge: counts.audits,
+      active: pathname.startsWith("/admin/audits"),
     },
     {
       label: "Blogs & Articles",

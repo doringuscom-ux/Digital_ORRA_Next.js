@@ -8,6 +8,7 @@ import {
   Search,
   Edit,
   Trash2,
+  Copy,
   ExternalLink,
   CheckCircle,
   AlertCircle,
@@ -233,6 +234,56 @@ export default function AdminLocationsPage() {
       metaKeywords: p.metaKeywords || "",
       customSections: Array.isArray(p.customSections) ? p.customSections : [],
       isPublished: p.isPublished !== false
+    });
+    setModalOpen(true);
+  };
+
+  // Open modal for Duplicate (Clone an existing location page)
+  const handleDuplicateLocation = (p) => {
+    setIsEditing(false);
+    setEditingSlug(null);
+
+    // Generate unique slug for the duplicate
+    const newSlug = `${p.slug || "location"}-copy-${Date.now().toString().slice(-4)}`;
+
+    setFormData({
+      title: `${p.title || "Location Page"} (Copy)`,
+      slug: newSlug,
+      city: p.city || "Panchkula",
+      heroBadge: p.heroBadge || "",
+      heroHeadline: p.heroHeadline || "",
+      heroSubheadline: p.heroSubheadline || "",
+      heroImage: p.heroImage || "",
+      whyLocalSuperTitle: p.whyLocalSuperTitle || "",
+      whyLocalTitle: p.whyLocalTitle || "",
+      whyLocalContent: p.whyLocalContent || "",
+      whyLocalImage: p.whyLocalImage || "",
+      whyLocalImagePosition: p.whyLocalImagePosition || "right",
+      whyChooseTitle: p.whyChooseTitle || "",
+      whyChooseReasonsText: formatItemsToText(p.whyChooseReasons),
+      servicesTitle: p.servicesTitle || "",
+      servicesSubtitle: p.servicesSubtitle || "",
+      servicesListText: formatItemsToText(p.servicesList),
+      processTitle: p.processTitle || "",
+      processSubtitle: p.processSubtitle || "",
+      processStepsText: formatItemsToText(p.processSteps),
+      whyBestTitle: p.whyBestTitle || "",
+      whyBestPointsText: formatItemsToText(p.whyBestPoints),
+      localAdvantageTitle: p.localAdvantageTitle || "",
+      localAdvantageContent: p.localAdvantageContent || "",
+      localAdvantageImage: p.localAdvantageImage || "",
+      ctaTitle: p.ctaTitle || "",
+      ctaSubtitle: p.ctaSubtitle || "",
+      metaTitle: p.metaTitle ? `${p.metaTitle} (Copy)` : "",
+      metaDescription: p.metaDescription || "",
+      metaKeywords: p.metaKeywords || "",
+      customSections: Array.isArray(p.customSections) ? JSON.parse(JSON.stringify(p.customSections)) : [],
+      isPublished: true
+    });
+
+    setFeedback({
+      type: "success",
+      text: `Duplicated "${p.title}". You can modify city, title, or sections and click Save!`
     });
     setModalOpen(true);
   };
@@ -527,6 +578,13 @@ export default function AdminLocationsPage() {
                         <ExternalLink className="w-3.5 h-3.5" />
                         <span className="hidden sm:inline">Preview</span>
                       </Link>
+                      <button
+                        onClick={() => handleDuplicateLocation(p)}
+                        className="p-1.5 rounded-lg bg-white/5 hover:bg-purple-500/20 text-gray-300 hover:text-purple-400 border border-white/10 transition-colors"
+                        title="Duplicate / Clone Location Page"
+                      >
+                        <Copy className="w-4 h-4" />
+                      </button>
                       <button
                         onClick={() => handleOpenEdit(p)}
                         className="p-1.5 rounded-lg bg-white/5 hover:bg-cyan-500/20 text-gray-300 hover:text-cyan-400 border border-white/10 transition-colors"

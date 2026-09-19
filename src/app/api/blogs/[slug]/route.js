@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import dbConnect from "@/lib/dbConnect";
 import Blog from "@/models/Blog";
+import { cleanBlogFields } from "@/lib/decodeHtmlEntities";
 
 // GET /api/blogs/:slug
 export async function GET(req, { params }) {
@@ -31,7 +32,9 @@ export async function GET(req, { params }) {
       return NextResponse.json({ error: "Blog not found" }, { status: 404 });
     }
 
-    return NextResponse.json(blog, {
+    const cleanedBlog = cleanBlogFields(blog);
+
+    return NextResponse.json(cleanedBlog, {
       headers: {
         'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300'
       }

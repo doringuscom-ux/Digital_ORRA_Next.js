@@ -13,9 +13,12 @@ import {
   Calendar,
   User,
   Clock,
-  ArrowRight
+  ArrowRight,
+  Share2,
+  Eye
 } from 'lucide-react';
 import './BlogDetailPage.css';
+import { decodeHtmlEntities } from '../../lib/decodeHtmlEntities';
 
 export default function UniversalSlugPage() {
   const router = useRouter();
@@ -34,6 +37,13 @@ export default function UniversalSlugPage() {
   const [article, setArticle] = useState(null);
   const [allBlogs, setAllBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [viewsCount, setViewsCount] = useState(185);
+
+  useEffect(() => {
+    // Generate a natural-looking random view count on every visit/refresh (e.g. 150 to 980)
+    const randomViews = Math.floor(Math.random() * (980 - 150 + 1)) + 150;
+    setViewsCount(randomViews);
+  }, [slug]);
 
   // Sync service state when slug changes
   useEffect(() => {
@@ -281,48 +291,110 @@ export default function UniversalSlugPage() {
   }
 
   // 3. Render Article Content
-  const title = article.title;
-  const category = (article.category === 'Uncategorized' ? 'Insights & Strategy' : article.category?.replace(/&amp;/g, '&')) || 'Digital Marketing';
+  const title = decodeHtmlEntities(article.title || '');
+  const rawCat = decodeHtmlEntities(article.category || '');
+  const category = (rawCat === 'Uncategorized' ? 'Insights & Strategy' : rawCat) || 'Digital Marketing';
   const author = article.author || 'Digital ORRA Team';
   const date = article.date || 'June 29, 2026';
   const readTime = article.readTime || '5 Min Read';
   const image = article.image;
-  const excerpt = article.excerpt;
-  const content = article.content;
+  const excerpt = decodeHtmlEntities(article.excerpt || '');
+  const content = decodeHtmlEntities(article.content || '');
 
   return (
     <div className="blog-detail-wrapper flex flex-col justify-between">
       {/* Global Navbar */}
-      <Navbar />
+      <Navbar lightTheme={false} />
 
-      <div>
-        {/* Main Content Area with generous top margin below fixed Navbar */}
-        <div className="blog-detail-container blog-content-grid pt-40 sm:pt-48 md:pt-52">
+      {/* Premium Luxury Hero Section - Exact Design as Requested */}
+      <section className="relative w-full bg-gradient-to-b from-[#060B19] via-[#0A1128] to-[#040816] text-white pt-36 sm:pt-44 pb-16 sm:pb-20 overflow-hidden border-b border-white/10">
+        {/* Glow Effects */}
+        <div className="absolute top-1/4 right-5 w-96 h-96 bg-purple-600/20 rounded-full blur-[140px] pointer-events-none"></div>
+        <div className="absolute -top-10 left-10 w-80 h-80 bg-pink-500/15 rounded-full blur-[140px] pointer-events-none"></div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            
+            {/* Left Column: Category Badge + Title + Meta + Share */}
+            <div className="lg:col-span-7 flex flex-col justify-center">
+              {/* Category Pill */}
+              <div className="mb-5">
+                <span className="inline-block px-4 py-1.5 rounded-full bg-[#4F46E5]/30 border border-[#6366F1]/50 text-[#818CF8] text-xs sm:text-sm font-semibold tracking-wide shadow-[0_0_15px_rgba(99,102,241,0.25)]">
+                  {category}
+                </span>
+              </div>
+
+              {/* Giant Bold Title */}
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-black text-white leading-[1.25] tracking-tight mb-7">
+                {title}
+              </h1>
+
+              {/* Author, Date, Views and Share Button */}
+              <div className="flex items-center justify-between pt-2 border-t border-white/10 text-xs sm:text-sm text-gray-300">
+                <div className="space-y-1">
+                  <div className="font-semibold text-white">
+                    By <span className="text-gray-200">{author}</span>
+                  </div>
+                  <div className="flex items-center gap-4 text-gray-400 font-mono text-xs">
+                    <span className="flex items-center gap-1.5">
+                      <Calendar size={13} className="text-gray-400" />
+                      {date}
+                    </span>
+                    <span className="flex items-center gap-1.5">
+                      <Eye size={13} className="text-gray-400" />
+                      {viewsCount.toLocaleString()} Views
+                    </span>
+                  </div>
+                </div>
+
+                {/* Share Button */}
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (navigator.share) {
+                      navigator.share({ title, url: window.location.href }).catch(() => {});
+                    } else {
+                      navigator.clipboard.writeText(window.location.href);
+                      alert("Article link copied to clipboard!");
+                    }
+                  }}
+                  className="w-10 h-10 rounded-full bg-white text-black hover:bg-pink-500 hover:text-white flex items-center justify-center transition-all duration-300 shadow-md hover:scale-110 cursor-pointer"
+                  title="Share this article"
+                  aria-label="Share article"
+                >
+                  <Share2 size={16} />
+                </button>
+              </div>
+            </div>
+
+            {/* Right Column: Featured Image with Smooth Rounded Corners */}
+            {image && (
+              <div className="lg:col-span-5">
+                <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden border border-white/15 shadow-[0_20px_50px_rgba(0,0,0,0.8)] group">
+                  <img
+                    src={image}
+                    alt={title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none"></div>
+                </div>
+              </div>
+            )}
+
+          </div>
+        </div>
+      </section>
+
+      {/* Main White Content Area (Article Body + Sidebar) */}
+      <div className="bg-white">
+        <div className="blog-detail-container blog-content-grid !pt-10 sm:!pt-14">
 
           {/* Main Article Content */}
           <article className="blog-article-main">
 
-            {/* Meta Row */}
-            <div className="blog-detail-meta-top">
-              <span className="blog-cat-badge">{category}</span>
-              <span className="blog-meta-item"><Calendar size={14} /> {date}</span>
-              <span className="blog-meta-item"><Clock size={14} /> {readTime}</span>
-              <span className="blog-meta-item"><User size={14} /> {author}</span>
-            </div>
-
-            {/* Title matched to content width */}
-            <h1 className="blog-detail-title">{title}</h1>
-
-            {/* Featured Image */}
-            {image && (
-              <div className="blog-featured-img-box">
-                <img src={image} alt={title} className="blog-featured-img" />
-              </div>
-            )}
-
             {/* Intro Excerpt Paragraph */}
             {excerpt && (
-              <p className="blog-detail-subtitle mb-8 text-[#CBD5E1] text-[1.08rem] leading-[1.75]">
+              <p className="blog-detail-subtitle mb-8 text-[1.12rem] leading-[1.8] font-medium text-[#334155] border-l-4 border-pink-500 pl-4 bg-pink-50/50 py-3 rounded-r-xl">
                 {excerpt}
               </p>
             )}
@@ -375,6 +447,15 @@ export default function UniversalSlugPage() {
           {/* Sidebar Widgets */}
           <aside className="blog-sidebar">
 
+            {/* Quick Lead Consultation Box Widget - Placed at Top */}
+            <div className="sidebar-widget consultation-widget">
+              <h3>Book Free Consultation</h3>
+              <p>Speak directly with our performance growth specialist for a 1-on-1 strategy audit.</p>
+              <Link href="/contact#form" className="sidebar-btn pink-gradient">
+                <span>Book Audit Call</span> <ArrowRight size={14} />
+              </Link>
+            </div>
+
             {/* Recent Articles Widget */}
             <div className="sidebar-widget recent-widget">
               <h3>Recent Articles</h3>
@@ -395,15 +476,6 @@ export default function UniversalSlugPage() {
                   </Link>
                 ))}
               </div>
-            </div>
-
-            {/* Quick Lead Consultation Box Widget */}
-            <div className="sidebar-widget consultation-widget">
-              <h3>Book Free Consultation</h3>
-              <p>Speak directly with our performance growth specialist for a 1-on-1 strategy audit.</p>
-              <Link href="/contact#form" className="sidebar-btn pink-gradient">
-                <span>Book Audit Call</span> <ArrowRight size={14} />
-              </Link>
             </div>
 
             {/* Categories Widget */}

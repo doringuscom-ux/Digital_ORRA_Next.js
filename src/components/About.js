@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const cities = ["Panchkula, India", "Chandigarh, India", "Mohali, India"];
 
@@ -128,10 +129,21 @@ export default function About({
 
             {/* Premium Interactive Stats Grid - 1 line on mobile & desktop */}
             <div className="grid grid-cols-3 gap-2 sm:gap-6 w-full">
-              <div className="group border border-white/10 rounded-xl sm:rounded-2xl p-3 sm:p-5 bg-gradient-to-b from-white/[0.06] to-white/[0.01] hover:border-[var(--color-primary-pink)]/50 hover:shadow-[0_0_25px_rgba(234,0,122,0.25)] hover:-translate-y-1 transition-all duration-300 backdrop-blur-sm text-center sm:text-left">
-                <h4 className="text-xl xs:text-2xl sm:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-[var(--color-primary-pink)] mb-0.5 sm:mb-1 group-hover:scale-105 transition-transform duration-300">+200</h4>
-                <p className="text-[10px] sm:text-xs text-gray-400 uppercase tracking-tight sm:tracking-wider font-semibold leading-tight">Digital Experts</p>
-              </div>
+              <Link 
+                href="/about-us" 
+                className="group border border-white/10 rounded-xl sm:rounded-2xl p-3 sm:p-5 bg-gradient-to-b from-white/[0.06] to-white/[0.01] hover:border-[var(--color-primary-pink)] hover:shadow-[0_0_25px_rgba(234,0,122,0.35)] hover:-translate-y-1 transition-all duration-300 backdrop-blur-sm text-center sm:text-left flex flex-col justify-center cursor-pointer"
+                title="Learn More About Digital ORRA"
+              >
+                <div className="flex items-center justify-center sm:justify-start gap-1 sm:gap-1.5 mb-0.5 sm:mb-1">
+                  <h4 className="text-xl xs:text-2xl sm:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-[var(--color-primary-pink)] group-hover:scale-105 transition-transform duration-300">
+                    About
+                  </h4>
+                  <span className="text-[var(--color-primary-pink)] text-base sm:text-2xl font-bold transition-transform duration-300 group-hover:translate-x-1">→</span>
+                </div>
+                <p className="text-[10px] sm:text-xs text-gray-300 uppercase tracking-tight sm:tracking-wider font-semibold leading-tight group-hover:text-pink-300 transition-colors">
+                  Our Story & Vision
+                </p>
+              </Link>
               <div className="group border border-white/10 rounded-xl sm:rounded-2xl p-3 sm:p-5 bg-gradient-to-b from-white/[0.06] to-white/[0.01] hover:border-[var(--color-primary-pink)]/50 hover:shadow-[0_0_25px_rgba(234,0,122,0.25)] hover:-translate-y-1 transition-all duration-300 backdrop-blur-sm text-center sm:text-left">
                 <h4 className="text-xl xs:text-2xl sm:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-[var(--color-accent-cyan)] mb-0.5 sm:mb-1 group-hover:scale-105 transition-transform duration-300">12k+</h4>
                 <p className="text-[10px] sm:text-xs text-gray-400 uppercase tracking-tight sm:tracking-wider font-semibold leading-tight">Client Reviews</p>

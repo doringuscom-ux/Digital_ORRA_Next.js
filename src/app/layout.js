@@ -46,7 +46,7 @@ export const metadata = {
     description: "Premium Digital Marketing & Web Development Agency in Panchkula & Chandigarh Tricity",
     images: ["/DO JPG.jpeg"],
   },
-  robots: {
+    robots: {
     index: true,
     follow: true,
     googleBot: {
@@ -56,6 +56,9 @@ export const metadata = {
       "max-image-preview": "large",
       "max-snippet": -1,
     },
+  },
+  verification: {
+    google: "gs2DVScH_akuk5X8gCMvYW4cSiS-R7MP7uYoFVCBg04",
   },
 };
 
@@ -88,6 +91,7 @@ export default function RootLayout({ children }) {
       className={`${outfit.variable} h-full antialiased`}
     >
       <head>
+        <meta name="google-site-verification" content="gs2DVScH_akuk5X8gCMvYW4cSiS-R7MP7uYoFVCBg04" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}

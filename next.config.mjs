@@ -62,6 +62,12 @@ const nextConfig = {
         destination: '/360-virtual-tour',
         permanent: true,
       },
+      // About Us redirect
+      {
+        source: '/about',
+        destination: '/about-us',
+        permanent: true,
+      },
       // Old Contact Us to new Contact
       {
         source: '/contact-us',
