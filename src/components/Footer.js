@@ -262,15 +262,19 @@ export default function Footer({ hideCta = false }) {
         </div>
 
         {/* Minimalist Bottom Bar */}
-        <div className="py-8 border-t border-white/[0.05] flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-gray-500 text-sm font-light">
+        <div className="py-4 sm:py-6 border-t border-white/[0.08] flex flex-col md:flex-row items-center justify-between gap-3 text-center md:text-left">
+          <p className="text-gray-400 text-xs sm:text-sm font-normal">
             &copy; {currentYear} Digital ORRA. All rights reserved.
           </p>
-          <div className="flex flex-wrap gap-5 sm:gap-6 text-sm font-light text-gray-400">
-            <Link href="/locations" className="hover:text-cyan-400 font-medium text-gray-300 transition-colors">Locations</Link>
+          <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs sm:text-sm text-gray-300 font-medium">
+            <Link href="/locations" className="hover:text-cyan-400 transition-colors">Locations</Link>
+            <span className="text-white/20 text-xs hidden sm:inline">•</span>
             <Link href="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link>
+            <span className="text-white/20 text-xs hidden sm:inline">•</span>
             <Link href="/sitemap" className="hover:text-cyan-400 transition-colors">Sitemap</Link>
+            <span className="text-white/20 text-xs hidden sm:inline">•</span>
             <Link href="/privacy-policy" className="hover:text-white transition-colors">Terms of Service</Link>
+            <span className="text-white/20 text-xs hidden sm:inline">•</span>
             <Link href="/privacy-policy" className="hover:text-white transition-colors">Refund Policy</Link>
           </div>
         </div>
