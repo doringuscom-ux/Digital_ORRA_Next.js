@@ -164,12 +164,12 @@ export default function BlogsPage() {
                 >
                   <div className="p-4 pb-0">
                     {/* Image Container with Inset & Rounded Corners (NO CATEGORY BADGE) */}
-                    <div className="relative w-full aspect-[2/1] rounded-xl overflow-hidden bg-white">
+                    <div className="relative w-full aspect-[16/9] rounded-xl overflow-hidden bg-[#0A1128]/80 border border-white/5 flex items-center justify-center p-1.5">
                       {blog.image ? (
                         <img 
                           src={blog.image} 
                           alt={blog.title} 
-                          className="w-full h-full object-cover" 
+                          className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500 rounded-lg" 
                         />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#0B1536] to-[#060B1A]">

@@ -205,14 +205,14 @@ export default function AdminBlogsPage() {
             >
               <div>
                 {/* Blog Image or Placeholder */}
-                <div className="relative w-full h-48 rounded-2xl overflow-hidden mb-4 bg-[#0A1128]/80 border border-white/5">
+                <div className="relative w-full h-48 rounded-2xl overflow-hidden mb-4 bg-[#0A1128]/90 border border-white/5 flex items-center justify-center p-2">
                   {blog.image ? (
                     <Image
                       src={blog.image}
                       alt={blog.title || "Blog cover"}
                       fill
                       unoptimized
-                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      className="object-contain group-hover:scale-105 transition-transform duration-500 rounded-xl"
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center text-gray-600">

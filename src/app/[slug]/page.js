@@ -370,13 +370,13 @@ export default function UniversalSlugPage() {
             {/* Right Column: Featured Image with Smooth Rounded Corners */}
             {image && (
               <div className="lg:col-span-5">
-                <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden border border-white/15 shadow-[0_20px_50px_rgba(0,0,0,0.8)] group">
+                <div className="relative w-full aspect-[16/10] rounded-3xl overflow-hidden border border-white/15 shadow-[0_20px_50px_rgba(0,0,0,0.8)] bg-[#050B1B]/90 flex items-center justify-center p-2 group">
                   <img
                     src={image}
                     alt={title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    className="w-full h-full object-contain group-hover:scale-102 transition-transform duration-700 rounded-2xl"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none"></div>
                 </div>
               </div>
             )}
