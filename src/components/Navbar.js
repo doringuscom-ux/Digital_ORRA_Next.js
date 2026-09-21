@@ -4,12 +4,12 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { 
-  Menu, 
-  X, 
+import {
+  Menu,
+  X,
   Home,
-  ArrowRight, 
-  PhoneCall, 
+  ArrowRight,
+  PhoneCall,
   Sparkles,
   ChevronRight,
   Globe,
@@ -67,26 +67,24 @@ export default function Navbar({ lightTheme = false }) {
     <>
       <nav className="fixed top-0 left-0 right-0 z-[100] px-3 sm:px-6 py-3 sm:py-4 transition-all duration-300">
         <div
-          className={`max-w-7xl mx-auto rounded-full px-4 sm:px-6 md:px-8 py-2 sm:py-2.5 flex items-center justify-between shadow-lg transition-all duration-500 ${
-            lightTheme
+          className={`max-w-7xl mx-auto rounded-full px-4 sm:px-6 md:px-8 py-2 sm:py-2.5 flex items-center justify-between shadow-lg transition-all duration-500 ${lightTheme
               ? scrolled
                 ? "bg-white/95 border border-slate-200 shadow-[0_10px_30px_rgba(15,23,42,0.12)] backdrop-blur-xl"
                 : "bg-white/90 border border-slate-200 shadow-[0_4px_25px_rgba(15,23,42,0.08)] backdrop-blur-xl"
               : scrolled
                 ? "bg-[#070D1E]/95 border border-white/15 shadow-[0_10px_30px_rgba(0,0,0,0.6)] backdrop-blur-xl"
                 : "glass-nav"
-          }`}
+            }`}
         >
           {/* Brand Logo */}
           <Link href="/" className="flex items-center hover:scale-105 transition-transform duration-300">
             <div
-              className={`p-1 sm:p-1.5 rounded-xl transition-shadow ${
-                lightTheme
+              className={`p-1 sm:p-1.5 rounded-xl transition-shadow ${lightTheme
                   ? "bg-transparent"
                   : scrolled
                     ? "bg-white shadow-[0_0_15px_rgba(255,255,255,0.2)]"
                     : "bg-white shadow-[0_0_15px_rgba(255,255,255,0.2)] hover:shadow-[0_0_20px_rgba(234,0,122,0.4)]"
-              }`}
+                }`}
             >
               <Image
                 src="/logo.webp"
@@ -102,32 +100,29 @@ export default function Navbar({ lightTheme = false }) {
           </Link>
 
           {/* Desktop Navigation Links (Large Screens) */}
-          <div className={`hidden lg:flex items-center gap-6 xl:gap-8 text-[16px] xl:text-[17px] font-bold ${
-            lightTheme ? "text-slate-700" : "text-gray-200"
-          }`}>
+          <div className={`hidden lg:flex items-center gap-6 xl:gap-8 text-[16px] xl:text-[17px] font-bold ${lightTheme ? "text-slate-700" : "text-gray-200"
+            }`}>
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
               return (
                 <Link
                   key={link.name}
                   href={link.href}
-                  className={`transition-all duration-300 relative py-1 ${
-                    lightTheme
+                  className={`transition-all duration-300 relative py-1 ${lightTheme
                       ? isActive
                         ? "text-[#FF007A] font-extrabold"
                         : "text-slate-800 hover:text-[#FF007A] hover:scale-105"
                       : isActive
                         ? "text-cyan-300 font-extrabold"
                         : "hover:text-white hover:scale-105"
-                  }`}
+                    }`}
                 >
                   {link.name}
                   {isActive && (
-                    <span className={`absolute bottom-0 left-0 w-full h-[2px] rounded-full ${
-                      lightTheme
+                    <span className={`absolute bottom-0 left-0 w-full h-[2px] rounded-full ${lightTheme
                         ? "bg-[#FF007A]"
                         : "bg-gradient-to-r from-cyan-400 to-pink-500"
-                    }`} />
+                      }`} />
                   )}
                 </Link>
               );
@@ -148,11 +143,10 @@ export default function Navbar({ lightTheme = false }) {
             {/* Mobile / Tablet Hamburger Toggle Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className={`lg:hidden p-2 sm:p-2.5 rounded-full border transition-all flex items-center justify-center cursor-pointer active:scale-95 ${
-                lightTheme
+              className={`lg:hidden p-2 sm:p-2.5 rounded-full border transition-all flex items-center justify-center cursor-pointer active:scale-95 ${lightTheme
                   ? "bg-slate-100 hover:bg-slate-200 border-slate-300 text-slate-800"
                   : "bg-white/10 hover:bg-white/20 border border-white/15 text-white"
-              }`}
+                }`}
               aria-label="Toggle Navigation Menu"
             >
               {mobileMenuOpen ? (
@@ -211,19 +205,17 @@ export default function Navbar({ lightTheme = false }) {
                       key={link.name}
                       href={link.href}
                       onClick={() => setMobileMenuOpen(false)}
-                      className={`flex items-center justify-between p-3.5 rounded-2xl border transition-all ${
-                        isActive
+                      className={`flex items-center justify-between p-3.5 rounded-2xl border transition-all ${isActive
                           ? "bg-gradient-to-r from-pink-500/20 to-purple-600/20 border-pink-500/40 text-white font-black shadow-lg"
                           : "bg-white/[0.03] hover:bg-white/[0.08] border-white/5 text-gray-200 hover:text-white"
-                      }`}
+                        }`}
                     >
                       <div className="flex items-center gap-3.5">
                         <div
-                          className={`w-9 h-9 rounded-xl flex items-center justify-center ${
-                            isActive
+                          className={`w-9 h-9 rounded-xl flex items-center justify-center ${isActive
                               ? "bg-pink-500 text-white shadow-[0_0_15px_rgba(255,51,153,0.5)]"
                               : "bg-white/5 text-cyan-400 border border-white/10"
-                          }`}
+                            }`}
                         >
                           <Icon className="w-4 h-4" />
                         </div>
@@ -270,9 +262,9 @@ export default function Navbar({ lightTheme = false }) {
       )}
 
       {/* Free Audit Form Modal */}
-      <AuditModal 
-        isOpen={auditModalOpen} 
-        onClose={() => setAuditModalOpen(false)} 
+      <AuditModal
+        isOpen={auditModalOpen}
+        onClose={() => setAuditModalOpen(false)}
       />
     </>
   );
