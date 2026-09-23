@@ -8,6 +8,11 @@ import ReviewsSection from '../components/ReviewsSection';
 import CelebritySpotlight from '../components/CelebritySpotlight';
 import Footer from '../components/Footer';
 import DynamicSeoHead from '../components/DynamicSeoHead';
+import { getSeoMetadata } from '@/lib/getSeoMetadata';
+
+export async function generateMetadata() {
+  return await getSeoMetadata('/');
+}
 
 export default function Home() {
   return (
