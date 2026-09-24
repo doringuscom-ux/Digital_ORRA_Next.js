@@ -5,9 +5,15 @@ import Services from '../components/Services';
 import ProcessSection from '../components/ProcessSection';
 import Portfolio from '../components/Portfolio';
 import ReviewsSection from '../components/ReviewsSection';
+import FaqSection from '../components/FaqSection';
 import CelebritySpotlight from '../components/CelebritySpotlight';
 import Footer from '../components/Footer';
 import DynamicSeoHead from '../components/DynamicSeoHead';
+import { getSeoMetadata } from '@/lib/getSeoMetadata';
+
+export async function generateMetadata() {
+  return await getSeoMetadata('/');
+}
 
 export default function Home() {
   return (
@@ -21,6 +27,7 @@ export default function Home() {
       <ProcessSection />
       <Portfolio />
       <ReviewsSection />
+      <FaqSection />
       <Footer />
     </main>
   );

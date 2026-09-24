@@ -20,7 +20,8 @@ import {
   ExternalLink,
   Activity,
   Layers,
-  MapPin
+  MapPin,
+  HelpCircle
 } from "lucide-react";
 
 export default function AdminLayout({ children }) {
@@ -44,6 +45,7 @@ export default function AdminLayout({ children }) {
     portfolios: 0,
     workshops: 0,
     locations: 0,
+    faqs: 0,
   });
 
   // Agar login page hai toh bina sidebar ke clean login dikhayein
@@ -61,7 +63,7 @@ export default function AdminLayout({ children }) {
     // Load sidebar live counts
     async function loadSidebarCounts() {
       try {
-        const [cRes, bRes, crRes, gRes, carRes, sRes, rRes, pRes, wRes, lRes] = await Promise.all([
+        const [cRes, bRes, crRes, gRes, carRes, sRes, rRes, pRes, wRes, lRes, faqRes] = await Promise.all([
           fetch("/api/contact").catch(() => null),
           fetch("/api/blogs").catch(() => null),
           fetch("/api/courses").catch(() => null),
@@ -72,6 +74,7 @@ export default function AdminLayout({ children }) {
           fetch("/api/portfolio").catch(() => null),
           fetch("/api/workshop").catch(() => null),
           fetch("/api/locations").catch(() => null),
+          fetch("/api/faqs?all=true").catch(() => null),
         ]);
 
         let inqCount = 0;
@@ -141,6 +144,12 @@ export default function AdminLayout({ children }) {
           locCount = Array.isArray(lData) ? lData.length : 0;
         }
 
+        let faqCount = 0;
+        if (faqRes && faqRes.ok) {
+          const fData = await faqRes.json();
+          faqCount = Array.isArray(fData) ? fData.length : 0;
+        }
+
         setCounts({
           inquiries: inqCount,
           audits: auditCount,
@@ -153,6 +162,7 @@ export default function AdminLayout({ children }) {
           portfolios: portCount,
           workshops: workCount,
           locations: locCount,
+          faqs: faqCount,
         });
       } catch (e) {
         console.error("Sidebar count error:", e);
@@ -267,6 +277,13 @@ export default function AdminLayout({ children }) {
       href: "/admin/reviews",
       badge: counts.reviews,
       active: pathname.startsWith("/admin/reviews"),
+    },
+    {
+      label: "FAQs",
+      icon: HelpCircle,
+      href: "/admin/faqs",
+      badge: counts.faqs,
+      active: pathname.startsWith("/admin/faqs"),
     },
     {
       label: "Our Team",

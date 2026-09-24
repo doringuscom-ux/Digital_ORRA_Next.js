@@ -121,7 +121,7 @@ export default function LocationPageView({ page, slug }) {
                     <ArrowRight className="w-5 h-5" />
                   </Link>
                   <a
-                    href="tel:+919876543210"
+                    href="tel:+916280458005"
                     className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full bg-white/[0.08] border border-white/20 text-white font-bold text-base hover:bg-white/[0.15] hover:border-white/40 backdrop-blur-md transition-all"
                   >
                     <PhoneCall className="w-4 h-4 text-cyan-400" />

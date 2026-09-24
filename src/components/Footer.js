@@ -233,11 +233,11 @@ export default function Footer({ hideCta = false }) {
                   <Phone className="w-4 h-4" />
                 </div>
                 <div className="flex flex-col gap-1 text-sm">
-                  <a href="tel:+919896384224" className="text-white font-medium hover:text-cyan-300 transition-colors">
-                    +91 98963 84224
-                  </a>
                   <a href="tel:+916280458005" className="text-white font-medium hover:text-cyan-300 transition-colors">
                     +91 62804 58005
+                  </a>
+                  <a href="tel:+919896384224" className="text-white font-medium hover:text-cyan-300 transition-colors">
+                    +91 98963 84224
                   </a>
                 </div>
               </li>

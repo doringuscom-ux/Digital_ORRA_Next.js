@@ -23,11 +23,11 @@ export const metadata = {
     shortcut: "/icon.png",
     apple: "/icon.png",
   },
-  title: "DIGITAL ORRA | Architects of Digital Dominance",
-  description: "Premium Digital Marketing Agency",
+  title: "Digital ORRA | Top Digital Marketing & Growth Agency",
+  description: "Scale your revenue with Digital ORRA. Expert performance marketing, paid ads, viral social media management, brand development, and web solutions in Panchkula & Chandigarh.",
   openGraph: {
-    title: "DIGITAL ORRA | Architects of Digital Dominance",
-    description: "Premium Digital Marketing & Web Development Agency in Panchkula & Chandigarh Tricity",
+    title: "Digital ORRA | Top Digital Marketing & Growth Agency",
+    description: "Scale your revenue with Digital ORRA. Expert performance marketing, paid ads, viral social media management, brand development, and web solutions.",
     url: "https://digitalorra.com",
     siteName: "Digital ORRA",
     images: [
@@ -43,8 +43,8 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "DIGITAL ORRA | Architects of Digital Dominance",
-    description: "Premium Digital Marketing & Web Development Agency in Panchkula & Chandigarh Tricity",
+    title: "Digital ORRA | Top Digital Marketing & Growth Agency",
+    description: "Scale your revenue with Digital ORRA. Expert performance marketing, paid ads, viral social media management, brand development, and web solutions.",
     images: ["/DO JPG.jpeg"],
   },
     robots: {

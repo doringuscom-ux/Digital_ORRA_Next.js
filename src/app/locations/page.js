@@ -205,6 +205,8 @@ export default function LocationsDirectoryPage() {
                   placeholder="Search city, service or region..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
+                  spellCheck={false}
+                  suppressHydrationWarning
                   className="w-full pl-11 pr-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-400 text-sm focus:outline-none focus:border-cyan-400 transition-colors"
                 />
               </div>

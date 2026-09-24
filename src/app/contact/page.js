@@ -165,9 +165,9 @@ export default function ContactPage() {
                   <div>
                     <div className="text-xs font-bold text-cyan-400 uppercase tracking-wider">Phone</div>
                     <div className="flex flex-wrap gap-x-2 text-base sm:text-lg font-bold text-white">
-                      <a href="tel:+919896384224" className="hover:text-cyan-300 transition-colors">+91 98963 84224</a>
-                      <span className="text-gray-400">,</span>
                       <a href="tel:+916280458005" className="hover:text-cyan-300 transition-colors">+91 62804 58005</a>
+                      <span className="text-gray-400">,</span>
+                      <a href="tel:+919896384224" className="hover:text-cyan-300 transition-colors">+91 98963 84224</a>
                     </div>
                   </div>
                 </div>
