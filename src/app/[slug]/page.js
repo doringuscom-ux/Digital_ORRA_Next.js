@@ -774,6 +774,17 @@ export default function UniversalSlugPage() {
               </div>
             </div>
 
+            {/* Boost Banner Widget */}
+            <div className="sidebar-widget !p-0 overflow-hidden rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow flex-shrink-0">
+              <Link href="/contact#form" className="block group w-full">
+                <img
+                  src="/BOOST.png"
+                  alt="Boost Your Business With Digital ORRA"
+                  className="w-full aspect-square object-contain block rounded-2xl group-hover:scale-[1.02] transition-transform duration-300"
+                />
+              </Link>
+            </div>
+
           </aside>
 
         </div>

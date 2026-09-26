@@ -178,6 +178,26 @@
   display: block !important;
 }
 
+/* Editorial Drop Cap on First Paragraph */
+.blog-dynamic-content > p:first-of-type::first-letter,
+.blog-dynamic-content > .wp-block-paragraph:first-of-type::first-letter,
+.blog-dynamic-content > div:first-child > p:first-of-type::first-letter,
+.blog-dynamic-content p:first-of-type::first-letter,
+.blog-drop-cap::first-letter {
+  font-size: 3.5rem;
+  line-height: 0.85;
+  float: left;
+  font-weight: 900;
+  color: #0F172A;
+  margin-right: 12px;
+  margin-top: 6px;
+  margin-bottom: 0px;
+  font-family: inherit;
+  text-transform: uppercase;
+}
+
+
+
 .blog-dynamic-content p.lead-text {
   font-size: 1.18rem;
   color: #0F172A;
@@ -455,14 +475,22 @@
 /* Sidebar Sticky Positioning & Entire Sidebar Custom Scrollbar */
 .blog-sidebar {
   position: sticky;
-  top: 110px;
-  max-height: calc(100vh - 130px);
+  top: 90px;
+  max-height: calc(100vh - 110px);
   overflow-y: auto;
+  overflow-x: hidden;
   display: flex;
   flex-direction: column;
   gap: 20px;
   padding-right: 8px;
+  padding-bottom: 12px;
+  box-sizing: border-box;
 }
+
+
+
+
+
 
 /* Custom Sleek Scrollbar for the Entire Sidebar Section */
 .blog-sidebar::-webkit-scrollbar {
