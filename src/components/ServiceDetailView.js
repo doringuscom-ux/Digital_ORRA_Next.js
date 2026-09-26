@@ -84,15 +84,15 @@ export default function ServiceDetailView({ initialService, slug }) {
   const currentService = activeService;
 
   return (
-    <main className="min-h-screen bg-[#070D1E] text-white selection:bg-pink-500 selection:text-white relative overflow-hidden flex flex-col justify-between">
+    <main className="min-h-screen bg-gradient-to-b from-[#0F1C3F] via-[#0B1530] to-[#070E22] text-white selection:bg-pink-500 selection:text-white relative overflow-hidden flex flex-col justify-between">
       <DynamicSeoHead path={`/${slug}`} />
       <Navbar />
 
-      {/* Ambient Background Glows */}
+      {/* Ambient Background Glows - Brighter & Softer */}
       <div className="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
-        <div className="absolute top-[10%] left-[10%] w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[140px] animate-pulse duration-1000"></div>
-        <div className="absolute top-[40%] right-[10%] w-[500px] h-[500px] bg-pink-500/10 rounded-full blur-[140px] animate-pulse duration-700"></div>
-        <div className="absolute bottom-[10%] left-[30%] w-[600px] h-[600px] bg-indigo-600/10 rounded-full blur-[160px]"></div>
+        <div className="absolute top-[8%] left-[10%] w-[650px] h-[650px] bg-cyan-400/15 rounded-full blur-[150px]"></div>
+        <div className="absolute top-[35%] right-[8%] w-[600px] h-[600px] bg-pink-500/15 rounded-full blur-[150px]"></div>
+        <div className="absolute bottom-[10%] left-[25%] w-[700px] h-[700px] bg-indigo-500/15 rounded-full blur-[170px]"></div>
       </div>
 
       <div className="pt-28 pb-20">
@@ -110,7 +110,7 @@ export default function ServiceDetailView({ initialService, slug }) {
           {/* Hero Banner Section - Ultra Premium Agency Style */}
           <div className="relative mb-20">
             {/* Ambient Multi-layer Glow */}
-            <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-full max-w-4xl h-[350px] bg-gradient-to-r from-cyan-500/15 via-pink-500/15 to-purple-600/15 blur-[120px] rounded-full pointer-events-none -z-10"></div>
+            <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-full max-w-4xl h-[350px] bg-gradient-to-r from-cyan-400/20 via-pink-400/20 to-purple-500/20 blur-[130px] rounded-full pointer-events-none -z-10"></div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
               {/* Left Column: Title, Badges, Lead, Actions */}
@@ -152,7 +152,7 @@ export default function ServiceDetailView({ initialService, slug }) {
                   </button>
 
                   <a
-                    href={`https://wa.me/919990432321?text=Hi%20Digital%20ORRA,%20I%20am%20interested%20in%20your%20${encodeURIComponent(currentService.title)}%20services.`}
+                    href={`https://wa.me/916280458005?text=Hi%20Digital%20ORRA,%20I%20am%20interested%20in%20your%20${encodeURIComponent(currentService.title)}%20services.`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-white/[0.06] hover:bg-white/[0.12] border border-white/15 text-white text-sm sm:text-base font-semibold transition-all hover:border-cyan-400/40 hover:scale-105 backdrop-blur-md"
@@ -184,12 +184,12 @@ export default function ServiceDetailView({ initialService, slug }) {
                     {currentService.stats.map((st, sidx) => (
                       <div
                         key={sidx}
-                        className="p-2 sm:p-2.5 rounded-xl bg-[#080E21]/90 border border-white/10 hover:border-cyan-400/40 transition-all text-center flex flex-col justify-center items-center shadow-lg"
+                        className="p-2 sm:p-2.5 rounded-xl bg-white/[0.08] backdrop-blur-md border border-white/20 hover:border-cyan-400/60 transition-all text-center flex flex-col justify-center items-center shadow-lg"
                       >
                         <div className="text-base sm:text-xl font-black text-white font-mono tracking-tight leading-tight">
                           {st.value}
                         </div>
-                        <div className="text-[10px] sm:text-[11px] text-gray-300/90 font-medium leading-tight mt-0.5 line-clamp-2">
+                        <div className="text-[10px] sm:text-[11px] text-gray-200 font-medium leading-tight mt-0.5 line-clamp-2">
                           {st.label}
                         </div>
                       </div>
@@ -215,7 +215,7 @@ export default function ServiceDetailView({ initialService, slug }) {
                 {currentService.features.map((feature, fIdx) => (
                   <div 
                     key={fIdx}
-                    className="p-6 rounded-2xl bg-gradient-to-b from-[#101A38] to-[#091126] border border-white/10 hover:border-cyan-400/50 transition-all duration-300 flex items-start gap-3.5 shadow-md group hover:-translate-y-1"
+                    className="p-6 rounded-2xl bg-gradient-to-b from-white/[0.09] via-white/[0.05] to-white/[0.03] backdrop-blur-md border border-white/20 hover:border-cyan-400/60 transition-all duration-300 flex items-start gap-3.5 shadow-lg group hover:-translate-y-1"
                   >
                     <CheckCircle2 className="w-5 h-5 text-cyan-400 flex-shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
                     <span className="text-[15px] text-gray-100 font-medium leading-snug">{feature}</span>
@@ -232,7 +232,7 @@ export default function ServiceDetailView({ initialService, slug }) {
                 <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight mb-3">
                   What We <span className="bg-gradient-to-r from-pink-400 via-purple-300 to-cyan-300 bg-clip-text text-transparent">Deliver</span>
                 </h2>
-                <p className="text-sm sm:text-base text-gray-300/80 w-full leading-relaxed font-normal">
+                <p className="text-sm sm:text-base text-gray-200/90 w-full leading-relaxed font-normal">
                   Everything we produce is engineered for high conversion, authoritative branding, and long-term business scale.
                 </p>
               </div>
@@ -241,17 +241,17 @@ export default function ServiceDetailView({ initialService, slug }) {
                 {currentService.deliverables.map((del, dIdx) => (
                   <div 
                     key={dIdx} 
-                    className="relative p-7 sm:p-8 rounded-3xl bg-gradient-to-br from-[#111C3D] via-[#0A132C] to-[#070D1E] border border-white/15 hover:border-pink-500/50 transition-all duration-300 group hover:-translate-y-1 shadow-[0_10px_30px_rgba(0,0,0,0.5)]"
+                    className="relative p-7 sm:p-8 rounded-3xl bg-gradient-to-br from-white/[0.09] via-white/[0.05] to-white/[0.02] backdrop-blur-md border border-white/20 hover:border-pink-500/50 transition-all duration-300 group hover:-translate-y-1 shadow-[0_10px_30px_rgba(0,0,0,0.35)]"
                   >
                     <div className="flex items-center gap-4 mb-4">
-                      <div className="w-10 h-10 rounded-xl bg-pink-500/15 border border-pink-500/30 text-pink-300 font-mono font-bold text-sm flex items-center justify-center shadow-md">
+                      <div className="w-10 h-10 rounded-xl bg-pink-500/20 border border-pink-400/40 text-pink-300 font-mono font-bold text-sm flex items-center justify-center shadow-md">
                         {String(dIdx + 1).padStart(2, '0')}
                       </div>
                       <h3 className="text-xl font-bold text-white group-hover:text-cyan-300 transition-colors">
                         {del.title}
                       </h3>
                     </div>
-                    <p className="text-[15px] text-gray-300 leading-relaxed pl-14 font-light">
+                    <p className="text-[15px] text-gray-200/90 leading-relaxed pl-14 font-light">
                       {del.desc}
                     </p>
                   </div>
@@ -320,14 +320,14 @@ export default function ServiceDetailView({ initialService, slug }) {
                 {currentService.process.map((step, pIdx) => (
                   <div 
                     key={pIdx}
-                    className="relative p-7 rounded-3xl bg-gradient-to-b from-[#0F1836] to-[#080E22] border border-white/15 hover:border-cyan-400/60 transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1 shadow-lg"
+                    className="relative p-7 rounded-3xl bg-gradient-to-b from-white/[0.08] via-white/[0.04] to-white/[0.02] backdrop-blur-md border border-white/20 hover:border-cyan-400/60 transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1 shadow-lg"
                   >
                     <div>
-                      <div className="text-4xl font-black text-cyan-400/40 font-mono mb-4 group-hover:text-cyan-400 transition-colors">
+                      <div className="text-4xl font-black text-cyan-400/60 font-mono mb-4 group-hover:text-cyan-400 transition-colors">
                         {step.step || String(pIdx + 1).padStart(2, '0')}
                       </div>
                       <h3 className="text-lg font-bold text-white mb-2.5">{step.title}</h3>
-                      <p className="text-sm text-gray-300 leading-relaxed font-light">{step.desc}</p>
+                      <p className="text-sm text-gray-200/90 leading-relaxed font-light">{step.desc}</p>
                     </div>
                   </div>
                 ))}
@@ -348,7 +348,7 @@ export default function ServiceDetailView({ initialService, slug }) {
                   return (
                     <div 
                       key={fIdx}
-                      className="rounded-2xl bg-[#0D1630] border border-white/15 overflow-hidden transition-all shadow-md"
+                      className="rounded-2xl bg-white/[0.06] backdrop-blur-md border border-white/15 overflow-hidden transition-all shadow-md"
                     >
                       <button
                         onClick={() => setOpenFaq(isOpen ? -1 : fIdx)}
@@ -398,7 +398,7 @@ export default function ServiceDetailView({ initialService, slug }) {
                     <Link
                       key={oIdx}
                       href={`/${other.id}`}
-                      className="group relative p-6 sm:p-7 rounded-3xl bg-gradient-to-b from-[#111A38]/95 via-[#0A1128]/95 to-[#060B1A] border border-white/15 hover:border-cyan-400/60 transition-all duration-300 flex flex-col justify-between hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.7),0_0_25px_rgba(6,182,212,0.15)] cursor-pointer"
+                      className="group relative p-6 sm:p-7 rounded-3xl bg-gradient-to-b from-white/[0.08] via-white/[0.04] to-white/[0.02] backdrop-blur-md border border-white/20 hover:border-cyan-400/60 transition-all duration-300 flex flex-col justify-between hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.4),0_0_25px_rgba(6,182,212,0.15)] cursor-pointer"
                     >
                       {/* Top Accent Line */}
                       <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400/40 to-transparent group-hover:via-[var(--color-primary-pink)] transition-all duration-500"></div>

@@ -109,7 +109,7 @@ export default function Footer({ hideCta = false }) {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-12 pb-16">
 
           {/* Column 1: Brand Info (Span 4) */}
-          <div className="lg:col-span-4 flex flex-col gap-6 lg:pr-6">
+          <div className="lg:col-span-4 flex flex-col items-center md:items-start text-center md:text-left gap-6 lg:pr-6">
             <Link href="/" className="inline-block group w-max">
               <div className="bg-white px-3.5 py-2.5 rounded-xl inline-block shadow-[0_0_15px_rgba(255,255,255,0.15)] hover:shadow-[0_0_20px_rgba(6,182,212,0.3)] transition-all duration-300">
                 <Image
@@ -128,7 +128,7 @@ export default function Footer({ hideCta = false }) {
               Architects of digital dominance. Empowering brands with cutting-edge marketing, AI integrations, and high-performance development.
             </p>
 
-            <div className="flex items-center gap-3 mt-2">
+            <div className="flex items-center justify-center md:justify-start gap-3 mt-2">
               {[
                 { name: 'Facebook', href: 'https://www.facebook.com/digitalorra', Icon: FacebookIcon, color: 'hover:text-blue-400 hover:border-blue-400/60 hover:bg-blue-500/15 hover:shadow-[0_0_15px_rgba(59,130,246,0.4)]' },
                 { name: 'Twitter', href: 'https://x.com/Digital_ORRA', Icon: TwitterIcon, color: 'hover:text-cyan-400 hover:border-cyan-400/60 hover:bg-cyan-500/15 hover:shadow-[0_0_15px_rgba(6,182,212,0.4)]' },
@@ -236,8 +236,8 @@ export default function Footer({ hideCta = false }) {
                   <a href="tel:+916280458005" className="text-white font-medium hover:text-cyan-300 transition-colors">
                     +91 62804 58005
                   </a>
-                  <a href="tel:+919896384224" className="text-white font-medium hover:text-cyan-300 transition-colors">
-                    +91 98963 84224
+                  <a href="tel:+919056505064" className="text-white font-medium hover:text-cyan-300 transition-colors">
+                    +91 90565 05064
                   </a>
                 </div>
               </li>

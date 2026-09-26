@@ -105,19 +105,22 @@ export default function ContactPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[#0A1128] text-white flex flex-col relative selection:bg-[#FF3399]/40 selection:text-white">
+    <main className="min-h-screen bg-gradient-to-b from-[#101B3D] via-[#0D1533] to-[#0A1028] text-white flex flex-col relative selection:bg-[#FF3399]/40 selection:text-white overflow-hidden">
       <DynamicSeoHead path="/contact" />
       <Navbar />
 
-      {/* Cyber Grid Background Layer identical to Home Hero */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
-        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] rounded-full bg-[var(--color-primary-pink)]/15 blur-[140px] animate-pulse"></div>
-        <div className="absolute top-1/3 right-10 w-[450px] h-[450px] rounded-full bg-cyan-500/15 blur-[140px] animate-pulse" style={{ animationDelay: '2s' }}></div>
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_20%,#000_70%,transparent_100%)]"></div>
+      {/* Dynamic Ambient Background Glows */}
+      <div className="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
+        <div className="absolute top-[8%] left-[10%] w-[700px] h-[700px] bg-cyan-500/20 rounded-full blur-[160px] animate-pulse duration-1000"></div>
+        <div className="absolute top-[30%] right-[8%] w-[650px] h-[650px] bg-pink-500/15 rounded-full blur-[160px] animate-pulse duration-700"></div>
+        <div className="absolute bottom-[10%] left-[30%] w-[750px] h-[750px] bg-indigo-500/20 rounded-full blur-[180px]"></div>
       </div>
 
+      {/* Crisp Tech Grid Lining */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff12_1px,transparent_1px),linear-gradient(to_bottom,#ffffff12_1px,transparent_1px)] bg-[size:44px_44px] pointer-events-none z-0"></div>
+
       {/* Clean Dedicated Header Section */}
-      <section className="relative z-10 pt-28 sm:pt-32 pb-4 px-6 text-center max-w-4xl mx-auto">
+      <section className="relative z-10 pt-34 sm:pt-40 pb-4 px-6 text-center max-w-4xl mx-auto">
         <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black uppercase tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-100 to-pink-500 drop-shadow-[0_0_35px_rgba(255,51,153,0.3)]">
           LET'S CONNECT
         </h1>
@@ -131,7 +134,7 @@ export default function ContactPage() {
           <div className="md:col-span-5 flex flex-col justify-between space-y-4">
 
             {/* Direct Connect Box */}
-            <div className="glass-panel p-6 sm:p-7 rounded-2xl flex flex-col gap-5 border border-white/10">
+            <div className="p-6 sm:p-7 rounded-3xl bg-gradient-to-b from-[#14224d]/90 via-[#0F1A3B]/95 to-[#0B142F] flex flex-col gap-5 border border-white/20 backdrop-blur-xl shadow-2xl">
               <div>
                 <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight">Direct Channels</h2>
                 <p className="text-gray-300 text-sm mt-1">Reach our strategy desk immediately</p>
@@ -139,7 +142,7 @@ export default function ContactPage() {
 
               {/* WhatsApp Button */}
               <a
-                href="https://wa.me/919896384224"
+                href="https://wa.me/916280458005"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group p-4 sm:p-4.5 rounded-xl bg-white/[0.03] border border-emerald-500/30 hover:border-emerald-500 hover:bg-emerald-500/10 transition-all flex items-center justify-between"
@@ -167,7 +170,7 @@ export default function ContactPage() {
                     <div className="flex flex-wrap gap-x-2 text-base sm:text-lg font-bold text-white">
                       <a href="tel:+916280458005" className="hover:text-cyan-300 transition-colors">+91 62804 58005</a>
                       <span className="text-gray-400">,</span>
-                      <a href="tel:+919896384224" className="hover:text-cyan-300 transition-colors">+91 98963 84224</a>
+                      <a href="tel:+919056505064" className="hover:text-cyan-300 transition-colors">+91 90565 05064</a>
                     </div>
                   </div>
                 </div>
@@ -193,7 +196,7 @@ export default function ContactPage() {
             </div>
 
             {/* Clean Key Highlights */}
-            <div className="glass-panel p-5 sm:p-6 rounded-2xl border border-white/10 flex flex-col gap-3.5">
+            <div className="p-5 sm:p-6 rounded-3xl bg-gradient-to-b from-[#14224d]/90 via-[#0F1A3B]/95 to-[#0B142F] border border-white/20 backdrop-blur-xl flex flex-col gap-3.5 shadow-2xl">
               <div className="flex items-center gap-3.5 text-sm sm:text-base font-semibold text-gray-100">
                 <div className="w-8 h-8 rounded-lg bg-cyan-500/15 text-cyan-400 flex items-center justify-center flex-shrink-0">
                   <Zap className="w-4 h-4" />
@@ -218,7 +221,7 @@ export default function ContactPage() {
 
           {/* Right Column: Project Brief Form */}
           <div className="md:col-span-7">
-            <div className="glass-panel p-6 sm:p-8 rounded-2xl border border-white/10 h-full flex flex-col justify-between shadow-2xl">
+            <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-b from-[#14224d]/90 via-[#0F1A3B]/95 to-[#0B142F] border border-white/20 h-full flex flex-col justify-between shadow-2xl backdrop-blur-xl">
 
               <div>
                 <div className="mb-5">
@@ -247,7 +250,7 @@ export default function ContactPage() {
                       <input
                         type="text"
                         required
-                        placeholder="John Doe"
+                        placeholder="Enter your name"
                         value={formData.fullName}
                         onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                         className="w-full bg-[#050B17]/90 border border-white/15 rounded-xl px-4 py-3 text-base text-white placeholder-gray-400 focus:outline-none focus:border-cyan-400 transition-colors shadow-inner"
@@ -260,7 +263,7 @@ export default function ContactPage() {
                       <input
                         type="email"
                         required
-                        placeholder="john@company.com"
+                        placeholder="Enter your email"
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         className="w-full bg-[#050B17]/90 border border-white/15 rounded-xl px-4 py-3 text-base text-white placeholder-gray-400 focus:outline-none focus:border-cyan-400 transition-colors shadow-inner"
@@ -276,7 +279,7 @@ export default function ContactPage() {
                       </label>
                       <input
                         type="tel"
-                        placeholder="+91 99999 99999"
+                        placeholder="Enter phone number"
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                         className="w-full bg-[#050B17]/90 border border-white/15 rounded-xl px-4 py-3 text-base text-white placeholder-gray-400 focus:outline-none focus:border-cyan-400 transition-colors shadow-inner"
@@ -308,7 +311,7 @@ export default function ContactPage() {
                     <textarea
                       rows={3}
                       required
-                      placeholder="Briefly describe what your brand needs or targets..."
+                      placeholder="Enter project details and requirements..."
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       className="w-full bg-[#050B17]/90 border border-white/15 rounded-xl px-4 py-3 text-base text-white placeholder-gray-400 focus:outline-none focus:border-cyan-400 transition-colors resize-none shadow-inner"
@@ -345,7 +348,7 @@ export default function ContactPage() {
 
       {/* Office & Map Section */}
       <section className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 w-full">
-        <div className="glass-panel p-5 sm:p-6 rounded-2xl border border-white/10">
+        <div className="p-6 sm:p-7 rounded-3xl bg-gradient-to-b from-[#14224d]/90 via-[#0F1A3B]/95 to-[#0B142F] border border-white/20 backdrop-blur-xl shadow-2xl">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-white/10 gap-2">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-pink-500/15 text-pink-400 flex items-center justify-center flex-shrink-0">
@@ -364,7 +367,7 @@ export default function ContactPage() {
             </div>
           </div>
 
-          <div className="mt-4 rounded-xl overflow-hidden h-60 sm:h-72 w-full border border-white/10 relative">
+          <div className="mt-4 rounded-2xl overflow-hidden h-60 sm:h-72 w-full border border-white/15 relative">
             <iframe
               title="Digital ORRA Office Location"
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3430.771804245781!2d76.84883447543884!3d30.696668788701968!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390f953cee3b4fc9%3A0x1530eb9d9658d765!2sDigital%20ORRA!5e0!3m2!1sen!2sin!4v1710156600000!5m2!1sen!2sin"
@@ -385,27 +388,27 @@ export default function ContactPage() {
           </h2>
         </div>
 
-        <div className="space-y-2.5">
+        <div className="space-y-3">
           {FAQS.map((faq, idx) => {
             const isOpen = openFaq === idx;
             return (
               <div
                 key={idx}
-                className="rounded-xl border border-white/10 bg-white/[0.02] backdrop-blur-md overflow-hidden transition-all duration-200"
+                className="rounded-2xl border border-white/15 bg-gradient-to-b from-[#14224d]/80 to-[#0B142F]/90 backdrop-blur-xl overflow-hidden transition-all duration-300 shadow-md"
               >
                 <button
                   onClick={() => setOpenFaq(isOpen ? -1 : idx)}
-                  className="w-full flex items-center justify-between p-4 text-left cursor-pointer hover:bg-white/[0.02] transition-colors"
+                  className="w-full flex items-center justify-between p-4 sm:p-5 text-left cursor-pointer hover:bg-white/[0.04] transition-colors"
                 >
                   <span className="font-semibold text-white text-xs sm:text-sm pr-3">
                     {faq.q}
                   </span>
-                  <div className={`w-6 h-6 rounded-full flex items-center justify-center bg-white/5 border border-white/10 flex-shrink-0 transition-transform duration-200 ${isOpen ? 'rotate-180 text-pink-400' : 'text-cyan-400'}`}>
+                  <div className={`w-7 h-7 rounded-full flex items-center justify-center bg-white/5 border border-white/15 flex-shrink-0 transition-transform duration-200 ${isOpen ? 'rotate-180 text-pink-400' : 'text-cyan-400'}`}>
                     <ChevronDown className="w-3.5 h-3.5" />
                   </div>
                 </button>
                 {isOpen && (
-                  <div className="px-4 pb-4 text-gray-300 text-xs leading-relaxed border-t border-white/[0.05] pt-3">
+                  <div className="px-4 sm:px-5 pb-5 text-gray-200 text-xs sm:text-sm leading-relaxed border-t border-white/10 pt-3.5 font-light">
                     {faq.a}
                   </div>
                 )}

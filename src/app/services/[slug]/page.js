@@ -174,7 +174,7 @@ export default function ServiceDetailPage() {
                   </Link>
 
                   <a
-                    href={`https://wa.me/919990432321?text=Hi%20Digital%20ORRA,%20I%20am%20interested%20in%20your%20${encodeURIComponent(currentService.title)}%20services.`}
+                    href={`https://wa.me/916280458005?text=Hi%20Digital%20ORRA,%20I%20am%20interested%20in%20your%20${encodeURIComponent(currentService.title)}%20services.`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-white/[0.06] hover:bg-white/[0.12] border border-white/15 text-white text-sm sm:text-base font-semibold transition-all hover:border-cyan-400/40 hover:scale-105 backdrop-blur-md"

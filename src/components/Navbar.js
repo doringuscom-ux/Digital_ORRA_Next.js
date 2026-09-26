@@ -73,7 +73,7 @@ export default function Navbar({ lightTheme = false }) {
                 : "bg-white/90 border border-slate-200 shadow-[0_4px_25px_rgba(15,23,42,0.08)] backdrop-blur-xl"
               : scrolled
                 ? "bg-[#070D1E]/95 border border-white/15 shadow-[0_10px_30px_rgba(0,0,0,0.6)] backdrop-blur-xl"
-                : "glass-nav"
+                : "bg-[#070D1E]/80 border border-white/15 shadow-[0_8px_32px_rgba(0,0,0,0.4)] backdrop-blur-2xl"
             }`}
         >
           {/* Brand Logo */}
@@ -81,9 +81,7 @@ export default function Navbar({ lightTheme = false }) {
             <div
               className={`p-1 sm:p-1.5 rounded-xl transition-shadow ${lightTheme
                   ? "bg-transparent"
-                  : scrolled
-                    ? "bg-white shadow-[0_0_15px_rgba(255,255,255,0.2)]"
-                    : "bg-white shadow-[0_0_15px_rgba(255,255,255,0.2)] hover:shadow-[0_0_20px_rgba(234,0,122,0.4)]"
+                  : "bg-white shadow-[0_0_15px_rgba(255,255,255,0.2)] hover:shadow-[0_0_20px_rgba(234,0,122,0.4)]"
                 }`}
             >
               <Image
@@ -100,7 +98,7 @@ export default function Navbar({ lightTheme = false }) {
           </Link>
 
           {/* Desktop Navigation Links (Large Screens) */}
-          <div className={`hidden lg:flex items-center gap-6 xl:gap-8 text-[16px] xl:text-[17px] font-bold ${lightTheme ? "text-slate-700" : "text-gray-200"
+          <div className={`hidden lg:flex items-center gap-6 xl:gap-8 text-[15px] xl:text-[16px] font-semibold ${lightTheme ? "text-slate-700" : "text-gray-200"
             }`}>
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
@@ -110,11 +108,11 @@ export default function Navbar({ lightTheme = false }) {
                   href={link.href}
                   className={`transition-all duration-300 relative py-1 ${lightTheme
                       ? isActive
-                        ? "text-[#FF007A] font-extrabold"
+                        ? "text-[#FF007A] font-bold"
                         : "text-slate-800 hover:text-[#FF007A] hover:scale-105"
                       : isActive
-                        ? "text-cyan-300 font-extrabold"
-                        : "hover:text-white hover:scale-105"
+                        ? "text-cyan-300 font-bold"
+                        : "text-gray-300 hover:text-white hover:scale-105"
                     }`}
                 >
                   {link.name}
@@ -130,7 +128,29 @@ export default function Navbar({ lightTheme = false }) {
           </div>
 
           {/* Right Action + Mobile Menu Hamburger */}
-          <div className="flex items-center gap-2.5 sm:gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
+            {/* Google Preferences Source Button */}
+            <a
+              href="https://www.google.com/preferences/source?q=digitalorra.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Google Source"
+              className={`p-1.5 sm:p-2 rounded-full border transition-all duration-300 flex items-center justify-center hover:scale-110 shadow-sm ${
+                lightTheme
+                  ? "bg-slate-50 hover:bg-white border-slate-200 hover:shadow-md"
+                  : "bg-white/10 hover:bg-white/20 border-white/15 hover:border-white/30"
+              }`}
+              title="Digital ORRA on Google"
+            >
+              <Image
+                src="/Logo_google.png"
+                alt="Google"
+                width={24}
+                height={24}
+                className="w-5 h-5 sm:w-6 sm:h-6 object-contain"
+              />
+            </a>
+
             <button
               type="button"
               onClick={() => setAuditModalOpen(true)}
@@ -244,13 +264,29 @@ export default function Navbar({ lightTheme = false }) {
               </button>
 
               <a
-                href="https://wa.me/919896384224?text=Hi%20Digital%20ORRA,%20I%20want%20to%20discuss%20a%20project."
+                href="https://www.google.com/preferences/source?q=digitalorra.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full py-3 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/15 text-white text-xs sm:text-sm font-bold flex items-center justify-center gap-2.5 transition-all"
+              >
+                <Image
+                  src="/Logo_google.png"
+                  alt="Google"
+                  width={20}
+                  height={20}
+                  className="w-5 h-5 object-contain"
+                />
+                <span>Follow on Google Source</span>
+              </a>
+
+              <a
+                href="https://wa.me/916280458005?text=Hi%20Digital%20ORRA,%20I%20want%20to%20discuss%20a%20project."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full py-3 rounded-2xl bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition-all"
               >
                 <PhoneCall className="w-4 h-4" />
-                <span>Chat on WhatsApp (+91 98963 84224)</span>
+                <span>Chat on WhatsApp (+91 62804 58005)</span>
               </a>
 
               <p className="text-[11px] text-center text-gray-500 font-light pt-2">

@@ -7,6 +7,7 @@ import Portfolio from '../components/Portfolio';
 import ReviewsSection from '../components/ReviewsSection';
 import FaqSection from '../components/FaqSection';
 import CelebritySpotlight from '../components/CelebritySpotlight';
+import ClientRibbon from '../components/ClientRibbon';
 import Footer from '../components/Footer';
 import DynamicSeoHead from '../components/DynamicSeoHead';
 import { getSeoMetadata } from '@/lib/getSeoMetadata';
@@ -23,6 +24,7 @@ export default function Home() {
       <Hero />
       <About />
       <CelebritySpotlight />
+      <ClientRibbon />
       <Services />
       <ProcessSection />
       <Portfolio />

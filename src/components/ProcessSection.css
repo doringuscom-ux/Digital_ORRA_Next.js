@@ -4,7 +4,7 @@
 
 .process-section-v2 {
   position: relative;
-  background: #080D1F;
+  background: linear-gradient(180deg, #0C142E 0%, #101C3E 50%, #091026 100%);
   min-height: auto;
   display: flex;
   flex-direction: column;
@@ -28,7 +28,7 @@
 .orb-cyan {
   width: 550px;
   height: 550px;
-  background: rgba(6, 182, 212, 0.14);
+  background: rgba(6, 182, 212, 0.22);
   top: -100px;
   left: -120px;
   animation-duration: 12s;
@@ -37,7 +37,7 @@
 .orb-purple {
   width: 500px;
   height: 500px;
-  background: rgba(139, 92, 246, 0.14);
+  background: rgba(139, 92, 246, 0.22);
   top: 30%;
   right: -80px;
   animation-duration: 9s;

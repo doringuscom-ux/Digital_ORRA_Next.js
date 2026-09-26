@@ -37,16 +37,19 @@ export default function About({
   }, [currentText, isDeleting, cityIndex]);
 
   return (
-    <section className={`relative w-full ${ptClass} bg-[#0A1128] overflow-hidden`} id={id}>
+    <section className={`relative w-full ${ptClass} bg-gradient-to-b from-[#0F1A3B] via-[#0A122B] to-[#070E22] overflow-hidden`} id={id}>
       
-      {/* Ambient Lighting & Glows */}
-      <div style={{ pointerEvents: 'none' }} className="absolute top-1/4 -left-32 w-96 h-96 bg-[var(--color-primary-pink)]/15 rounded-full blur-[140px] pointer-events-none z-0"></div>
-      <div style={{ pointerEvents: 'none' }} className="absolute bottom-10 right-0 w-96 h-96 bg-indigo-600/15 rounded-full blur-[140px] pointer-events-none z-0"></div>
-      <div style={{ pointerEvents: 'none' }} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-cyan-500/5 rounded-full blur-[160px] pointer-events-none z-0"></div>
+      {/* Ambient Lighting & Glows - Brighter & More Radiant */}
+      <div style={{ pointerEvents: 'none' }} className="absolute top-1/4 -left-20 w-[550px] h-[550px] bg-[var(--color-primary-pink)]/20 rounded-full blur-[140px] pointer-events-none z-0"></div>
+      <div style={{ pointerEvents: 'none' }} className="absolute bottom-5 right-0 w-[550px] h-[550px] bg-cyan-500/20 rounded-full blur-[140px] pointer-events-none z-0"></div>
+      <div style={{ pointerEvents: 'none' }} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[450px] bg-indigo-500/15 rounded-full blur-[160px] pointer-events-none z-0"></div>
+      
+      {/* Subtle modern grid overlay */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none z-0"></div>
 
-      {/* Elegant Balanced Background Watermark (Brighter and more visible) */}
+      {/* Elegant Balanced Background Watermark */}
       <div style={{ pointerEvents: 'none' }} className={`flex absolute ${watermarkTop} left-0 w-full justify-center pointer-events-none select-none overflow-hidden z-0 [mask-image:linear-gradient(to_bottom,black_85%,transparent_100%)]`}>
-        <span style={{ pointerEvents: 'none' }} className="text-[7.5vw] sm:text-[6.5vw] md:text-[7vw] font-black uppercase tracking-wider whitespace-nowrap select-none text-transparent bg-clip-text bg-gradient-to-b from-white/[0.72] via-white/[0.45] to-white/[0.18]">
+        <span style={{ pointerEvents: 'none' }} className="text-[7.5vw] sm:text-[6.5vw] md:text-[7vw] font-black uppercase tracking-wider whitespace-nowrap select-none text-transparent bg-clip-text bg-gradient-to-b from-white/[0.80] via-white/[0.5] to-white/[0.2]">
           ABOUT DIGITAL ORRA
         </span>
       </div>
@@ -103,27 +106,29 @@ export default function About({
               <h1 className="text-2xl xs:text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-[1.25] mb-6">
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-primary-pink)] via-pink-400 to-white">
                   #1 Digital Marketing
-                </span> <br className="hidden xs:inline" />
-                <span className="inline-block">
-                  Company in <span className="text-white border-r-4 border-[var(--color-primary-pink)] pr-1 animate-pulse">{currentText || '\u00A0'}</span>
+                </span>{" "}
+                <br className="hidden xs:inline" />
+                <span className="inline-block text-white">
+                  Company in India
                 </span>
               </h1>
             ) : (
               <h2 className="text-2xl xs:text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-[1.25] mb-6">
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-primary-pink)] via-pink-400 to-white">
                   #1 Digital Marketing
-                </span> <br className="hidden xs:inline" />
-                <span className="inline-block">
-                  Company in <span className="text-white border-r-4 border-[var(--color-primary-pink)] pr-1 animate-pulse">{currentText || '\u00A0'}</span>
+                </span>{" "}
+                <br className="hidden xs:inline" />
+                <span className="inline-block text-white">
+                  Company in India
                 </span>
               </h2>
             )}
 
             <p className="text-gray-300 text-base md:text-lg mb-4 leading-relaxed font-light">
-              <strong className="text-white font-semibold">Digital ORRA</strong> is a results-driven Digital Marketing Company based out in Panchkula near Chandigarh, India, offering end-to-end digital solutions for brands and businesses. We specialize in digital marketing, Google Ads, Meta Ads, influencer marketing, graphic designing, website development and designing, CRM software, app development, and ERP solutions.
+              <strong className="text-white font-semibold">Digital ORRA</strong> is a results-driven Digital Marketing Company in India, offering end-to-end digital solutions for brands and businesses. We specialize in digital marketing, Google Ads, Meta Ads, influencer marketing, graphic designing, website development and designing, CRM software, app development, and ERP solutions.
             </p>
 
-            <p className="text-gray-300 text-base md:text-lg mb-8 leading-relaxed font-light">
+            <p className="text-gray-200/90 text-base md:text-lg mb-8 leading-relaxed font-light">
               Our services also include corporate video editing and professional corporate video shoots to help brands communicate with impact. With a strategic, creative, and performance-focused approach, Digital ORRA helps businesses grow, scale, and stand out in the digital landscape.
             </p>
 
@@ -131,7 +136,7 @@ export default function About({
             <div className="grid grid-cols-3 gap-2 sm:gap-6 w-full">
               <Link 
                 href="/about-us" 
-                className="group border border-white/10 rounded-xl sm:rounded-2xl p-3 sm:p-5 bg-gradient-to-b from-white/[0.06] to-white/[0.01] hover:border-[var(--color-primary-pink)] hover:shadow-[0_0_25px_rgba(234,0,122,0.35)] hover:-translate-y-1 transition-all duration-300 backdrop-blur-sm text-center sm:text-left flex flex-col justify-center cursor-pointer"
+                className="group border border-white/20 rounded-xl sm:rounded-2xl p-3 sm:p-5 bg-gradient-to-b from-white/[0.10] via-white/[0.05] to-white/[0.02] hover:border-[var(--color-primary-pink)] hover:shadow-[0_0_25px_rgba(234,0,122,0.45)] hover:-translate-y-1 transition-all duration-300 backdrop-blur-md text-center sm:text-left flex flex-col justify-center cursor-pointer shadow-lg"
                 title="Learn More About Digital ORRA"
               >
                 <div className="flex items-center justify-center sm:justify-start gap-1 sm:gap-1.5 mb-0.5 sm:mb-1">
@@ -140,17 +145,17 @@ export default function About({
                   </h4>
                   <span className="text-[var(--color-primary-pink)] text-base sm:text-2xl font-bold transition-transform duration-300 group-hover:translate-x-1">→</span>
                 </div>
-                <p className="text-[10px] sm:text-xs text-gray-300 uppercase tracking-tight sm:tracking-wider font-semibold leading-tight group-hover:text-pink-300 transition-colors">
+                <p className="text-[10px] sm:text-xs text-gray-200 uppercase tracking-tight sm:tracking-wider font-semibold leading-tight group-hover:text-pink-300 transition-colors">
                   Our Story & Vision
                 </p>
               </Link>
-              <div className="group border border-white/10 rounded-xl sm:rounded-2xl p-3 sm:p-5 bg-gradient-to-b from-white/[0.06] to-white/[0.01] hover:border-[var(--color-primary-pink)]/50 hover:shadow-[0_0_25px_rgba(234,0,122,0.25)] hover:-translate-y-1 transition-all duration-300 backdrop-blur-sm text-center sm:text-left">
+              <div className="group border border-white/20 rounded-xl sm:rounded-2xl p-3 sm:p-5 bg-gradient-to-b from-white/[0.10] via-white/[0.05] to-white/[0.02] hover:border-cyan-400/50 hover:shadow-[0_0_25px_rgba(6,182,212,0.35)] hover:-translate-y-1 transition-all duration-300 backdrop-blur-md text-center sm:text-left shadow-lg">
                 <h4 className="text-xl xs:text-2xl sm:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-[var(--color-accent-cyan)] mb-0.5 sm:mb-1 group-hover:scale-105 transition-transform duration-300">12k+</h4>
-                <p className="text-[10px] sm:text-xs text-gray-400 uppercase tracking-tight sm:tracking-wider font-semibold leading-tight">Client Reviews</p>
+                <p className="text-[10px] sm:text-xs text-gray-300 uppercase tracking-tight sm:tracking-wider font-semibold leading-tight">Client Reviews</p>
               </div>
-              <div className="group border border-white/10 rounded-xl sm:rounded-2xl p-3 sm:p-5 bg-gradient-to-b from-white/[0.06] to-white/[0.01] hover:border-[var(--color-primary-pink)]/50 hover:shadow-[0_0_25px_rgba(234,0,122,0.25)] hover:-translate-y-1 transition-all duration-300 backdrop-blur-sm text-center sm:text-left">
+              <div className="group border border-white/20 rounded-xl sm:rounded-2xl p-3 sm:p-5 bg-gradient-to-b from-white/[0.10] via-white/[0.05] to-white/[0.02] hover:border-[var(--color-primary-pink)]/50 hover:shadow-[0_0_25px_rgba(234,0,122,0.35)] hover:-translate-y-1 transition-all duration-300 backdrop-blur-md text-center sm:text-left shadow-lg">
                 <h4 className="text-xl xs:text-2xl sm:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-[var(--color-primary-pink)] mb-0.5 sm:mb-1 group-hover:scale-105 transition-transform duration-300">6M+</h4>
-                <p className="text-[10px] sm:text-xs text-gray-400 uppercase tracking-tight sm:tracking-wider font-semibold leading-tight">Leads Generated</p>
+                <p className="text-[10px] sm:text-xs text-gray-300 uppercase tracking-tight sm:tracking-wider font-semibold leading-tight">Leads Generated</p>
               </div>
             </div>
 

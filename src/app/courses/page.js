@@ -72,26 +72,29 @@ export default function CoursesPage() {
   });
 
   return (
-    <main className="min-h-screen bg-[#0B132B] text-white flex flex-col relative selection:bg-pink-500 selection:text-white overflow-hidden">
+    <main className="min-h-screen bg-gradient-to-b from-[#101B3D] via-[#0D1533] to-[#0A1028] text-white flex flex-col relative selection:bg-pink-500 selection:text-white overflow-hidden">
       <DynamicSeoHead path="/courses" />
       {/* Global Navbar */}
       <Navbar />
 
-      {/* Dynamic Ambient Background Glows - Balanced Luxury Depth */}
+      {/* Dynamic Ambient Background Glows - Matching Services Page */}
       <div className="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
-        <div className="absolute top-[8%] left-[10%] w-[650px] h-[650px] bg-cyan-500/10 rounded-full blur-[160px] animate-pulse duration-1000"></div>
-        <div className="absolute top-[30%] right-[8%] w-[600px] h-[600px] bg-pink-500/10 rounded-full blur-[160px] animate-pulse duration-700"></div>
-        <div className="absolute bottom-[10%] left-[30%] w-[700px] h-[700px] bg-indigo-600/10 rounded-full blur-[180px]"></div>
+        <div className="absolute top-[8%] left-[10%] w-[700px] h-[700px] bg-cyan-500/20 rounded-full blur-[160px] animate-pulse duration-1000"></div>
+        <div className="absolute top-[30%] right-[8%] w-[650px] h-[650px] bg-pink-500/15 rounded-full blur-[160px] animate-pulse duration-700"></div>
+        <div className="absolute bottom-[10%] left-[30%] w-[750px] h-[750px] bg-indigo-500/20 rounded-full blur-[180px]"></div>
       </div>
 
       {/* Main Header / Hero Section */}
       <section className="relative w-full pt-34 pb-16 md:pt-40 md:pb-20 overflow-hidden">
+        {/* Crisp Tech Grid Lining */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff12_1px,transparent_1px),linear-gradient(to_bottom,#ffffff12_1px,transparent_1px)] bg-[size:44px_44px] pointer-events-none z-0"></div>
+
         {/* Giant Edge-to-Edge Watermark */}
         <div style={{ pointerEvents: 'none' }} className="absolute top-25 md:top-24 left-0 w-full flex justify-center pointer-events-none select-none overflow-hidden z-0 [mask-image:linear-gradient(to_bottom,black_75%,transparent_100%)]">
           <h1 
             style={{ 
               pointerEvents: 'none',
-              background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.5) 55%, rgba(255, 255, 255, 0.18) 100%)',
+              background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.55) 55%, rgba(255, 255, 255, 0.2) 100%)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent'
             }} 
@@ -106,15 +109,15 @@ export default function CoursesPage() {
           
           {/* Category Filter Tabs: Clean, Centered & Strictly 1 Single Line */}
           <div className="relative z-20 mb-8 w-full flex items-center justify-center">
-            <div className="flex items-center justify-start md:justify-center gap-1.5 sm:gap-2 py-1 px-1 w-full max-w-6xl overflow-x-auto scrollbar-none no-scrollbar flex-nowrap [-webkit-overflow-scrolling:touch]">
+            <div className="flex items-center justify-start md:justify-center gap-1.5 sm:gap-2 p-2 rounded-2xl md:rounded-full bg-[#121E45]/80 backdrop-blur-xl border border-white/20 shadow-[0_10px_35px_rgba(0,0,0,0.3)] w-full max-w-6xl overflow-x-auto scrollbar-none no-scrollbar flex-nowrap [-webkit-overflow-scrolling:touch]">
               {dynamicCategories.map(cat => (
                 <button
                   key={cat.id}
                   onClick={() => setActiveCat(cat.id)}
-                  className={`px-3.5 sm:px-4 py-2 rounded-full text-xs sm:text-[12.5px] font-semibold whitespace-nowrap transition-all duration-300 flex-shrink-0 ${
+                  className={`px-4 sm:px-5 py-2 rounded-full text-xs sm:text-[13px] font-semibold whitespace-nowrap transition-all duration-300 flex-shrink-0 ${
                     activeCat === cat.id 
                       ? 'bg-gradient-to-r from-[var(--color-primary-pink)] to-pink-600 text-white shadow-[0_0_18px_rgba(255,51,153,0.45)]' 
-                      : 'text-white/90 hover:text-white bg-[#1A2850] hover:bg-white/15 border border-white/15 hover:border-cyan-400/50 shadow-sm'
+                      : 'text-gray-300 hover:text-white hover:bg-white/[0.08]'
                   }`}
                 >
                   {cat.label}
@@ -157,7 +160,7 @@ export default function CoursesPage() {
                 <div
                   key={course.id || cIdx}
                   onClick={() => setSelectedCourse(course)}
-                  className="group relative rounded-3xl bg-gradient-to-b from-[#141E3C] via-[#0E172F] to-[#091024] border border-white/20 hover:border-cyan-400 p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 shadow-[0_20px_45px_rgba(0,0,0,0.6)] hover:shadow-[0_25px_55px_rgba(0,0,0,0.7),0_0_35px_rgba(6,182,212,0.25)] cursor-pointer min-h-[330px] overflow-hidden"
+                  className="group relative rounded-3xl bg-gradient-to-b from-[#14224d]/90 via-[#0F1A3B]/95 to-[#0B142F] border border-white/20 hover:border-cyan-400/60 p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 shadow-[0_20px_50px_rgba(0,0,0,0.5),0_0_30px_rgba(6,182,212,0.25)] cursor-pointer min-h-[330px] overflow-hidden backdrop-blur-md"
                 >
                   {/* Subtle Top Gradient Accent */}
                   <div className="absolute top-0 inset-x-0 h-[2.5px] bg-gradient-to-r from-transparent via-cyan-400 to-[var(--color-primary-pink)] opacity-80 group-hover:opacity-100 transition-opacity"></div>
@@ -235,13 +238,13 @@ export default function CoursesPage() {
       {selectedCourse && (
         <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 sm:p-6 bg-black/85 backdrop-blur-xl animate-fade-in">
           <div 
-            className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-3xl bg-[#0B1229] border border-white/20 p-6 sm:p-8 shadow-2xl"
+            className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-3xl bg-gradient-to-b from-[#121E45] to-[#0A122B] border border-white/25 p-6 sm:p-8 shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close Button */}
             <button
               onClick={() => setSelectedCourse(null)}
-              className="absolute top-5 right-5 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 flex items-center justify-center text-white transition-all"
+              className="absolute top-5 right-5 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 flex items-center justify-center text-white transition-all cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
@@ -363,7 +366,7 @@ export default function CoursesPage() {
               </Link>
               
               <a
-                href={`https://wa.me/919896384224?text=Hi%20Digital%20ORRA,%20I%20want%20to%20know%20more%20about%20the%20${encodeURIComponent(selectedCourse.title)}%20course.`}
+                href={`https://wa.me/916280458005?text=Hi%20Digital%20ORRA,%20I%20want%20to%20know%20more%20about%20the%20${encodeURIComponent(selectedCourse.title)}%20course.`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full sm:w-auto px-6 py-3 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-sm font-bold hover:bg-emerald-500/25 transition-all flex items-center justify-center gap-2"
@@ -392,7 +395,7 @@ export default function CoursesPage() {
             className="absolute inset-y-0 left-0 w-[83%] z-10 cursor-pointer"
           />
           <a
-            href="https://wa.me/919896384224?text=Hi%20Digital%20ORRA,%20I%20need%20career%20guidance%20for%20courses."
+            href="https://wa.me/916280458005?text=Hi%20Digital%20ORRA,%20I%20need%20career%20guidance%20for%20courses."
             target="_blank"
             rel="noopener noreferrer"
             aria-label="WhatsApp Us"

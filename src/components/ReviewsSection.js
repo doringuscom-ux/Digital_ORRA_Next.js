@@ -66,7 +66,7 @@ export default function ReviewsSection() {
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none z-0"></div>
 
       {/* Massive Background Typography */}
-      <div className="absolute top-6 sm:top-7 md:top-6 lg:top-7 left-0 w-full flex justify-center pointer-events-none select-none z-0 [mask-image:linear-gradient(to_bottom,black_85%,transparent_100%)]">
+      <div className="absolute top-8 sm:top-9 md:top-8 lg:top-8 left-0 w-full flex justify-center pointer-events-none select-none z-0 [mask-image:linear-gradient(to_bottom,black_85%,transparent_100%)]">
         <span
           style={{
             background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.5) 55%, rgba(255, 255, 255, 0.18) 100%)',
@@ -79,7 +79,7 @@ export default function ReviewsSection() {
         </span>
       </div>
 
-      <div className="rev-container relative z-10 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-20">
+      <div className="rev-container relative z-10 pt-10 sm:pt-14 md:pt-16 lg:pt-20 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-20">
 
         {/* Left Column: Text & Stats */}
         <div className="lg:w-1/2 w-full text-left relative pr-4 lg:pr-10 mt-1 lg:mt-6">
@@ -110,7 +110,7 @@ export default function ReviewsSection() {
         </div>
 
         {/* Right Column: Envelope Animation */}
-        <div className="lg:w-1/2 w-full mt-20 lg:mt-32">
+        <div className="lg:w-1/2 w-full mt-10 lg:mt-16">
           {loading ? (
             <div className="flex justify-center items-center py-20">
               <Loader2 className="animate-spin text-cyan-400" size={40} />
@@ -133,17 +133,36 @@ export default function ReviewsSection() {
                 </div>
               </div>
 
-              {/* Center Seal / Button */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[10] transition-transform duration-500">
+              {/* Center Seal / Button with Auto Spin on Open & Close */}
+              <div 
+                className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[10] transition-all duration-700 ease-in-out ${
+                  phase === 'sliding-in' || phase === 'closed'
+                    ? 'rotate-[360deg] scale-90'
+                    : 'rotate-0 scale-100'
+                }`}
+              >
                 <button
                   onClick={() => {
-                    // Optional manual trigger, or just decorative
                     if (phase === 'reading') setPhase('sliding-in');
+                    else if (phase === 'closed') setPhase('opening');
                   }}
-                  className="w-16 h-16 rounded-full bg-gradient-to-br from-cyan-400 to-pink-500 p-[2px] shadow-[0_0_30px_rgba(6,182,212,0.6)] hover:scale-110 hover:shadow-[0_0_40px_rgba(236,72,153,0.6)] transition-all duration-300 group"
+                  className={`w-16 h-16 rounded-full bg-gradient-to-br p-[2px] transition-all duration-700 group cursor-pointer ${
+                    phase === 'sliding-in' || phase === 'closed'
+                      ? 'from-pink-500 via-rose-500 to-amber-400 shadow-[0_0_25px_rgba(236,72,153,0.8)]'
+                      : 'from-cyan-400 via-sky-400 to-pink-500 shadow-[0_0_35px_rgba(6,182,212,0.8)]'
+                  } hover:scale-110`}
+                  title={phase === 'reading' ? 'Click to close envelope' : 'Click to open envelope'}
                 >
-                  <div className="w-full h-full rounded-full bg-[#050B17] flex items-center justify-center">
-                    <Mail className="text-cyan-400 group-hover:text-pink-400 transition-colors" size={24} />
+                  <div className="w-full h-full rounded-full bg-[#050B17] flex items-center justify-center relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-t from-cyan-500/10 to-transparent"></div>
+                    <Mail 
+                      className={`transition-all duration-700 ${
+                        phase === 'sliding-in' || phase === 'closed'
+                          ? 'text-pink-400 rotate-180 scale-90'
+                          : 'text-cyan-400 rotate-0 scale-100'
+                      }`} 
+                      size={24} 
+                    />
                   </div>
                 </button>
               </div>

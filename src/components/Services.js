@@ -88,10 +88,10 @@ export default function Services() {
   };
 
   const ServiceCard = ({ service, index, type }) => (
-    <div
+    <Link
+      href={`/${service.id}`}
       key={`${type}-${service.id}-${index}`}
-      onClick={() => setSelectedService(service)}
-      className={`${type === 'slider' ? 'w-[320px] sm:w-[350px] flex-shrink-0' : ''} h-[380px] rounded-2xl bg-gradient-to-b from-white/[0.08] via-white/[0.04] to-white/[0.02] border border-white/20 hover:border-white/40 p-6 flex flex-col justify-between shadow-[0_15px_35px_rgba(0,0,0,0.5)] backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgba(0,0,0,0.7),0_0_30px_rgba(255,255,255,0.08)] cursor-pointer group relative overflow-hidden`}
+      className={`${type === 'slider' ? 'w-[320px] sm:w-[350px] flex-shrink-0' : ''} h-[380px] rounded-2xl bg-gradient-to-b from-white/[0.08] via-white/[0.04] to-white/[0.02] border border-white/20 hover:border-white/40 p-6 flex flex-col justify-between shadow-[0_15px_35px_rgba(0,0,0,0.5)] backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgba(0,0,0,0.7),0_0_30px_rgba(255,255,255,0.08)] cursor-pointer group relative overflow-hidden block`}
     >
       {/* Top subtle white gloss shine */}
       <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-white/40 to-transparent"></div>
@@ -127,24 +127,17 @@ export default function Services() {
         </div>
       </div>
 
-      <button
-        type="button"
-        onClick={(e) => {
-          e.stopPropagation();
-          setSelectedService(service);
-        }}
-        className="w-full py-2.5 px-4 rounded-xl bg-white/10 hover:bg-white text-white hover:text-slate-900 text-sm font-bold flex items-center justify-between border border-white/15 hover:border-white transition-all duration-300 shadow-sm"
-      >
+      <div className="w-full py-2.5 px-4 rounded-xl bg-white/10 group-hover:bg-white text-white group-hover:text-slate-900 text-sm font-bold flex items-center justify-between border border-white/15 group-hover:border-white transition-all duration-300 shadow-sm mt-2">
         <span>Explore Details</span>
         <div className="w-6 h-6 rounded-full bg-white/15 flex items-center justify-center group-hover:bg-slate-900/15 group-hover:translate-x-1 transition-all">
           <ArrowRight className="w-3.5 h-3.5" />
         </div>
-      </button>
-    </div>
+      </div>
+    </Link>
   );
 
   return (
-    <section className="relative w-full pt-16 pb-16 md:pt-40 lg:pt-44 md:pb-20 bg-[#080D1F] overflow-hidden border-t border-white/10" id="services">
+    <section className="relative w-full pt-16 pb-16 md:pt-40 lg:pt-44 md:pb-20 bg-gradient-to-b from-[#0D1533] via-[#0F1B3E] to-[#0A1128] overflow-hidden border-t border-white/10" id="services">
       {/* Giant Background Watermark (Decreased Top Gap, Increased Bottom Gap) */}
       <div className="absolute top-3 sm:top-2 md:top-3 lg:top-4 left-0 w-full flex justify-center pointer-events-none select-none z-0 [mask-image:linear-gradient(to_bottom,black_85%,transparent_100%)]">
         <span 
@@ -160,13 +153,13 @@ export default function Services() {
       </div>
 
       {/* Luminous Ambient Background Glows - Center & Both Sides Soft White Touch */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[450px] bg-gradient-to-b from-white/[0.08] via-cyan-500/[0.08] to-transparent rounded-full blur-[140px] pointer-events-none z-0"></div>
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[450px] bg-gradient-to-b from-white/[0.12] via-cyan-500/[0.12] to-transparent rounded-full blur-[140px] pointer-events-none z-0"></div>
       
       {/* Left Side White Light Accent */}
-      <div className="absolute top-1/3 -left-20 w-[450px] h-[550px] bg-gradient-to-r from-white/[0.12] via-cyan-400/[0.08] to-transparent rounded-full blur-[150px] pointer-events-none z-0"></div>
+      <div className="absolute top-1/3 -left-20 w-[450px] h-[550px] bg-gradient-to-r from-white/[0.15] via-cyan-400/[0.12] to-transparent rounded-full blur-[150px] pointer-events-none z-0"></div>
       
       {/* Right Side White Light Accent */}
-      <div className="absolute top-1/3 -right-20 w-[450px] h-[550px] bg-gradient-to-l from-white/[0.12] via-purple-400/[0.08] to-transparent rounded-full blur-[150px] pointer-events-none z-0"></div>
+      <div className="absolute top-1/3 -right-20 w-[450px] h-[550px] bg-gradient-to-l from-white/[0.15] via-purple-400/[0.12] to-transparent rounded-full blur-[150px] pointer-events-none z-0"></div>
       
       {/* Subtle White Tech Grid Overlay */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-[size:44px_44px] pointer-events-none z-0"></div>
@@ -260,10 +253,23 @@ export default function Services() {
         </div>
       ) : (
         <div className="max-w-7xl mx-auto px-6 py-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {filteredServices.map((service, index) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {filteredServices.slice(0, 4).map((service, index) => (
               <ServiceCard key={`grid-${index}`} service={service} index={index} type="grid" />
             ))}
+          </div>
+
+          {/* View All Services Button */}
+          <div className="mt-12 flex justify-center">
+            <Link
+              href="/services"
+              className="group inline-flex items-center gap-3 px-8 py-3.5 rounded-full bg-gradient-to-r from-pink-500 via-[var(--color-primary-pink)] to-purple-600 text-white font-bold text-sm sm:text-base shadow-[0_10px_30px_rgba(255,0,122,0.35)] hover:shadow-[0_15px_35px_rgba(255,0,122,0.55)] hover:scale-105 active:scale-95 transition-all duration-300"
+            >
+              <span>View All Services</span>
+              <div className="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center group-hover:translate-x-1 transition-transform">
+                <ArrowRight className="w-4 h-4 text-white" />
+              </div>
+            </Link>
           </div>
         </div>
       )}

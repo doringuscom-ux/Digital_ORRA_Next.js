@@ -35,7 +35,7 @@ export default function OurTeamPage() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-[#070D1E] text-white selection:bg-pink-500 selection:text-white relative overflow-hidden flex flex-col justify-between">
+    <main className="min-h-screen bg-gradient-to-b from-[#101B3D] via-[#0D1533] to-[#0A1028] text-white selection:bg-pink-500 selection:text-white relative overflow-hidden flex flex-col justify-between">
       <DynamicSeoHead 
         path="/our-team" 
         customTitle="Meet Our Creative Team | Digital ORRA Panchkula" 
@@ -43,21 +43,24 @@ export default function OurTeamPage() {
       />
       <Navbar />
 
-      {/* Ambient Background Glows */}
+      {/* Dynamic Ambient Background Glows */}
       <div className="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
-        <div className="absolute top-[10%] left-[10%] w-[550px] h-[550px] bg-cyan-500/10 rounded-full blur-[150px] animate-pulse duration-1000"></div>
-        <div className="absolute top-[35%] right-[10%] w-[600px] h-[600px] bg-pink-500/10 rounded-full blur-[160px] animate-pulse duration-700"></div>
-        <div className="absolute bottom-[10%] left-[30%] w-[650px] h-[650px] bg-indigo-600/10 rounded-full blur-[170px]"></div>
+        <div className="absolute top-[8%] left-[10%] w-[700px] h-[700px] bg-cyan-500/20 rounded-full blur-[160px] animate-pulse duration-1000"></div>
+        <div className="absolute top-[30%] right-[8%] w-[650px] h-[650px] bg-pink-500/15 rounded-full blur-[160px] animate-pulse duration-700"></div>
+        <div className="absolute bottom-[10%] left-[30%] w-[750px] h-[750px] bg-indigo-500/20 rounded-full blur-[180px]"></div>
       </div>
 
       {/* Main Header with Giant Watermark */}
       <section className="relative w-full pt-34 pb-12 sm:pt-28 md:pt-36 md:pb-20 overflow-hidden">
+        {/* Crisp Tech Grid Lining */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff12_1px,transparent_1px),linear-gradient(to_bottom,#ffffff12_1px,transparent_1px)] bg-[size:44px_44px] pointer-events-none z-0"></div>
+
         {/* Giant Edge-to-Edge Watermark (Properly below the floating Navbar) */}
         <div style={{ pointerEvents: 'none' }} className="absolute top-25 md:top-20 left-0 w-full flex justify-center pointer-events-none select-none overflow-hidden z-0 [mask-image:linear-gradient(to_bottom,black_75%,transparent_100%)]">
           <h1 
             style={{ 
               pointerEvents: 'none',
-              background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.5) 55%, rgba(255, 255, 255, 0.18) 100%)',
+              background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.55) 55%, rgba(255, 255, 255, 0.2) 100%)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent'
             }} 
@@ -87,7 +90,7 @@ export default function OurTeamPage() {
               {team.map((member, idx) => (
                 <div
                   key={member._id || idx}
-                  className="group relative rounded-3xl bg-gradient-to-b from-[#111C3D]/95 via-[#0B132B]/95 to-[#060C1D] border border-white/15 hover:border-cyan-400/60 overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(0,0,0,0.8),0_0_30px_rgba(6,182,212,0.2)]"
+                  className="group relative rounded-3xl bg-gradient-to-b from-[#14224d]/90 via-[#0F1A3B]/95 to-[#0B142F] border border-white/20 hover:border-cyan-400/60 overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(0,0,0,0.5),0_0_30px_rgba(6,182,212,0.25)] backdrop-blur-md"
                 >
                   {/* Top Laser Accent */}
                   <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent group-hover:via-[var(--color-primary-pink)] transition-all duration-500"></div>
@@ -101,7 +104,7 @@ export default function OurTeamPage() {
                     />
 
                     {/* Subtle Gradient Vignette */}
-                    <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#0B132B] via-[#0B132B]/60 to-transparent pointer-events-none"></div>
+                    <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#0B142F] via-[#0B142F]/60 to-transparent pointer-events-none"></div>
 
                     {/* Clean Name overlay if admin entered a name */}
                     {member.name && (
@@ -123,7 +126,7 @@ export default function OurTeamPage() {
           )}
 
           {/* Simple Clean Bottom CTA */}
-          <div className="mt-20 rounded-3xl bg-gradient-to-r from-[#142042] via-[#0D152F] to-[#142042] border border-white/20 p-8 sm:p-10 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
+          <div className="mt-20 rounded-3xl bg-gradient-to-r from-[#142452]/90 via-[#0F1A3D]/95 to-[#142452]/90 border border-white/20 p-8 sm:p-10 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl backdrop-blur-xl">
             <div>
               <h3 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
                 Want to Work With Our Team?

@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState, useMemo } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
@@ -15,7 +16,14 @@ import {
   Clock,
   ArrowRight,
   Share2,
-  Eye
+  Eye,
+  Home,
+  ChevronRight,
+  CheckCircle2,
+  Loader2,
+  Phone,
+  Mail,
+  FileText
 } from 'lucide-react';
 import './BlogDetailPage.css';
 import { decodeHtmlEntities } from '../../lib/decodeHtmlEntities';
@@ -38,6 +46,53 @@ export default function UniversalSlugPage() {
   const [allBlogs, setAllBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [viewsCount, setViewsCount] = useState(185);
+
+  // Form states for Book Free Consultation widget
+  const [formData, setFormData] = useState({
+    fullName: '',
+    phone: '',
+    email: '',
+    message: ''
+  });
+  const [formSubmitting, setFormSubmitting] = useState(false);
+  const [formSuccess, setFormSuccess] = useState(false);
+  const [formError, setFormError] = useState('');
+
+  const handleConsultationSubmit = async (e) => {
+    e.preventDefault();
+    setFormError('');
+    if (!formData.fullName.trim() || !formData.email.trim() || !formData.message.trim()) {
+      setFormError('Please fill in Name, Email and Description.');
+      return;
+    }
+
+    setFormSubmitting(true);
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fullName: formData.fullName,
+          email: formData.email,
+          phone: formData.phone,
+          message: formData.message,
+          service: `Consultation from Blog: ${article?.title || slug}`
+        })
+      });
+
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setFormSuccess(true);
+        setFormData({ fullName: '', phone: '', email: '', message: '' });
+      } else {
+        setFormError(data.message || 'Something went wrong. Please try again.');
+      }
+    } catch (err) {
+      setFormError('Network error. Please try again later.');
+    } finally {
+      setFormSubmitting(false);
+    }
+  };
 
   useEffect(() => {
     // Generate a natural-looking random view count on every visit/refresh (e.g. 150 to 980)
@@ -86,7 +141,10 @@ export default function UniversalSlugPage() {
       setLoading(true);
       setService(matchedStaticService);
       setLocationPage(null);
-      setArticle(null);
+      if (matchedStaticService) {
+        setLoading(false);
+        return;
+      }
 
       try {
         // Fetch candidate endpoints concurrently to eliminate waterfall latency
@@ -301,8 +359,69 @@ export default function UniversalSlugPage() {
   const excerpt = decodeHtmlEntities(article.excerpt || '');
   const content = decodeHtmlEntities(article.content || '');
 
+  // Schema.org Structured Data for Google Rich Snippets & Fast Indexing
+  const blogArticleSchema = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": title,
+    "description": excerpt || title,
+    "image": image ? [image] : ["https://digitalorra.com/DO%20JPG.jpeg"],
+    "author": {
+      "@type": "Organization",
+      "name": author || "Digital ORRA",
+      "url": "https://digitalorra.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Digital ORRA",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://digitalorra.com/DO%20JPG.jpeg"
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": `https://digitalorra.com/${slug}`
+    }
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://digitalorra.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Blog",
+        "item": "https://digitalorra.com/blog"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": title,
+        "item": `https://digitalorra.com/${slug}`
+      }
+    ]
+  };
+
   return (
     <div className="blog-detail-wrapper flex flex-col justify-between">
+      {/* Google SEO JSON-LD Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogArticleSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+
       {/* Global Navbar */}
       <Navbar lightTheme={false} />
 
@@ -315,8 +434,24 @@ export default function UniversalSlugPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             
-            {/* Left Column: Category Badge + Title + Meta + Share */}
+            {/* Left Column: Breadcrumb + Category Badge + Title + Meta + Share */}
             <div className="lg:col-span-7 flex flex-col justify-center">
+              {/* Breadcrumb Navigation */}
+              <nav aria-label="Breadcrumb" className="flex items-center flex-wrap gap-1.5 sm:gap-2 text-xs sm:text-[13px] text-gray-400 mb-5">
+                <Link href="/" className="hover:text-cyan-400 flex items-center gap-1 transition-colors">
+                  <Home size={13} className="text-gray-400" />
+                  <span>Home</span>
+                </Link>
+                <ChevronRight size={13} className="text-gray-500 flex-shrink-0" />
+                <Link href="/blog" className="hover:text-cyan-400 transition-colors">
+                  Blog
+                </Link>
+                <ChevronRight size={13} className="text-gray-500 flex-shrink-0" />
+                <span className="text-white font-medium truncate max-w-[200px] sm:max-w-[320px]">
+                  {title}
+                </span>
+              </nav>
+
               {/* Category Pill */}
               <div className="mb-5">
                 <span className="inline-block px-4 py-1.5 rounded-full bg-[#4F46E5]/30 border border-[#6366F1]/50 text-[#818CF8] text-xs sm:text-sm font-semibold tracking-wide shadow-[0_0_15px_rgba(99,102,241,0.25)]">
@@ -329,7 +464,7 @@ export default function UniversalSlugPage() {
                 {title}
               </h1>
 
-              {/* Author, Date, Views and Share Button */}
+              {/* Author, Views and Share Button */}
               <div className="flex items-center justify-between pt-2 border-t border-white/10 text-xs sm:text-sm text-gray-300">
                 <div className="space-y-1">
                   <div className="font-semibold text-white">
@@ -337,33 +472,50 @@ export default function UniversalSlugPage() {
                   </div>
                   <div className="flex items-center gap-4 text-gray-400 font-mono text-xs">
                     <span className="flex items-center gap-1.5">
-                      <Calendar size={13} className="text-gray-400" />
-                      {date}
-                    </span>
-                    <span className="flex items-center gap-1.5">
                       <Eye size={13} className="text-gray-400" />
                       {viewsCount.toLocaleString()} Views
                     </span>
                   </div>
                 </div>
 
-                {/* Share Button */}
-                <button
-                  type="button"
-                  onClick={() => {
-                    if (navigator.share) {
-                      navigator.share({ title, url: window.location.href }).catch(() => {});
-                    } else {
-                      navigator.clipboard.writeText(window.location.href);
-                      alert("Article link copied to clipboard!");
-                    }
-                  }}
-                  className="w-10 h-10 rounded-full bg-white text-black hover:bg-pink-500 hover:text-white flex items-center justify-center transition-all duration-300 shadow-md hover:scale-110 cursor-pointer"
-                  title="Share this article"
-                  aria-label="Share article"
-                >
-                  <Share2 size={16} />
-                </button>
+                {/* Actions: Google Preferences Source & Share Button */}
+                <div className="flex items-center gap-2.5">
+                  <a
+                    href="https://www.google.com/preferences/source?q=digitalorra.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="h-10 px-3.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white text-xs font-semibold flex items-center gap-2 transition-all duration-300 shadow-sm hover:scale-105"
+                    title="Follow Digital ORRA on Google"
+                    aria-label="Google Preferences Source"
+                  >
+                    <Image
+                      src="/Logo_google.png"
+                      alt="Google"
+                      width={18}
+                      height={18}
+                      className="w-4 h-4 object-contain"
+                    />
+                    <span className="hidden sm:inline-block">Google Source</span>
+                  </a>
+
+                  {/* Share Button */}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (navigator.share) {
+                        navigator.share({ title, url: window.location.href }).catch(() => {});
+                      } else {
+                        navigator.clipboard.writeText(window.location.href);
+                        alert("Article link copied to clipboard!");
+                      }
+                    }}
+                    className="w-10 h-10 rounded-full bg-white text-black hover:bg-pink-500 hover:text-white flex items-center justify-center transition-all duration-300 shadow-md hover:scale-110 cursor-pointer"
+                    title="Share this article"
+                    aria-label="Share article"
+                  >
+                    <Share2 size={16} />
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -449,11 +601,130 @@ export default function UniversalSlugPage() {
 
             {/* Quick Lead Consultation Box Widget - Placed at Top */}
             <div className="sidebar-widget consultation-widget">
-              <h3>Book Free Consultation</h3>
-              <p>Speak directly with our performance growth specialist for a 1-on-1 strategy audit.</p>
-              <Link href="/contact#form" className="sidebar-btn pink-gradient">
-                <span>Book Audit Call</span> <ArrowRight size={14} />
-              </Link>
+              <div className="flex items-center justify-between pb-3.5 mb-3 border-b border-slate-100">
+                <h3 className="!text-[1.18rem] !font-black !text-slate-900 tracking-tight !mb-0 !pb-0 !border-0 flex items-center gap-2">
+                  <span>Book Free Consultation</span>
+                </h3>
+                <span className="w-2 h-2 rounded-full bg-pink-500 animate-pulse"></span>
+              </div>
+              <p className="text-[13px] leading-relaxed text-slate-500 font-normal mb-5">
+                Speak directly with our performance growth specialist for a 1-on-1 strategy audit.
+              </p>
+
+              {formSuccess ? (
+                <div className="p-5 rounded-2xl bg-emerald-50/80 border border-emerald-200 text-center space-y-2.5 animate-fade-in shadow-sm">
+                  <CheckCircle2 className="w-9 h-9 text-emerald-600 mx-auto" />
+                  <h4 className="font-extrabold text-emerald-900 text-sm">Thank You!</h4>
+                  <p className="text-xs text-emerald-700 leading-relaxed font-medium">
+                    Your request has been received. Our team will contact you shortly.
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => setFormSuccess(false)}
+                    className="text-xs text-pink-600 font-bold hover:underline pt-1 inline-block"
+                  >
+                    Submit another response
+                  </button>
+                </div>
+              ) : (
+                <form onSubmit={handleConsultationSubmit} className="space-y-3.5">
+                  {formError && (
+                    <div className="p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-600 text-xs font-semibold">
+                      {formError}
+                    </div>
+                  )}
+
+                  {/* Name Input */}
+                  <div>
+                    <label className="block text-[12.5px] font-medium text-slate-600 mb-1.5">
+                      Full Name <span className="text-pink-500 font-semibold">*</span>
+                    </label>
+                    <div className="relative">
+                      <input
+                        type="text"
+                        required
+                        placeholder="Enter your name"
+                        value={formData.fullName}
+                        onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+                        className="w-full text-[13px] font-medium px-3.5 py-2.5 pl-9 rounded-xl border border-slate-200 bg-slate-50/70 text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-pink-500 focus:bg-white focus:ring-2 focus:ring-pink-500/20 transition-all shadow-xs"
+                      />
+                      <User className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                    </div>
+                  </div>
+
+                  {/* Phone Number Input */}
+                  <div>
+                    <label className="block text-[12.5px] font-medium text-slate-600 mb-1.5">
+                      Phone Number
+                    </label>
+                    <div className="relative">
+                      <input
+                        type="tel"
+                        placeholder="Enter phone number"
+                        value={formData.phone}
+                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                        className="w-full text-[13px] font-medium px-3.5 py-2.5 pl-9 rounded-xl border border-slate-200 bg-slate-50/70 text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-pink-500 focus:bg-white focus:ring-2 focus:ring-pink-500/20 transition-all shadow-xs"
+                      />
+                      <Phone className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                    </div>
+                  </div>
+
+                  {/* Gmail / Email Input */}
+                  <div>
+                    <label className="block text-[12.5px] font-medium text-slate-600 mb-1.5">
+                      Email / Gmail <span className="text-pink-500 font-semibold">*</span>
+                    </label>
+                    <div className="relative">
+                      <input
+                        type="email"
+                        required
+                        placeholder="Enter your email"
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        className="w-full text-[13px] font-medium px-3.5 py-2.5 pl-9 rounded-xl border border-slate-200 bg-slate-50/70 text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-pink-500 focus:bg-white focus:ring-2 focus:ring-pink-500/20 transition-all shadow-xs"
+                      />
+                      <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                    </div>
+                  </div>
+
+                  {/* Description / Message Input */}
+                  <div>
+                    <label className="block text-[12.5px] font-medium text-slate-600 mb-1.5">
+                      Description / Requirement <span className="text-pink-500 font-semibold">*</span>
+                    </label>
+                    <div className="relative">
+                      <textarea
+                        rows={3}
+                        required
+                        placeholder="Tell us about your project or consultation requirements..."
+                        value={formData.message}
+                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                        className="w-full text-[13px] font-medium px-3.5 py-2.5 pl-9 rounded-xl border border-slate-200 bg-slate-50/70 text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-pink-500 focus:bg-white focus:ring-2 focus:ring-pink-500/20 transition-all resize-none shadow-xs"
+                      />
+                      <FileText className="w-4 h-4 text-slate-400 absolute left-3 top-3.5" />
+                    </div>
+                  </div>
+
+                  {/* Submit Button */}
+                  <button
+                    type="submit"
+                    disabled={formSubmitting}
+                    className="w-full mt-2 py-3 px-4 rounded-xl bg-gradient-to-r from-[#FF007A] via-[#EA007A] to-[#D00068] text-white text-[13px] font-black tracking-wide flex items-center justify-center gap-2 shadow-[0_8px_20px_rgba(255,0,122,0.32)] hover:shadow-[0_10px_25px_rgba(255,0,122,0.48)] hover:scale-[1.01] active:scale-[0.98] transition-all cursor-pointer disabled:opacity-60"
+                  >
+                    {formSubmitting ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        <span>Sending...</span>
+                      </>
+                    ) : (
+                      <>
+                        <span>Submit Consultation</span>
+                        <ArrowRight size={15} />
+                      </>
+                    )}
+                  </button>
+                </form>
+              )}
             </div>
 
             {/* Recent Articles Widget */}
@@ -470,7 +741,6 @@ export default function UniversalSlugPage() {
                       </div>
                     )}
                     <div className="recent-post-info">
-                      <span className="recent-post-date">{post.date || 'Recent'}</span>
                       <h5 className="recent-post-title">{post.title}</h5>
                     </div>
                   </Link>

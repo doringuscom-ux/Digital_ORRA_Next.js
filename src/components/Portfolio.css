@@ -4,7 +4,7 @@
 
 .portfolio-section {
   position: relative;
-  background: #080D1F;
+  background: linear-gradient(180deg, #091026 0%, #0E1838 50%, #080E24 100%);
   padding: 200px 0 90px 0;
   overflow: hidden;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -20,7 +20,7 @@
 .orb-left {
   width: 550px;
   height: 550px;
-  background: rgba(6, 182, 212, 0.12);
+  background: rgba(6, 182, 212, 0.2);
   top: 10%;
   left: -180px;
 }
@@ -28,7 +28,7 @@
 .orb-right {
   width: 500px;
   height: 500px;
-  background: rgba(139, 92, 246, 0.12);
+  background: rgba(139, 92, 246, 0.2);
   bottom: -60px;
   right: -80px;
 }
@@ -73,7 +73,7 @@
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   transition: all 0.4s ease;
-  aspect-ratio: 3/2; /* Slightly taller than 16/9 */
+  aspect-ratio: 16/10;
 }
 
 .port-card:hover {
@@ -87,20 +87,40 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background-color: #ffffff; /* White background for logos */
+  background-color: #0f172a; /* Sleek dark background */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.port-image-wrapper.is-logo-card {
+  background-color: #ffffff;
+  padding: 6px;
 }
 
 .port-image {
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  object-position: center;
-  transform: scale(1.4); /* Zoomed in further */
-  transition: transform 0.6s cubic-bezier(0.2, 0, 0.2, 1);
+  object-fit: cover;
+  object-position: top center;
+  transform: scale(1);
+  transition: transform 0.5s cubic-bezier(0.2, 0, 0.2, 1);
+}
+
+.port-image-logo {
+  object-fit: contain !important;
+  object-position: center !important;
+  width: 95% !important;
+  height: 95% !important;
+  transform: scale(1.18) !important;
 }
 
 .port-card:hover .port-image {
-  transform: scale(1.08); /* Gentle subtle zoom on hover */
+  transform: scale(1.05); /* Smooth slight zoom without cutting */
+}
+
+.port-card:hover .port-image-logo {
+  transform: scale(1.24) !important;
 }
 
 @media (max-width: 768px) {

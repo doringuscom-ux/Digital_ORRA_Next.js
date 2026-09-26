@@ -139,23 +139,31 @@ export default function Portfolio() {
         ) : (
           <>
             <div className="port-grid relative z-20">
-              {filteredData.slice(0, visibleCount).map((item) => (
-                <div 
-                  key={item._id} 
-                  className="port-card group cursor-pointer"
-                  onClick={() => setSelectedItem(item)}
-                >
-                  <div className="port-image-wrapper relative">
-                    <img src={item.image} alt={item.title} className="port-image" />
-                    {/* Hover Overlay with Zoom Icon */}
-                    <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none">
-                      <div className="w-12 h-12 rounded-full bg-[#0B1320]/80 backdrop-blur-md border border-cyan-400/50 text-cyan-300 flex items-center justify-center shadow-lg transform scale-75 group-hover:scale-100 transition-transform duration-300">
-                        <ZoomIn className="w-5 h-5" />
+              {filteredData.slice(0, visibleCount).map((item) => {
+                const isLogo = item.category?.toLowerCase().includes('logo') || 
+                               item.title?.toLowerCase().includes('logo');
+                return (
+                  <div 
+                    key={item._id} 
+                    className="port-card group cursor-pointer"
+                    onClick={() => setSelectedItem(item)}
+                  >
+                    <div className={`port-image-wrapper relative ${isLogo ? 'is-logo-card' : ''}`}>
+                      <img 
+                        src={item.image} 
+                        alt={item.title} 
+                        className={`port-image ${isLogo ? 'port-image-logo' : ''}`} 
+                      />
+                      {/* Hover Overlay with Zoom Icon */}
+                      <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none">
+                        <div className="w-12 h-12 rounded-full bg-[#0B1320]/80 backdrop-blur-md border border-cyan-400/50 text-cyan-300 flex items-center justify-center shadow-lg transform scale-75 group-hover:scale-100 transition-transform duration-300">
+                          <ZoomIn className="w-5 h-5" />
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
             {/* View More Button */}

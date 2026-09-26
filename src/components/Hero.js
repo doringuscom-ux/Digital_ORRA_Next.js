@@ -86,7 +86,7 @@ export default function Hero() {
         {/* 2. CTA Action Buttons (Single Row / 1 Line on Mobile & Desktop) */}
         <div className="flex flex-row items-center justify-center gap-1.5 sm:gap-4 relative z-30 mt-3.5 md:mt-4 w-full max-w-2xl mx-auto px-1 sm:px-0">
           <a
-            href="tel:+919896384224"
+            href="tel:+916280458005"
             className="btn-glass py-2 sm:py-3 px-2 sm:px-7 text-[11px] sm:text-base font-bold flex-1 sm:flex-initial sm:w-[190px] flex items-center justify-center gap-1 sm:gap-2.5 border border-[var(--color-primary-pink)]/40 hover:border-[var(--color-primary-pink)] hover:bg-[var(--color-primary-pink)]/20 transition-all shadow-[0_0_15px_rgba(234,0,122,0.2)] whitespace-nowrap"
           >
             <svg className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-[var(--color-primary-pink)] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
@@ -96,7 +96,7 @@ export default function Hero() {
           </a>
 
           <a
-            href="https://wa.me/919896384224"
+            href="https://wa.me/916280458005"
             target="_blank"
             rel="noopener noreferrer"
             className="btn-glass py-2 sm:py-3 px-2 sm:px-7 text-[11px] sm:text-base font-bold flex-1 sm:flex-initial sm:w-[190px] flex items-center justify-center gap-1 sm:gap-2.5 border border-[#25D366]/40 hover:border-[#25D366] hover:bg-[#25D366]/20 transition-all shadow-[0_0_15px_rgba(37,211,102,0.2)] whitespace-nowrap"

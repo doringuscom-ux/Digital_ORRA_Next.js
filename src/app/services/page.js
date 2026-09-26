@@ -102,7 +102,7 @@ export default function ServicesPage() {
   });
 
   return (
-    <main className="min-h-screen bg-[#0A1128] text-white flex flex-col relative selection:bg-[#FF3399]/40 selection:text-white">
+    <main className="min-h-screen bg-gradient-to-b from-[#101B3D] via-[#0D1533] to-[#0A1028] text-white flex flex-col relative selection:bg-[#FF3399]/40 selection:text-white">
       <DynamicSeoHead path="/services" />
       {/* Global Navbar */}
       <Navbar />
@@ -114,7 +114,7 @@ export default function ServicesPage() {
           <h1
             style={{
               pointerEvents: 'none',
-              background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.5) 55%, rgba(255, 255, 255, 0.18) 100%)',
+              background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.55) 55%, rgba(255, 255, 255, 0.2) 100%)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent'
             }}
@@ -124,14 +124,17 @@ export default function ServicesPage() {
           </h1>
         </div>
 
-        {/* Ambient Center Glow */}
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-cyan-500/10 blur-[160px] pointer-events-none z-0"></div>
+        {/* Ambient Radiant Glows */}
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[500px] bg-indigo-500/20 blur-[160px] pointer-events-none z-0"></div>
+        <div className="absolute top-1/2 -left-20 w-[550px] h-[550px] bg-cyan-500/20 blur-[150px] pointer-events-none z-0"></div>
+        <div className="absolute bottom-1/4 -right-20 w-[550px] h-[550px] bg-pink-500/15 blur-[150px] pointer-events-none z-0"></div>
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none z-0"></div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-7 sm:pt-10 md:pt-44">
           <h2 className="sr-only">Explore Comprehensive Digital Marketing, Development & Performance Solutions</h2>
 
           {/* Controls Bar: Search Bar + Filter Tabs */}
-          <div className="relative z-20 mb-4 p-2.5 rounded-2xl md:rounded-full bg-[#0B132B] border border-white/15 shadow-[0_10px_35px_rgba(0,0,0,0.6)] flex flex-col md:flex-row items-center justify-between gap-3">
+          <div className="relative z-20 mb-4 p-2.5 rounded-2xl md:rounded-full bg-[#121E45]/80 backdrop-blur-xl border border-white/20 shadow-[0_10px_35px_rgba(0,0,0,0.3)] flex flex-col md:flex-row items-center justify-between gap-3">
 
             {/* Quick Search Input */}
             <div className="relative w-full md:w-72">
@@ -141,7 +144,7 @@ export default function ServicesPage() {
                 placeholder="Search capabilities..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-white/[0.06] border border-white/10 rounded-full pl-11 pr-8 py-2.5 text-xs sm:text-sm text-white placeholder-gray-400 focus:outline-none focus:border-cyan-400 focus:bg-white/[0.1] transition-all"
+                className="w-full bg-white/[0.08] border border-white/15 rounded-full pl-11 pr-8 py-2.5 text-xs sm:text-sm text-white placeholder-gray-300 focus:outline-none focus:border-cyan-400 focus:bg-white/[0.14] transition-all"
               />
               {searchQuery && (
                 <button
@@ -211,7 +214,7 @@ export default function ServicesPage() {
                     <Link
                       key={service.id || service._id || sIdx}
                       href={`/${serviceSlug}`}
-                      className="group relative rounded-3xl bg-gradient-to-b from-[#111A38]/95 via-[#0A1128]/98 to-[#060B1A] border border-white/15 hover:border-cyan-400/60 p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(0,0,0,0.8),0_0_30px_rgba(6,182,212,0.2)] cursor-pointer min-h-[290px]"
+                      className="group relative rounded-3xl bg-gradient-to-b from-[#14224d]/90 via-[#0F1A3B]/95 to-[#0B142F] border border-white/20 hover:border-cyan-400/60 p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(0,0,0,0.5),0_0_30px_rgba(6,182,212,0.25)] cursor-pointer min-h-[290px] backdrop-blur-md"
                     >
                       {/* Top Accent Line */}
                       <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent group-hover:via-[var(--color-primary-pink)] transition-all duration-500"></div>
@@ -351,7 +354,7 @@ export default function ServicesPage() {
                 Get Quotation for this Service
               </Link>
               <a
-                href={`https://wa.me/919990432321?text=Hi%20Digital%20ORRA,%20I%20am%20interested%20in%20${encodeURIComponent(selectedService.title)}`}
+                href={`https://wa.me/916280458005?text=Hi%20Digital%20ORRA,%20I%20am%20interested%20in%20${encodeURIComponent(selectedService.title)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-5 py-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-sm font-bold hover:bg-emerald-500/20 transition-all flex items-center gap-2"

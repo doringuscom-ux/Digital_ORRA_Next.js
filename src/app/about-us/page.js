@@ -387,7 +387,7 @@ export default function AboutUsPage() {
             </Link>
             
             <a
-              href="https://wa.me/919896384224"
+              href="https://wa.me/916280458005"
               target="_blank"
               rel="noopener noreferrer"
               className="px-4 py-2.5 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-xs sm:text-sm font-bold hover:bg-emerald-500/20 hover:border-emerald-500/40 hover:scale-105 transition-all inline-flex items-center gap-2"

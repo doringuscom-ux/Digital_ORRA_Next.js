@@ -6,11 +6,11 @@ import Link from 'next/link';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import DynamicSeoHead from '../../components/DynamicSeoHead';
-import { 
-  X, 
-  ChevronLeft, 
-  ChevronRight, 
-  Camera, 
+import {
+  X,
+  ChevronLeft,
+  ChevronRight,
+  Camera,
   Maximize2
 } from 'lucide-react';
 
@@ -77,51 +77,53 @@ export default function GalleryPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[#070D1E] text-white flex flex-col relative selection:bg-pink-500 selection:text-white overflow-hidden">
+    <main className="min-h-screen bg-gradient-to-b from-[#101B3D] via-[#0D1533] to-[#0A1028] text-white flex flex-col relative selection:bg-pink-500 selection:text-white overflow-hidden">
       <DynamicSeoHead path="/gallery" />
       {/* Global Navbar */}
       <Navbar />
 
-      {/* Ambient Background Glows */}
+      {/* Dynamic Ambient Background Glows */}
       <div className="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
-        <div className="absolute top-[12%] left-[10%] w-[600px] h-[600px] bg-cyan-500/10 rounded-full blur-[160px] animate-pulse duration-1000"></div>
-        <div className="absolute top-[35%] right-[10%] w-[600px] h-[600px] bg-pink-500/10 rounded-full blur-[160px] animate-pulse duration-700"></div>
-        <div className="absolute bottom-[10%] left-[30%] w-[700px] h-[700px] bg-indigo-600/10 rounded-full blur-[180px]"></div>
+        <div className="absolute top-[8%] left-[10%] w-[700px] h-[700px] bg-cyan-500/20 rounded-full blur-[160px] animate-pulse duration-1000"></div>
+        <div className="absolute top-[30%] right-[8%] w-[650px] h-[650px] bg-pink-500/15 rounded-full blur-[160px] animate-pulse duration-700"></div>
+        <div className="absolute bottom-[10%] left-[30%] w-[750px] h-[750px] bg-indigo-500/20 rounded-full blur-[180px]"></div>
       </div>
 
       {/* Main Header with Watermark */}
       <section className="relative w-full pt-34 pb-16 md:pt-40 md:pb-20 overflow-hidden">
+        {/* Crisp Tech Grid Lining */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff12_1px,transparent_1px),linear-gradient(to_bottom,#ffffff12_1px,transparent_1px)] bg-[size:44px_44px] pointer-events-none z-0"></div>
+
         {/* Giant Edge-to-Edge Watermark */}
         <div style={{ pointerEvents: 'none' }} className="absolute top-25 md:top-24 left-0 w-full flex justify-center pointer-events-none select-none overflow-hidden z-0 [mask-image:linear-gradient(to_bottom,black_75%,transparent_100%)]">
-          <h1 
-            style={{ 
+          <h1
+            style={{
               pointerEvents: 'none',
-              background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.5) 55%, rgba(255, 255, 255, 0.18) 100%)',
+              background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.55) 55%, rgba(255, 255, 255, 0.2) 100%)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent'
-            }} 
+            }}
             className="text-[8vw] md:text-[8.5vw] font-black uppercase tracking-wider whitespace-nowrap select-none"
           >
-            LIFE AT ORRA
+            LIFE AT DO
           </h1>
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-7 sm:pt-10 md:pt-44">
           <h2 className="sr-only">Digital ORRA Culture, Highlights & Creative Production Gallery</h2>
-          
+
 
           {/* Category Filter Tabs: Clean, Open in a Single Row */}
           <div className="relative z-20 mb-8 sm:mb-12 w-full flex items-center justify-center">
-            <div className="flex items-center justify-start md:justify-center gap-2 sm:gap-2.5 overflow-x-auto scrollbar-none no-scrollbar flex-nowrap py-2 px-2 w-full max-w-5xl [-webkit-overflow-scrolling:touch]">
+            <div className="flex items-center justify-start md:justify-center gap-2 sm:gap-2.5 overflow-x-auto scrollbar-none no-scrollbar flex-nowrap p-2 rounded-2xl md:rounded-full bg-[#121E45]/80 backdrop-blur-xl border border-white/20 shadow-[0_10px_35px_rgba(0,0,0,0.3)] w-full max-w-5xl [-webkit-overflow-scrolling:touch]">
               {categories.map(cat => (
                 <button
                   key={cat.id}
                   onClick={() => setActiveTab(cat.id)}
-                  className={`px-4 sm:px-5 py-2.5 rounded-full text-xs sm:text-[13px] font-semibold whitespace-nowrap transition-all duration-300 flex-shrink-0 ${
-                    activeTab === cat.id 
-                      ? 'bg-gradient-to-r from-[var(--color-primary-pink)] to-pink-600 text-white shadow-[0_0_20px_rgba(255,51,153,0.45)]' 
-                      : 'text-gray-300 hover:text-white bg-[#0B132B]/90 hover:bg-white/10 border border-white/10 hover:border-cyan-400/40'
-                  }`}
+                  className={`px-4 sm:px-5 py-2.5 rounded-full text-xs sm:text-[13px] font-semibold whitespace-nowrap transition-all duration-300 flex-shrink-0 ${activeTab === cat.id
+                      ? 'bg-gradient-to-r from-[var(--color-primary-pink)] to-pink-600 text-white shadow-[0_0_20px_rgba(255,51,153,0.45)]'
+                      : 'text-gray-300 hover:text-white hover:bg-white/[0.08]'
+                    }`}
                 >
                   {cat.label}
                 </button>
@@ -159,12 +161,12 @@ export default function GalleryPage() {
                 <div
                   key={item._id || idx}
                   onClick={() => openLightbox(item, idx)}
-                  className="group relative rounded-2xl overflow-hidden bg-[#0A1128] border border-white/10 hover:border-cyan-400/50 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_15px_35px_rgba(0,0,0,0.6)] cursor-pointer aspect-[4/3]"
+                  className="group relative rounded-2xl overflow-hidden bg-gradient-to-b from-[#14224d]/90 to-[#0B142F] border border-white/20 hover:border-cyan-400/60 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_20px_45px_rgba(0,0,0,0.5),0_0_30px_rgba(6,182,212,0.25)] cursor-pointer aspect-[4/3] backdrop-blur-md"
                 >
-                  <img 
-                    src={item.image} 
-                    alt={item.category || 'Digital ORRA Moment'} 
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" 
+                  <img
+                    src={item.image}
+                    alt={item.category || 'Digital ORRA Moment'}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
                   />
 
                   {/* Dark Vignette Overlay on Hover */}
@@ -195,12 +197,12 @@ export default function GalleryPage() {
 
       {/* Lightbox Modal */}
       {selectedPhoto && (
-        <div 
+        <div
           onClick={closeLightbox}
           className="fixed inset-0 z-[200] bg-black/95 backdrop-blur-xl flex items-center justify-center p-4 sm:p-8 transition-all animate-fadeIn"
         >
           {/* Close Button */}
-          <button 
+          <button
             onClick={closeLightbox}
             className="absolute top-6 right-6 z-10 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 flex items-center justify-center text-white transition-colors"
           >
@@ -208,14 +210,14 @@ export default function GalleryPage() {
           </button>
 
           {/* Navigation Arrows */}
-          <button 
+          <button
             onClick={prevPhoto}
             className="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-black/60 hover:bg-pink-600 border border-white/20 flex items-center justify-center text-white transition-all shadow-2xl"
           >
             <ChevronLeft className="w-6 h-6" />
           </button>
 
-          <button 
+          <button
             onClick={nextPhoto}
             className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-black/60 hover:bg-pink-600 border border-white/20 flex items-center justify-center text-white transition-all shadow-2xl"
           >
@@ -223,13 +225,13 @@ export default function GalleryPage() {
           </button>
 
           {/* Main Photo Container */}
-          <div 
-            onClick={(e) => e.stopPropagation()} 
+          <div
+            onClick={(e) => e.stopPropagation()}
             className="relative max-w-5xl max-h-[85vh] rounded-2xl overflow-hidden border border-white/20 shadow-[0_20px_60px_rgba(0,0,0,0.9)] flex flex-col items-center bg-[#070D1E]"
           >
-            <img 
-              src={selectedPhoto.image} 
-              alt={selectedPhoto.category || 'Digital ORRA'} 
+            <img
+              src={selectedPhoto.image}
+              alt={selectedPhoto.category || 'Digital ORRA'}
               className="max-h-[75vh] w-auto max-w-full object-contain rounded-t-2xl"
             />
             <div className="w-full p-4 bg-[#0A1128] border-t border-white/10 flex items-center justify-between">

@@ -27,21 +27,20 @@ export default function CelebritySpotlight() {
   };
 
   return (
-    <section className="relative w-full pt-14 pb-10 md:pt-24 lg:pt-28 md:pb-14 bg-[#0C132C] overflow-hidden border-t border-white/5 shadow-[inset_0_30px_60px_rgba(0,0,0,0.4)]" id="spotlight">
+    <section className="relative w-full pt-14 pb-10 md:pt-24 lg:pt-28 md:pb-14 bg-gradient-to-b from-[#101B3D] via-[#0D1533] to-[#0A1028] overflow-hidden border-t border-white/10" id="spotlight">
       
       {/* Video Modal - (Kept logic but we use inline flip) */}
       
-      {/* Epic Abstract Backgrounds */}
-      {/* Top Spotlight Effect */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[1000px] h-[500px] bg-gradient-to-b from-[var(--color-primary-pink)]/10 via-[var(--color-accent-cyan)]/5 to-transparent pointer-events-none z-0"></div>
+      {/* Epic Abstract Backgrounds - Smooth Radiant Glows Without Harsh Box Shadows */}
       
-      <div className="absolute top-1/4 right-0 w-[600px] h-[600px] bg-[var(--color-primary-pink)]/20 rounded-full blur-[150px] pointer-events-none z-0"></div>
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[150px] pointer-events-none z-0"></div>
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none z-0"></div>
+      <div className="absolute top-1/4 right-0 w-[600px] h-[600px] bg-[var(--color-primary-pink)]/25 rounded-full blur-[140px] pointer-events-none z-0"></div>
+      <div className="absolute bottom-0 left-0 w-[550px] h-[550px] bg-cyan-500/20 rounded-full blur-[140px] pointer-events-none z-0"></div>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-indigo-500/20 rounded-full blur-[160px] pointer-events-none z-0"></div>
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none z-0"></div>
 
-      {/* Elegant Balanced Background Watermark (Decreased Top Gap, Increased Bottom Gap) */}
+      {/* Elegant Balanced Background Watermark */}
       <div className="absolute top-3 sm:top-2 md:top-2 lg:top-3 left-0 w-full flex justify-center pointer-events-none select-none overflow-hidden z-0 [mask-image:linear-gradient(to_bottom,black_85%,transparent_100%)]">
-        <span className="text-[6.5vw] md:text-[7vw] font-black uppercase tracking-wider whitespace-nowrap select-none text-transparent bg-clip-text bg-gradient-to-b from-white/[0.72] via-white/[0.45] to-white/[0.18]">
+        <span className="text-[6.5vw] md:text-[7vw] font-black uppercase tracking-wider whitespace-nowrap select-none text-transparent bg-clip-text bg-gradient-to-b from-white/[0.80] via-white/[0.5] to-white/[0.2]">
           CELEBRITY SPOTLIGHT
         </span>
       </div>
@@ -67,8 +66,8 @@ export default function CelebritySpotlight() {
 
             {/* Glowing Quote Card (Visible on Desktop / Large screens here) */}
             <div className="hidden lg:block relative group mb-2">
-              <div className="absolute -inset-1 bg-gradient-to-r from-[var(--color-primary-pink)] to-cyan-500 rounded-2xl blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
-              <blockquote className="relative text-gray-200 text-lg md:text-xl font-medium leading-relaxed italic border-l-4 border-[var(--color-primary-pink)] pl-6 bg-[#0A1128]/80 backdrop-blur-xl py-6 px-8 rounded-r-2xl shadow-2xl border-y border-r border-white/5">
+              <div className="absolute -inset-1 bg-gradient-to-r from-[var(--color-primary-pink)] to-cyan-500 rounded-2xl blur opacity-35 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+              <blockquote className="relative text-gray-100 text-lg md:text-xl font-medium leading-relaxed italic border-l-4 border-[var(--color-primary-pink)] pl-6 bg-[#131F46]/85 backdrop-blur-xl py-6 px-8 rounded-r-2xl shadow-2xl border-y border-r border-white/10">
                 "Digital ORRA is revolutionizing the digital space with absolute brilliance. I am proud to associate with a team that delivers pure excellence and growth. Their creative vision and technical expertise are truly unmatched in the industry."
               </blockquote>
             </div>
@@ -139,8 +138,8 @@ export default function CelebritySpotlight() {
 
         {/* Glowing Quote Card (Displayed directly under Rakesh Ji's photo on Mobile / Tablet) */}
         <div className="block lg:hidden relative group mt-8 z-20">
-          <div className="absolute -inset-1 bg-gradient-to-r from-[var(--color-primary-pink)] to-cyan-500 rounded-2xl blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
-          <blockquote className="relative text-gray-200 text-sm sm:text-base font-medium leading-relaxed italic border-l-4 border-[var(--color-primary-pink)] pl-5 bg-[#0A1128]/80 backdrop-blur-xl py-5 px-6 rounded-r-2xl shadow-2xl border-y border-r border-white/5">
+          <div className="absolute -inset-1 bg-gradient-to-r from-[var(--color-primary-pink)] to-cyan-500 rounded-2xl blur opacity-35 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+          <blockquote className="relative text-gray-100 text-sm sm:text-base font-medium leading-relaxed italic border-l-4 border-[var(--color-primary-pink)] pl-5 bg-[#131F46]/85 backdrop-blur-xl py-5 px-6 rounded-r-2xl shadow-2xl border-y border-r border-white/10">
             "Digital ORRA is revolutionizing the digital space with absolute brilliance. I am proud to associate with a team that delivers pure excellence and growth. Their creative vision and technical expertise are truly unmatched in the industry."
           </blockquote>
         </div>
@@ -148,43 +147,43 @@ export default function CelebritySpotlight() {
         {/* 4 Premium Trust Cards Added to Bottom for massive authority (Hidden on mobile phones) */}
         <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mt-8 md:mt-12">
           
-          <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 p-6 rounded-3xl bg-[#0A1128]/50 backdrop-blur-lg border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:-translate-y-2 hover:bg-[#0A1128]/80 hover:border-[var(--color-primary-pink)]/50 transition-all group">
-            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-white/10 to-transparent flex items-center justify-center flex-shrink-0 border border-white/5 group-hover:bg-[var(--color-primary-pink)]/20 transition-colors">
+          <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 p-6 rounded-3xl bg-[#131F46]/60 backdrop-blur-lg border border-white/15 shadow-[0_10px_30px_rgba(0,0,0,0.3)] hover:-translate-y-2 hover:bg-[#162450]/80 hover:border-[var(--color-primary-pink)]/50 transition-all group">
+            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-white/15 to-transparent flex items-center justify-center flex-shrink-0 border border-white/10 group-hover:bg-[var(--color-primary-pink)]/25 transition-colors">
               <Trophy className="w-7 h-7 text-[var(--color-primary-pink)] group-hover:scale-110 transition-transform" />
             </div>
             <div className="text-center sm:text-left mt-2 sm:mt-0">
               <h4 className="text-white font-black text-xl mb-1">Bollywood</h4>
-              <p className="text-gray-400 text-xs font-bold tracking-widest uppercase">Celebrity Endorsed</p>
+              <p className="text-gray-300 text-xs font-bold tracking-widest uppercase">Celebrity Endorsed</p>
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 p-6 rounded-3xl bg-[#0A1128]/50 backdrop-blur-lg border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:-translate-y-2 hover:bg-[#0A1128]/80 hover:border-cyan-500/50 transition-all group">
-            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-white/10 to-transparent flex items-center justify-center flex-shrink-0 border border-white/5 group-hover:bg-cyan-500/20 transition-colors">
+          <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 p-6 rounded-3xl bg-[#131F46]/60 backdrop-blur-lg border border-white/15 shadow-[0_10px_30px_rgba(0,0,0,0.3)] hover:-translate-y-2 hover:bg-[#162450]/80 hover:border-cyan-500/50 transition-all group">
+            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-white/15 to-transparent flex items-center justify-center flex-shrink-0 border border-white/10 group-hover:bg-cyan-500/25 transition-colors">
               <Users className="w-7 h-7 text-cyan-400 group-hover:scale-110 transition-transform" />
             </div>
             <div className="text-center sm:text-left mt-2 sm:mt-0">
               <h4 className="text-white font-black text-xl mb-1">7000+</h4>
-              <p className="text-gray-400 text-xs font-bold tracking-widest uppercase">Happy Clients</p>
+              <p className="text-gray-300 text-xs font-bold tracking-widest uppercase">Happy Clients</p>
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 p-6 rounded-3xl bg-[#0A1128]/50 backdrop-blur-lg border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:-translate-y-2 hover:bg-[#0A1128]/80 hover:border-[var(--color-primary-pink)]/50 transition-all group">
-            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-white/10 to-transparent flex items-center justify-center flex-shrink-0 border border-white/5 group-hover:bg-[var(--color-primary-pink)]/20 transition-colors">
+          <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 p-6 rounded-3xl bg-[#131F46]/60 backdrop-blur-lg border border-white/15 shadow-[0_10px_30px_rgba(0,0,0,0.3)] hover:-translate-y-2 hover:bg-[#162450]/80 hover:border-[var(--color-primary-pink)]/50 transition-all group">
+            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-white/15 to-transparent flex items-center justify-center flex-shrink-0 border border-white/10 group-hover:bg-[var(--color-primary-pink)]/25 transition-colors">
               <TrendingUp className="w-7 h-7 text-[var(--color-primary-pink)] group-hover:scale-110 transition-transform" />
             </div>
             <div className="text-center sm:text-left mt-2 sm:mt-0">
               <h4 className="text-white font-black text-xl mb-1">30x</h4>
-              <p className="text-gray-400 text-xs font-bold tracking-widest uppercase">ROI Delivered</p>
+              <p className="text-gray-300 text-xs font-bold tracking-widest uppercase">ROI Delivered</p>
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 p-6 rounded-3xl bg-[#0A1128]/50 backdrop-blur-lg border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:-translate-y-2 hover:bg-[#0A1128]/80 hover:border-cyan-500/50 transition-all group">
-            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-white/10 to-transparent flex items-center justify-center flex-shrink-0 border border-white/5 group-hover:bg-cyan-500/20 transition-colors">
+          <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 p-6 rounded-3xl bg-[#131F46]/60 backdrop-blur-lg border border-white/15 shadow-[0_10px_30px_rgba(0,0,0,0.3)] hover:-translate-y-2 hover:bg-[#162450]/80 hover:border-cyan-500/50 transition-all group">
+            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-white/15 to-transparent flex items-center justify-center flex-shrink-0 border border-white/10 group-hover:bg-cyan-500/25 transition-colors">
               <Video className="w-7 h-7 text-cyan-400 group-hover:scale-110 transition-transform" />
             </div>
             <div className="text-center sm:text-left mt-2 sm:mt-0">
               <h4 className="text-white font-black text-xl mb-1">No. 1</h4>
-              <p className="text-gray-400 text-xs font-bold tracking-widest uppercase">Digital Agency</p>
+              <p className="text-gray-300 text-xs font-bold tracking-widest uppercase">Digital Agency</p>
             </div>
           </div>
 

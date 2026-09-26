@@ -171,12 +171,6 @@ export default function BlogDetailPage() {
                 </div>
                 <span>{blog.author || 'Digital ORRA Team'}</span>
               </div>
-              {blog.date && (
-                <div className="flex items-center gap-1.5">
-                  <Calendar className="w-4 h-4 text-cyan-400" />
-                  <span>{blog.date}</span>
-                </div>
-              )}
               <div className="flex items-center gap-1.5">
                 <Clock className="w-4 h-4 text-pink-400" />
                 <span>{blog.readTime || '5 min read'}</span>
