@@ -90,6 +90,18 @@
   max-width: 900px;
 }
 
+.blog-detail-subtitle::first-letter {
+  font-size: 1.55em;
+  font-weight: 900;
+  color: #0F172A;
+  text-transform: uppercase;
+  float: none;
+  margin: 0;
+  padding: 0;
+  line-height: inherit;
+}
+
+
 /* Grid Content */
 .blog-content-grid {
   display: grid;
@@ -178,11 +190,7 @@
   display: block !important;
 }
 
-/* Editorial Drop Cap on First Paragraph */
-.blog-dynamic-content > p:first-of-type::first-letter,
-.blog-dynamic-content > .wp-block-paragraph:first-of-type::first-letter,
-.blog-dynamic-content > div:first-child > p:first-of-type::first-letter,
-.blog-dynamic-content p:first-of-type::first-letter,
+/* Editorial Drop Cap only when explicitly requested */
 .blog-drop-cap::first-letter {
   font-size: 3.5rem;
   line-height: 0.85;
@@ -195,6 +203,7 @@
   font-family: inherit;
   text-transform: uppercase;
 }
+
 
 
 
