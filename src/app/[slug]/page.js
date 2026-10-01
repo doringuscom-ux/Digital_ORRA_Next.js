@@ -262,7 +262,7 @@ export default function UniversalSlugPage() {
                   setAllBlogs(allData);
                 }
               })
-              .catch(() => {});
+              .catch(() => { });
           }
         }
       } catch (err) {
@@ -433,7 +433,7 @@ export default function UniversalSlugPage() {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-            
+
             {/* Left Column: Breadcrumb + Category Badge + Title + Meta + Share */}
             <div className="lg:col-span-7 flex flex-col justify-center">
               {/* Breadcrumb Navigation */}
@@ -460,7 +460,7 @@ export default function UniversalSlugPage() {
               </div>
 
               {/* Giant Bold Title */}
-              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-black text-white leading-[1.25] tracking-tight mb-7">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[40px] font-bold text-white leading-[1.3] tracking-tight mb-7">
                 {title}
               </h1>
 
@@ -503,7 +503,7 @@ export default function UniversalSlugPage() {
                     type="button"
                     onClick={() => {
                       if (navigator.share) {
-                        navigator.share({ title, url: window.location.href }).catch(() => {});
+                        navigator.share({ title, url: window.location.href }).catch(() => { });
                       } else {
                         navigator.clipboard.writeText(window.location.href);
                         alert("Article link copied to clipboard!");
@@ -605,11 +605,7 @@ export default function UniversalSlugPage() {
                 <h3 className="!text-[1.18rem] !font-black !text-slate-900 tracking-tight !mb-0 !pb-0 !border-0 flex items-center gap-2">
                   <span>Book Free Consultation</span>
                 </h3>
-                <span className="w-2 h-2 rounded-full bg-pink-500 animate-pulse"></span>
               </div>
-              <p className="text-[13px] leading-relaxed text-slate-500 font-normal mb-5">
-                Speak directly with our performance growth specialist for a 1-on-1 strategy audit.
-              </p>
 
               {formSuccess ? (
                 <div className="p-5 rounded-2xl bg-emerald-50/80 border border-emerald-200 text-center space-y-2.5 animate-fade-in shadow-sm">
@@ -636,9 +632,6 @@ export default function UniversalSlugPage() {
 
                   {/* Name Input */}
                   <div>
-                    <label className="block text-[12.5px] font-medium text-slate-600 mb-1.5">
-                      Full Name <span className="text-pink-500 font-semibold">*</span>
-                    </label>
                     <div className="relative">
                       <input
                         type="text"
@@ -654,9 +647,6 @@ export default function UniversalSlugPage() {
 
                   {/* Phone Number Input */}
                   <div>
-                    <label className="block text-[12.5px] font-medium text-slate-600 mb-1.5">
-                      Phone Number
-                    </label>
                     <div className="relative">
                       <input
                         type="tel"
@@ -671,9 +661,6 @@ export default function UniversalSlugPage() {
 
                   {/* Gmail / Email Input */}
                   <div>
-                    <label className="block text-[12.5px] font-medium text-slate-600 mb-1.5">
-                      Email / Gmail <span className="text-pink-500 font-semibold">*</span>
-                    </label>
                     <div className="relative">
                       <input
                         type="email"
@@ -689,9 +676,6 @@ export default function UniversalSlugPage() {
 
                   {/* Description / Message Input */}
                   <div>
-                    <label className="block text-[12.5px] font-medium text-slate-600 mb-1.5">
-                      Description / Requirement <span className="text-pink-500 font-semibold">*</span>
-                    </label>
                     <div className="relative">
                       <textarea
                         rows={3}
