@@ -1,329 +1,145 @@
-"use client";
-
-import React, { useEffect, useState, useMemo } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useParams, useRouter } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import ServiceDetailView from '../../components/ServiceDetailView';
 import LocationPageView from '../../components/LocationPageView';
+import BlogConsultationForm from '../../components/BlogConsultationForm';
+import BlogShareAndViews from '../../components/BlogShareAndViews';
 import { servicesData } from '../../data/servicesData';
+import dbConnect from '@/lib/dbConnect';
+import Blog from '@/models/Blog';
+import Service from '@/models/Service';
+import LocationPage from '@/models/LocationPage';
+import { cleanBlogFields, decodeHtmlEntities } from '../../lib/decodeHtmlEntities';
 import {
   ArrowLeft,
-  Calendar,
-  User,
   Clock,
   ArrowRight,
-  Share2,
-  Eye,
   Home,
-  ChevronRight,
-  CheckCircle2,
-  Loader2,
-  Phone,
-  Mail,
-  FileText
+  ChevronRight
 } from 'lucide-react';
 import './BlogDetailPage.css';
-import { decodeHtmlEntities } from '../../lib/decodeHtmlEntities';
 
-export default function UniversalSlugPage() {
-  const router = useRouter();
-  const params = useParams();
-  const rawSlug = params?.slug;
+// Legacy routes redirection map
+const REDIRECTS = {
+  'core-mambers': '/our-team',
+  'core-members': '/our-team',
+  'it-company': '/company-profile',
+  'academy': '/courses',
+  'testimonials': '/testimonial',
+  'web-designing-and-development-courses': '/courses',
+  'software-testing-course': '/courses',
+  'digital-marketing-academic-course': '/courses',
+  'graphic-designing-course': '/courses',
+  'video-editing-courses': '/courses',
+  'animation-course': '/courses'
+};
+
+async function resolveSlugData(slug) {
+  if (!slug) return null;
+
+  // 1. Static Service Check
+  const staticSrv = servicesData.find((s) => s.id === slug);
+  if (staticSrv) {
+    return { type: 'service', data: staticSrv };
+  }
+
+  // 2. Query MongoDB Collections
+  try {
+    await dbConnect();
+
+    // Check Location Page
+    const loc = await LocationPage.findOne({ slug }).lean();
+    if (loc && loc.title) {
+      return { type: 'location', data: JSON.parse(JSON.stringify(loc)) };
+    }
+
+    // Check Dynamic Service
+    const dbSrv = await Service.findOne({ id: slug }).lean();
+    if (dbSrv && (dbSrv.title || dbSrv.id)) {
+      return { type: 'service', data: JSON.parse(JSON.stringify(dbSrv)) };
+    }
+
+    // Check Blog
+    let blog = await Blog.findOne({ slug }).lean();
+    if (!blog && slug.match(/^[0-9a-fA-F]{24}$/)) {
+      blog = await Blog.findById(slug).lean();
+    }
+    if (!blog) {
+      const escaped = slug.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
+      blog = await Blog.findOne({
+        $or: [
+          { slug: { $regex: new RegExp(`^${escaped}$`, 'i') } },
+          { title: { $regex: new RegExp(`^${escaped.replace(/-/g, ' ')}$`, 'i') } }
+        ]
+      }).lean();
+    }
+
+    if (blog) {
+      const cleaned = cleanBlogFields(blog);
+      // Fetch recent blogs for sidebar
+      const allBlogsRaw = await Blog.find({ slug: { $ne: cleaned.slug } })
+        .sort({ createdAt: -1 })
+        .limit(5)
+        .select('title slug image createdAt')
+        .lean();
+
+      // Fetch prev and next blogs
+      const [prevBlogRaw, nextBlogRaw] = await Promise.all([
+        Blog.findOne({ createdAt: { $lt: blog.createdAt || new Date() } })
+          .sort({ createdAt: -1 })
+          .select('title slug')
+          .lean(),
+        Blog.findOne({ createdAt: { $gt: blog.createdAt || new Date() } })
+          .sort({ createdAt: 1 })
+          .select('title slug')
+          .lean()
+      ]);
+
+      return {
+        type: 'blog',
+        data: JSON.parse(JSON.stringify(cleaned)),
+        recentArticles: JSON.parse(JSON.stringify(allBlogsRaw || [])),
+        prevArticle: prevBlogRaw ? JSON.parse(JSON.stringify(prevBlogRaw)) : null,
+        nextArticle: nextBlogRaw ? JSON.parse(JSON.stringify(nextBlogRaw)) : null
+      };
+    }
+  } catch (err) {
+    console.error("Error resolving slug on server:", err);
+  }
+
+  return null;
+}
+
+export default async function UniversalSlugPage({ params }) {
+  const resolvedParams = await params;
+  const rawSlug = resolvedParams?.slug;
   const slug = typeof rawSlug === 'string' ? decodeURIComponent(rawSlug) : Array.isArray(rawSlug) ? decodeURIComponent(rawSlug[0]) : '';
 
-  // Check immediately if slug matches any service in static servicesData
-  const matchedStaticService = useMemo(() => {
-    if (!slug) return null;
-    return servicesData.find((s) => s.id === slug) || null;
-  }, [slug]);
+  // Handle redirects instantly on server
+  if (REDIRECTS[slug]) {
+    redirect(REDIRECTS[slug]);
+  }
 
-  const [service, setService] = useState(matchedStaticService);
-  const [locationPage, setLocationPage] = useState(null);
-  const [article, setArticle] = useState(null);
-  const [allBlogs, setAllBlogs] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [viewsCount, setViewsCount] = useState(185);
+  const resolved = await resolveSlugData(slug);
 
-  // Form states for Book Free Consultation widget
-  const [formData, setFormData] = useState({
-    fullName: '',
-    phone: '',
-    email: '',
-    message: ''
-  });
-  const [formSubmitting, setFormSubmitting] = useState(false);
-  const [formSuccess, setFormSuccess] = useState(false);
-  const [formError, setFormError] = useState('');
+  // 1. Service Detail View
+  if (resolved?.type === 'service') {
+    return <ServiceDetailView initialService={resolved.data} slug={slug} />;
+  }
 
-  const handleConsultationSubmit = async (e) => {
-    e.preventDefault();
-    setFormError('');
-    if (!formData.fullName.trim() || !formData.email.trim() || !formData.message.trim()) {
-      setFormError('Please fill in Name, Email and Description.');
-      return;
-    }
+  // 2. Location Page View
+  if (resolved?.type === 'location') {
+    return <LocationPageView page={resolved.data} slug={slug} />;
+  }
 
-    setFormSubmitting(true);
-    try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          fullName: formData.fullName,
-          email: formData.email,
-          phone: formData.phone,
-          message: formData.message,
-          service: `Consultation from Blog: ${article?.title || slug}`
-        })
-      });
-
-      const data = await res.json();
-      if (res.ok && data.success) {
-        setFormSuccess(true);
-        setFormData({ fullName: '', phone: '', email: '', message: '' });
-      } else {
-        setFormError(data.message || 'Something went wrong. Please try again.');
-      }
-    } catch (err) {
-      setFormError('Network error. Please try again later.');
-    } finally {
-      setFormSubmitting(false);
-    }
-  };
-
-  useEffect(() => {
-    // Generate a natural-looking random view count on every visit/refresh (e.g. 150 to 980)
-    const randomViews = Math.floor(Math.random() * (980 - 150 + 1)) + 150;
-    setViewsCount(randomViews);
-  }, [slug]);
-
-  // Sync service state when slug changes
-  useEffect(() => {
-    setService(matchedStaticService);
-  }, [matchedStaticService]);
-
-  useEffect(() => {
-    let isMounted = true;
-
-    async function resolveSlug() {
-      if (!slug) return;
-      if (slug === 'core-mambers' || slug === 'core-members') {
-        router.replace('/our-team');
-        return;
-      }
-      if (slug === 'it-company') {
-        router.replace('/company-profile');
-        return;
-      }
-      if (slug === 'academy') {
-        router.replace('/courses');
-        return;
-      }
-      if (slug === 'testimonials') {
-        router.replace('/testimonial');
-        return;
-      }
-      const legacyCourseSlugs = [
-        'web-designing-and-development-courses',
-        'software-testing-course',
-        'digital-marketing-academic-course',
-        'graphic-designing-course',
-        'video-editing-courses',
-        'animation-course'
-      ];
-      if (legacyCourseSlugs.includes(slug)) {
-        router.replace('/courses');
-        return;
-      }
-      setLoading(true);
-      setService(matchedStaticService);
-      setLocationPage(null);
-      if (matchedStaticService) {
-        setLoading(false);
-        return;
-      }
-
-      try {
-        // Fetch candidate endpoints concurrently to eliminate waterfall latency
-        const [locRes, blogRes, srvRes] = await Promise.all([
-          fetch(`/api/locations/${slug}`).catch(() => null),
-          fetch(`/api/blogs/${slug}`).catch(() => null),
-          fetch(`/api/services/${slug}`).catch(() => null),
-        ]);
-
-        // 1. Check Location Page
-        if (locRes && locRes.ok) {
-          const locData = await locRes.json();
-          if (locData && locData.title && isMounted) {
-            setLocationPage(locData);
-            setLoading(false);
-            return;
-          }
-        }
-
-        // 2. Check Service
-        if (srvRes && srvRes.ok) {
-          const srvData = await srvRes.json();
-          if (srvData && (srvData.title || srvData.id) && isMounted) {
-            setService(srvData);
-            setLoading(false);
-            return;
-          }
-        }
-
-        // 3. Check Blog
-        if (blogRes && blogRes.ok) {
-          const data = await blogRes.json();
-          if (isMounted && data && (data.title || data.slug)) {
-            setArticle(data);
-
-            const pageTitle = data.metaTitle ? data.metaTitle : (data.title ? `${data.title} | Digital ORRA` : "Digital ORRA Blog");
-            document.title = pageTitle;
-
-            let metaDesc = document.querySelector('meta[name="description"]');
-            if (!metaDesc) {
-              metaDesc = document.createElement("meta");
-              metaDesc.name = "description";
-              document.head.appendChild(metaDesc);
-            }
-            metaDesc.content = data.metaDescription || data.excerpt || "";
-
-            if (data.metaKeywords) {
-              let metaKw = document.querySelector('meta[name="keywords"]');
-              if (!metaKw) {
-                metaKw = document.createElement("meta");
-                metaKw.name = "keywords";
-                document.head.appendChild(metaKw);
-              }
-              metaKw.content = data.metaKeywords;
-            }
-
-            let ogTitle = document.querySelector('meta[property="og:title"]');
-            if (!ogTitle) {
-              ogTitle = document.createElement("meta");
-              ogTitle.setAttribute("property", "og:title");
-              document.head.appendChild(ogTitle);
-            }
-            ogTitle.content = pageTitle;
-
-            let ogDesc = document.querySelector('meta[property="og:description"]');
-            if (!ogDesc) {
-              ogDesc = document.createElement("meta");
-              ogDesc.setAttribute("property", "og:description");
-              document.head.appendChild(ogDesc);
-            }
-            ogDesc.content = data.metaDescription || data.excerpt || "";
-
-            if (data.image) {
-              let ogImg = document.querySelector('meta[property="og:image"]');
-              if (!ogImg) {
-                ogImg = document.createElement("meta");
-                ogImg.setAttribute("property", "og:image");
-                document.head.appendChild(ogImg);
-              }
-              ogImg.content = data.image;
-            }
-
-            // Set dynamic canonical URL to currently open URL
-            let currentCanonical = typeof window !== 'undefined' ? `${window.location.origin}${window.location.pathname}` : `https://digitalorra.com/${slug}`;
-            let canLink = document.querySelector('link[rel="canonical"]');
-            if (!canLink) {
-              canLink = document.createElement("link");
-              canLink.setAttribute("rel", "canonical");
-              document.head.appendChild(canLink);
-            }
-            canLink.setAttribute("href", currentCanonical);
-
-            let ogUrl = document.querySelector('meta[property="og:url"]');
-            if (!ogUrl) {
-              ogUrl = document.createElement("meta");
-              ogUrl.setAttribute("property", "og:url");
-              document.head.appendChild(ogUrl);
-            }
-            ogUrl.content = currentCanonical;
-
-            // Robots Meta Tag
-            let metaRobots = document.querySelector('meta[name="robots"]');
-            if (!metaRobots) {
-              metaRobots = document.createElement("meta");
-              metaRobots.name = "robots";
-              document.head.appendChild(metaRobots);
-            }
-            metaRobots.content = "index, follow";
-
-            // Lazy fetch recent blogs in background without blocking
-            fetch('/api/blogs')
-              .then(r => r.ok ? r.json() : [])
-              .then(allData => {
-                if (isMounted && Array.isArray(allData)) {
-                  setAllBlogs(allData);
-                }
-              })
-              .catch(() => { });
-          }
-        }
-      } catch (err) {
-        console.error('Failed to resolve slug:', err);
-      } finally {
-        if (isMounted) {
-          setLoading(false);
-        }
-      }
-    }
-
-    resolveSlug();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-
-    return () => {
-      isMounted = false;
-    };
-  }, [slug, matchedStaticService]);
-
-  // Dynamic Recent Articles (strictly 5 articles)
-  const recentArticles = useMemo(() => {
-    const others = allBlogs.filter(b => b.slug !== slug);
-    return others.slice(0, 5);
-  }, [slug, allBlogs]);
-
-  // Find previous and next articles
-  const { prevArticle, nextArticle } = useMemo(() => {
-    const currentIndex = allBlogs.findIndex(b => b.slug === slug);
-    if (currentIndex === -1) return { prevArticle: null, nextArticle: null };
-    const prev = currentIndex > 0 ? allBlogs[currentIndex - 1] : allBlogs[allBlogs.length - 1];
-    const next = currentIndex < allBlogs.length - 1 ? allBlogs[currentIndex + 1] : allBlogs[0];
-    return { prevArticle: prev, nextArticle: next };
-  }, [slug, allBlogs]);
-
-  if (loading) {
+  // 3. 404 if not found
+  if (!resolved || resolved.type !== 'blog' || !resolved.data) {
     return (
-      <div className="blog-detail-wrapper flex flex-col justify-between">
-        <Navbar />
-        <div className="blog-detail-container py-44 text-center">
-          <div className="h-8 w-64 bg-white/10 rounded-full mx-auto animate-pulse mb-6"></div>
-          <div className="h-4 w-96 bg-white/5 rounded-full mx-auto animate-pulse"></div>
-        </div>
-        <Footer hideCta={true} />
-      </div>
-    );
-  }
-
-  // 1. Render Service Detail View if matched
-  if (service) {
-    return <ServiceDetailView initialService={service} slug={slug} />;
-  }
-
-  // 2. Render Location Page View if matched
-  if (locationPage) {
-    return <LocationPageView page={locationPage} slug={slug} />;
-  }
-
-  // 3. Render Not Found if neither service nor location nor article
-  if (!article) {
-    return (
-      <div className="blog-detail-wrapper flex flex-col justify-between">
+      <div className="blog-detail-wrapper flex flex-col justify-between min-h-screen">
         <Navbar />
         <div className="blog-detail-container py-44 text-center">
           <h1 className="text-3xl sm:text-5xl font-black text-white mb-4">Page Not Found</h1>
@@ -348,13 +164,13 @@ export default function UniversalSlugPage() {
     );
   }
 
-  // 3. Render Article Content
+  const article = resolved.data;
+  const { recentArticles, prevArticle, nextArticle } = resolved;
+
   const title = decodeHtmlEntities(article.title || '');
   const rawCat = decodeHtmlEntities(article.category || '');
   const category = (rawCat === 'Uncategorized' ? 'Insights & Strategy' : rawCat) || 'Digital Marketing';
   const author = article.author || 'Digital ORRA Team';
-  const date = article.date || 'June 29, 2026';
-  const readTime = article.readTime || '5 Min Read';
   const image = article.image;
   const excerpt = decodeHtmlEntities(article.excerpt || '');
   const content = decodeHtmlEntities(article.content || '');
@@ -425,7 +241,7 @@ export default function UniversalSlugPage() {
       {/* Global Navbar */}
       <Navbar lightTheme={false} />
 
-      {/* Premium Luxury Hero Section - Exact Design as Requested */}
+      {/* Premium Luxury Hero Section */}
       <section className="relative w-full bg-gradient-to-b from-[#060B19] via-[#0A1128] to-[#040816] text-white pt-36 sm:pt-44 pb-16 sm:pb-20 overflow-hidden border-b border-white/10">
         {/* Glow Effects */}
         <div className="absolute top-1/4 right-5 w-96 h-96 bg-purple-600/20 rounded-full blur-[140px] pointer-events-none"></div>
@@ -464,62 +280,11 @@ export default function UniversalSlugPage() {
                 {title}
               </h1>
 
-              {/* Author, Views and Share Button */}
-              <div className="flex items-center justify-between pt-2 border-t border-white/10 text-xs sm:text-sm text-gray-300">
-                <div className="space-y-1">
-                  <div className="font-semibold text-white">
-                    By <span className="text-gray-200">{author}</span>
-                  </div>
-                  <div className="flex items-center gap-4 text-gray-400 font-mono text-xs">
-                    <span className="flex items-center gap-1.5">
-                      <Eye size={13} className="text-gray-400" />
-                      {viewsCount.toLocaleString()} Views
-                    </span>
-                  </div>
-                </div>
-
-                {/* Actions: Google Preferences Source & Share Button */}
-                <div className="flex items-center gap-2.5">
-                  <a
-                    href="https://www.google.com/preferences/source?q=digitalorra.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="h-10 px-3.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white text-xs font-semibold flex items-center gap-2 transition-all duration-300 shadow-sm hover:scale-105"
-                    title="Follow Digital ORRA on Google"
-                    aria-label="Google Preferences Source"
-                  >
-                    <Image
-                      src="/Logo_google.png"
-                      alt="Google"
-                      width={18}
-                      height={18}
-                      className="w-4 h-4 object-contain"
-                    />
-                    <span className="hidden sm:inline-block">Google Source</span>
-                  </a>
-
-                  {/* Share Button */}
-                  <button
-                    type="button"
-                    onClick={() => {
-                      if (navigator.share) {
-                        navigator.share({ title, url: window.location.href }).catch(() => { });
-                      } else {
-                        navigator.clipboard.writeText(window.location.href);
-                        alert("Article link copied to clipboard!");
-                      }
-                    }}
-                    className="w-10 h-10 rounded-full bg-white text-black hover:bg-pink-500 hover:text-white flex items-center justify-center transition-all duration-300 shadow-md hover:scale-110 cursor-pointer"
-                    title="Share this article"
-                    aria-label="Share article"
-                  >
-                    <Share2 size={16} />
-                  </button>
-                </div>
-              </div>
+              {/* Author, Views and Share Button (Interactive Client Component) */}
+              <BlogShareAndViews title={title} author={author} />
             </div>
 
-            {/* Right Column: Featured Image with Smooth Rounded Corners */}
+            {/* Right Column: Featured Image */}
             {image && (
               <div className="lg:col-span-5">
                 <div className="relative w-full aspect-[16/10] rounded-3xl overflow-hidden border border-white/15 shadow-[0_20px_50px_rgba(0,0,0,0.8)] bg-[#050B1B]/90 flex items-center justify-center p-2 group">
@@ -537,7 +302,7 @@ export default function UniversalSlugPage() {
         </div>
       </section>
 
-      {/* Main White Content Area (Article Body + Sidebar) */}
+      {/* Main Content Area (Article Body + Sidebar) */}
       <div className="bg-white">
         <div className="blog-detail-container blog-content-grid !pt-10 sm:!pt-14">
 
@@ -552,10 +317,9 @@ export default function UniversalSlugPage() {
             )}
 
             {content ? (
-              /* Render Dynamic Admin Content */
+              /* Render Dynamic Admin Content - Pre-rendered instantly by Server for Googlebot */
               <div className="blog-dynamic-content" dangerouslySetInnerHTML={{ __html: content }} />
             ) : (
-              /* Clean Excerpt & Dynamic Paragraph Fallback */
               <div className="blog-dynamic-content">
                 <p className="blog-p">{excerpt}</p>
               </div>
@@ -599,147 +363,42 @@ export default function UniversalSlugPage() {
           {/* Sidebar Widgets */}
           <aside className="blog-sidebar">
 
-            {/* Quick Lead Consultation Box Widget - Placed at Top */}
-            <div className="sidebar-widget consultation-widget">
-              <div className="flex items-center justify-between pb-3.5 mb-3 border-b border-slate-100">
-                <h3 className="!text-[1.18rem] !font-black !text-slate-900 tracking-tight !mb-0 !pb-0 !border-0 flex items-center gap-2">
-                  <span>Book Free Consultation</span>
-                </h3>
-              </div>
-
-              {formSuccess ? (
-                <div className="p-5 rounded-2xl bg-emerald-50/80 border border-emerald-200 text-center space-y-2.5 animate-fade-in shadow-sm">
-                  <CheckCircle2 className="w-9 h-9 text-emerald-600 mx-auto" />
-                  <h4 className="font-extrabold text-emerald-900 text-sm">Thank You!</h4>
-                  <p className="text-xs text-emerald-700 leading-relaxed font-medium">
-                    Your request has been received. Our team will contact you shortly.
-                  </p>
-                  <button
-                    type="button"
-                    onClick={() => setFormSuccess(false)}
-                    className="text-xs text-pink-600 font-bold hover:underline pt-1 inline-block"
-                  >
-                    Submit another response
-                  </button>
-                </div>
-              ) : (
-                <form onSubmit={handleConsultationSubmit} className="space-y-3.5">
-                  {formError && (
-                    <div className="p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-600 text-xs font-semibold">
-                      {formError}
-                    </div>
-                  )}
-
-                  {/* Name Input */}
-                  <div>
-                    <div className="relative">
-                      <input
-                        type="text"
-                        required
-                        placeholder="Enter your name"
-                        value={formData.fullName}
-                        onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                        className="w-full text-[13px] font-medium px-3.5 py-2.5 pl-9 rounded-xl border border-slate-200 bg-slate-50/70 text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-pink-500 focus:bg-white focus:ring-2 focus:ring-pink-500/20 transition-all shadow-xs"
-                      />
-                      <User className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-                    </div>
-                  </div>
-
-                  {/* Phone Number Input */}
-                  <div>
-                    <div className="relative">
-                      <input
-                        type="tel"
-                        placeholder="Enter phone number"
-                        value={formData.phone}
-                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        className="w-full text-[13px] font-medium px-3.5 py-2.5 pl-9 rounded-xl border border-slate-200 bg-slate-50/70 text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-pink-500 focus:bg-white focus:ring-2 focus:ring-pink-500/20 transition-all shadow-xs"
-                      />
-                      <Phone className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-                    </div>
-                  </div>
-
-                  {/* Gmail / Email Input */}
-                  <div>
-                    <div className="relative">
-                      <input
-                        type="email"
-                        required
-                        placeholder="Enter your email"
-                        value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full text-[13px] font-medium px-3.5 py-2.5 pl-9 rounded-xl border border-slate-200 bg-slate-50/70 text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-pink-500 focus:bg-white focus:ring-2 focus:ring-pink-500/20 transition-all shadow-xs"
-                      />
-                      <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-                    </div>
-                  </div>
-
-                  {/* Description / Message Input */}
-                  <div>
-                    <div className="relative">
-                      <textarea
-                        rows={3}
-                        required
-                        placeholder="Tell us about your project or consultation requirements..."
-                        value={formData.message}
-                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                        className="w-full text-[13px] font-medium px-3.5 py-2.5 pl-9 rounded-xl border border-slate-200 bg-slate-50/70 text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-pink-500 focus:bg-white focus:ring-2 focus:ring-pink-500/20 transition-all resize-none shadow-xs"
-                      />
-                      <FileText className="w-4 h-4 text-slate-400 absolute left-3 top-3.5" />
-                    </div>
-                  </div>
-
-                  {/* Submit Button */}
-                  <button
-                    type="submit"
-                    disabled={formSubmitting}
-                    className="w-full mt-2 py-3 px-4 rounded-xl bg-gradient-to-r from-[#FF007A] via-[#EA007A] to-[#D00068] text-white text-[13px] font-black tracking-wide flex items-center justify-center gap-2 shadow-[0_8px_20px_rgba(255,0,122,0.32)] hover:shadow-[0_10px_25px_rgba(255,0,122,0.48)] hover:scale-[1.01] active:scale-[0.98] transition-all cursor-pointer disabled:opacity-60"
-                  >
-                    {formSubmitting ? (
-                      <>
-                        <Loader2 className="w-4 h-4 animate-spin" />
-                        <span>Sending...</span>
-                      </>
-                    ) : (
-                      <>
-                        <span>Submit Consultation</span>
-                        <ArrowRight size={15} />
-                      </>
-                    )}
-                  </button>
-                </form>
-              )}
-            </div>
+            {/* Quick Lead Consultation Box Widget - Client Form */}
+            <BlogConsultationForm articleTitle={title} slug={slug} />
 
             {/* Recent Articles Widget */}
-            <div className="sidebar-widget recent-widget">
-              <h3>Recent Articles</h3>
-              <div className="recent-posts-list">
-                {recentArticles.map(post => (
-                  <Link key={post._id || post.slug} href={`/${post.slug}`} className="recent-post-item">
-                    {post.image ? (
-                      <img src={post.image} alt={post.title} className="recent-post-img" />
-                    ) : (
-                      <div className="recent-post-img bg-white/5 flex items-center justify-center text-cyan-400">
-                        <Clock size={16} />
+            {recentArticles && recentArticles.length > 0 && (
+              <div className="sidebar-widget recent-widget">
+                <h3>Recent Articles</h3>
+                <div className="recent-posts-list">
+                  {recentArticles.map(post => (
+                    <Link key={post._id || post.slug} href={`/${post.slug}`} className="recent-post-item">
+                      {post.image ? (
+                        <img src={post.image} alt={post.title} className="recent-post-img" />
+                      ) : (
+                        <div className="recent-post-img bg-white/5 flex items-center justify-center text-cyan-400">
+                          <Clock size={16} />
+                        </div>
+                      )}
+                      <div className="recent-post-info">
+                        <h5 className="recent-post-title">{post.title}</h5>
                       </div>
-                    )}
-                    <div className="recent-post-info">
-                      <h5 className="recent-post-title">{post.title}</h5>
-                    </div>
-                  </Link>
-                ))}
+                    </Link>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Categories Widget */}
             <div className="sidebar-widget categories-widget">
               <h3>Categories</h3>
               <ul className="sidebar-cat-list">
                 {['Digital Marketing', 'Graphics & Design', 'SEO', 'Social Media', 'Web Designing'].map(cat => (
-                  <li key={cat} onClick={() => router.push('/blog')}>
-                    <span>{cat}</span>
-                    <ArrowRight size={13} />
+                  <li key={cat}>
+                    <Link href="/blog" className="flex items-center justify-between w-full">
+                      <span>{cat}</span>
+                      <ArrowRight size={13} />
+                    </Link>
                   </li>
                 ))}
               </ul>

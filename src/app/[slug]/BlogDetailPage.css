@@ -176,7 +176,7 @@
 .blog-dynamic-content {
   color: #334155 !important;
   font-family: var(--font-outfit), 'Plus Jakarta Sans', system-ui, sans-serif !important;
-  font-size: 1.25rem !important;
+  font-size: 1.35rem !important;
   line-height: 2 !important;
   font-weight: 400 !important;
   letter-spacing: 0.01em !important;
@@ -185,24 +185,31 @@
 }
 
 .blog-dynamic-content p,
+.blog-dynamic-content > p,
 .blog-dynamic-content .wp-block-paragraph,
-.blog-dynamic-content span:not([class*="badge"]):not([class*="pill"]):not([class*="icon"]),
-.blog-dynamic-content div:not([class*="box"]):not([class*="table"]),
 .blog-p {
-  margin-bottom: 26px;
+  margin-bottom: 24px !important;
   font-family: var(--font-outfit), 'Plus Jakarta Sans', system-ui, sans-serif !important;
-  font-size: 1.25rem !important;
+  font-size: 1.35rem !important;
   color: #334155 !important;
   line-height: 2 !important;
   font-weight: 400 !important;
   letter-spacing: 0.01em !important;
-  display: block !important;
+}
+
+/* Force override Google Docs / WP inline font-size: 11pt on inner text spans */
+.blog-dynamic-content p span,
+.blog-dynamic-content div span {
+  font-size: inherit !important;
+  line-height: inherit !important;
+  font-family: inherit !important;
+  color: inherit !important;
 }
 
 /* Intro Excerpt / Subtitle */
 .blog-detail-subtitle {
   font-family: var(--font-outfit), 'Plus Jakarta Sans', system-ui, sans-serif !important;
-  font-size: 1.25rem !important;
+  font-size: 1.35rem !important;
   line-height: 2 !important;
   font-weight: 400 !important;
 }
@@ -265,8 +272,9 @@
 .blog-dynamic-content ul,
 .blog-dynamic-content ol,
 .blog-dynamic-content .wp-block-list {
-  padding-left: 28px;
-  margin-bottom: 28px;
+  padding-left: 24px !important;
+  margin-top: 10px !important;
+  margin-bottom: 20px !important;
   list-style-type: disc !important;
   display: block !important;
 }
@@ -276,14 +284,32 @@
 }
 
 .blog-dynamic-content li {
-  margin-bottom: 16px;
+  margin-top: 0 !important;
+  margin-bottom: 4px !important;
+  padding: 0 !important;
   color: #334155 !important;
   font-family: var(--font-outfit), 'Plus Jakarta Sans', system-ui, sans-serif !important;
-  font-size: 1.22rem !important;
+  font-size: 1.35rem !important;
   font-weight: 400 !important;
-  line-height: 1.95 !important;
+  line-height: 1.65 !important;
   letter-spacing: 0.01em !important;
   display: list-item !important;
+}
+
+/* Force-kill inline margin-top: 12pt / margin-bottom from Google Docs / WP HTML */
+.blog-dynamic-content li p,
+.blog-dynamic-content li span,
+.blog-dynamic-content li div {
+  margin: 0 !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  padding: 0 !important;
+  display: inline !important;
+  font-size: 1.35rem !important;
+  line-height: 1.65 !important;
+  font-family: inherit !important;
+  color: inherit !important;
+  background-color: transparent !important;
 }
 
 .blog-dynamic-content strong,
