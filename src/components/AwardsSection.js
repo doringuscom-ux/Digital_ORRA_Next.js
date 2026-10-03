@@ -140,19 +140,19 @@ export default function AwardsSection() {
               // Calculate circular offset relative to currentIndex
               const diff = (index - currentIndex + total) % total;
 
-              let positionClass = '';
+                  let positionClass = '';
               let isCenter = false;
 
               if (diff === 0) {
-                // Active Center Card
+                // Active Center Card: Premium 3D Standout
                 isCenter = true;
-                positionClass = 'z-20 scale-100 opacity-100 translate-x-0 shadow-[0_20px_50px_rgba(0,0,0,0.7),0_0_30px_rgba(6,182,212,0.2)] border-cyan-500/40 ring-1 ring-cyan-400/20';
+                positionClass = 'z-20 scale-100 opacity-100 translate-x-0 shadow-[0_30px_70px_rgba(0,0,0,0.85),0_0_50px_rgba(6,182,212,0.25)] border-cyan-400/50 ring-1 ring-cyan-400/30';
               } else if (diff === 1) {
-                // Right Card
-                positionClass = 'z-10 scale-[0.84] opacity-40 sm:opacity-50 translate-x-[55%] sm:translate-x-[68%] md:translate-x-[75%] cursor-pointer hover:opacity-80 border-white/10';
+                // Right Card: 3D perspective angle
+                positionClass = 'z-10 scale-[0.82] opacity-45 sm:opacity-55 translate-x-[55%] sm:translate-x-[68%] md:translate-x-[75%] [transform:rotateY(-12deg)] cursor-pointer hover:opacity-85 border-white/10';
               } else if (diff === total - 1) {
-                // Left Card
-                positionClass = 'z-10 scale-[0.84] opacity-40 sm:opacity-50 -translate-x-[55%] sm:-translate-x-[68%] md:-translate-x-[75%] cursor-pointer hover:opacity-80 border-white/10';
+                // Left Card: 3D perspective angle
+                positionClass = 'z-10 scale-[0.82] opacity-45 sm:opacity-55 -translate-x-[55%] sm:-translate-x-[68%] md:-translate-x-[75%] [transform:rotateY(12deg)] cursor-pointer hover:opacity-85 border-white/10';
               } else {
                 // Hidden Cards behind
                 positionClass = 'z-0 scale-[0.7] opacity-0 pointer-events-none translate-x-0';
@@ -165,42 +165,29 @@ export default function AwardsSection() {
                     if (diff === 1) nextSlide();
                     if (diff === total - 1) prevSlide();
                   }}
-                  className={`absolute w-[290px] sm:w-[350px] md:w-[390px] h-[440px] sm:h-[490px] md:h-[530px] rounded-3xl overflow-hidden border bg-gradient-to-b from-[#111A38] to-[#080E22] flex flex-col transition-all duration-700 ease-out ${positionClass}`}
+                  className={`group absolute w-[290px] sm:w-[350px] md:w-[390px] h-[440px] sm:h-[490px] md:h-[530px] rounded-3xl overflow-hidden border bg-gradient-to-b from-[#0F1B3E] via-[#091026] to-[#050816] flex flex-col transition-all duration-700 ease-out backdrop-blur-xl ${positionClass}`}
                 >
                   {/* Glowing Top Laser Line for Center Card */}
                   {isCenter && (
-                    <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent z-30"></div>
+                    <div className="absolute top-0 inset-x-0 h-[2.5px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent z-30 animate-pulse"></div>
                   )}
 
-                  {/* Main Award Image Container with luxury backlight */}
-                  <div className="relative flex-1 w-full bg-gradient-to-b from-[#080E24] via-[#050918] to-[#040816] overflow-hidden flex items-center justify-center p-4">
-                    {/* Subtle spotlight glow behind trophy */}
-                    <div className="absolute w-44 h-44 rounded-full bg-cyan-400/10 blur-2xl pointer-events-none"></div>
+                  {/* Main Award Image Container with Luxury Golden & Cyan Ambient Pedestal */}
+                  <div className="relative flex-1 w-full bg-gradient-to-b from-[#080E24] via-[#040714] to-[#02040A] overflow-hidden flex items-center justify-center p-5">
+                    
+                    {/* Radial Stage Lighting / Spotlight */}
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,rgba(6,182,212,0.18)_0%,rgba(234,179,8,0.08)_45%,transparent_70%)] pointer-events-none"></div>
 
+                    {/* Stage Pedestal Platform at the bottom */}
+                    <div className="absolute bottom-3 w-48 h-6 bg-gradient-to-r from-transparent via-cyan-500/20 to-transparent rounded-full blur-md pointer-events-none"></div>
+
+                    {/* Trophy Image with dynamic lift on center/hover */}
                     <img
                       src={award.src}
                       alt={award.alt}
-                      className="w-full h-full object-contain filter drop-shadow-[0_10px_25px_rgba(0,0,0,0.7)] transition-transform duration-500 group-hover:scale-105"
+                      className={`w-full h-full object-contain filter drop-shadow-[0_15px_30px_rgba(0,0,0,0.9)] transition-all duration-500 ${isCenter ? 'group-hover:scale-105' : ''}`}
                       loading="lazy"
                     />
-                  </div>
-
-                  {/* Clean Sleek Bottom Glass Strip */}
-                  <div className="w-full px-5 py-3.5 bg-[#080E24]/95 border-t border-white/[0.08] backdrop-blur-md flex items-center justify-between gap-3 flex-shrink-0 z-20">
-                    {/* Badge Pill */}
-                    <span className="px-2.5 py-1 rounded-full text-[10px] sm:text-[11px] font-mono font-bold tracking-wider uppercase bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 flex-shrink-0">
-                      {award.badge}
-                    </span>
-
-                    {/* Title */}
-                    <span className="text-xs sm:text-[13px] font-bold text-white truncate flex-1 text-center">
-                      {award.title}
-                    </span>
-
-                    {/* Counter Badge */}
-                    <span className="text-[11px] font-mono font-medium text-white/50 px-2 py-0.5 rounded-md bg-white/[0.05] border border-white/10 flex-shrink-0">
-                      {index + 1} / {total}
-                    </span>
                   </div>
                 </div>
               );
@@ -217,7 +204,7 @@ export default function AwardsSection() {
               aria-label={`Go to slide ${dotIdx + 1}`}
               className={`transition-all duration-300 rounded-full cursor-pointer ${
                 currentIndex === dotIdx
-                  ? 'w-7 h-2 bg-gradient-to-r from-[var(--color-primary-pink)] to-cyan-400 shadow-[0_0_12px_rgba(6,182,212,0.6)]'
+                  ? 'w-8 h-2 bg-gradient-to-r from-[var(--color-primary-pink)] via-pink-400 to-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.7)]'
                   : 'w-2 h-2 bg-white/20 hover:bg-white/40'
               }`}
             />

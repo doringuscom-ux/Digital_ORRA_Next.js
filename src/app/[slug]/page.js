@@ -366,57 +366,6 @@ export default async function UniversalSlugPage({ params }) {
             {/* Quick Lead Consultation Box Widget - Client Form */}
             <BlogConsultationForm articleTitle={title} slug={slug} />
 
-            {/* Recent Articles Widget */}
-            {recentArticles && recentArticles.length > 0 && (
-              <div className="sidebar-widget recent-widget">
-                <h3>Recent Articles</h3>
-                <div className="recent-posts-list">
-                  {recentArticles.map(post => (
-                    <Link key={post._id || post.slug} href={`/${post.slug}`} className="recent-post-item">
-                      {post.image ? (
-                        <img src={post.image} alt={post.title} className="recent-post-img" />
-                      ) : (
-                        <div className="recent-post-img bg-white/5 flex items-center justify-center text-cyan-400">
-                          <Clock size={16} />
-                        </div>
-                      )}
-                      <div className="recent-post-info">
-                        <h5 className="recent-post-title">{post.title}</h5>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Categories Widget */}
-            <div className="sidebar-widget categories-widget">
-              <h3>Categories</h3>
-              <ul className="sidebar-cat-list">
-                {['Digital Marketing', 'Graphics & Design', 'SEO', 'Social Media', 'Web Designing'].map(cat => (
-                  <li key={cat}>
-                    <Link href="/blog" className="flex items-center justify-between w-full">
-                      <span>{cat}</span>
-                      <ArrowRight size={13} />
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Popular Topics Tag Widget */}
-            <div className="sidebar-widget tags-widget">
-              <h3>Popular Topics</h3>
-              <div className="sidebar-tags">
-                <span className="stag">Performance Marketing</span>
-                <span className="stag">Meta Ads</span>
-                <span className="stag">Google PPC</span>
-                <span className="stag">SEO 2026</span>
-                <span className="stag">Web Development</span>
-                <span className="stag">ROAS Scaling</span>
-              </div>
-            </div>
-
             {/* Boost Banner Widget */}
             <div className="sidebar-widget !p-0 overflow-hidden rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow flex-shrink-0">
               <Link href="/contact#form" className="block group w-full">

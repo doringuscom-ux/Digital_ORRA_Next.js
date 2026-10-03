@@ -526,29 +526,28 @@
   overflow: hidden;
 }
 
-/* Sidebar Sticky Positioning & Entire Sidebar Custom Scrollbar */
+/* Sidebar Sticky Positioning & Always Functional Custom Scrollbar */
 .blog-sidebar {
   position: sticky;
   top: 90px;
   max-height: calc(100vh - 110px);
-  overflow-y: auto;
+  overflow-y: scroll;
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding-right: 8px;
-  padding-bottom: 12px;
+  padding-right: 10px;
+  padding-bottom: 24px;
   box-sizing: border-box;
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: #FF007A #F1F5F9;
 }
 
-
-
-
-
-
-/* Custom Sleek Scrollbar for the Entire Sidebar Section */
+/* Custom Sleek Visible Scrollbar for the Entire Sidebar Section */
 .blog-sidebar::-webkit-scrollbar {
-  width: 5px;
+  width: 6px;
+  display: block;
 }
 
 .blog-sidebar::-webkit-scrollbar-track {
@@ -557,8 +556,9 @@
 }
 
 .blog-sidebar::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #FF007A 0%, #0284C7 100%);
+  background: linear-gradient(180deg, #FF007A 0%, #00E5FF 100%);
   border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 .blog-sidebar::-webkit-scrollbar-thumb:hover {
