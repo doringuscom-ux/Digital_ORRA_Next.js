@@ -6,6 +6,7 @@ import Navbar from '../../components/Navbar';
 import About from '../../components/About';
 import Footer from '../../components/Footer';
 import Certified from '../../components/Certified';
+import AwardsSection from '../../components/AwardsSection';
 import DynamicSeoHead from '../../components/DynamicSeoHead';
 import {
   ArrowRight,
@@ -121,6 +122,9 @@ export default function AboutUsPage() {
         <Certified ptClass="pt-4 pb-2" />
       </div>
 
+      {/* Honours & Awards Showcase */}
+      <AwardsSection />
+
       {/* Section: Our Core Expertise with Full-Width Watermark like About Section */}
       <section className="relative w-full pt-28 pb-4 md:pt-40 md:pb-8 overflow-hidden">
         {/* Giant Edge-to-Edge Background Watermark */}
@@ -145,65 +149,101 @@ export default function AboutUsPage() {
         <div className="max-w-7xl mx-auto px-6 relative z-10 pt-16 sm:pt-20 md:pt-28">
           <h2 className="sr-only">Our Core Expertise &amp; Digital Solutions</h2>
 
-          {/* Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 sm:gap-8">
+          {/* Cards Grid with Full Card 3D Flip */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
             {SERVICES.map((serv, idx) => {
               const Icon = serv.icon;
               return (
                 <div
                   key={idx}
-                  className={`group relative rounded-3xl border border-white/10 ${serv.borderGlow} hover:-translate-y-2.5 transition-all duration-500 flex flex-col justify-between overflow-hidden bg-gradient-to-b from-[#0D1530]/90 via-[#091024]/90 to-[#060B1A]/95 backdrop-blur-xl shadow-[0_15px_35px_rgba(0,0,0,0.5)] hover:shadow-[0_25px_60px_rgba(0,0,0,0.7),0_0_40px_rgba(255,51,153,0.18)] p-6 sm:p-7`}
+                  className="group h-[360px] sm:h-[380px] [perspective:1000px] cursor-pointer"
                 >
-                  {/* Top Edge Gradient Accent Line */}
-                  <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:via-[var(--color-primary-pink)] transition-all duration-700"></div>
-
-                  {/* Ambient Hover Spotlight Glow */}
-                  <div className={`absolute -top-24 -right-24 w-48 h-48 bg-gradient-to-br ${serv.color} rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`}></div>
-
-                  <div>
-                    {/* Card Header: Icon + Number */}
-                    <div className="flex items-center justify-between mb-5">
-                      <div className="w-12 h-12 rounded-2xl bg-white/[0.06] border border-white/10 flex items-center justify-center group-hover:scale-110 group-hover:border-white/25 transition-all duration-300 shadow-md">
-                        <Icon className={`w-6 h-6 ${serv.iconColor}`} />
-                      </div>
-                      <span className="text-xs font-mono font-bold text-white/30 group-hover:text-white/70 transition-colors">
-                        {serv.number}
-                      </span>
-                    </div>
-
-                    {/* Service Title */}
-                    <div className="flex items-center gap-3 mb-2.5">
-                      {serv.gif && (
+                  {/* Flip Inner Container (No harsh shadows) */}
+                  <div className="relative w-full h-full duration-700 transition-transform [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)] rounded-3xl">
+                    
+                    {/* ========== FRONT FACE (Clean video/gif, clear title, no heavy shadows) ========== */}
+                    <div className="absolute inset-0 w-full h-full rounded-3xl border border-white/10 overflow-hidden bg-[#0A1128] [backface-visibility:hidden] flex flex-col justify-between">
+                      {/* Full Background Video / GIF */}
+                      {serv.gif ? (
                         <img 
                           src={serv.gif} 
                           alt={serv.title} 
                           title={`${serv.title} - Digital ORRA`}
-                          className="w-9 h-9 object-contain flex-shrink-0"
+                          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                         />
+                      ) : (
+                        <div className="absolute inset-0 bg-[#0D1533]"></div>
                       )}
-                      <h3 className="text-xl font-black text-white group-hover:text-[var(--color-primary-pink)] transition-colors duration-300 leading-snug">
-                        {serv.title}
-                      </h3>
+
+                      {/* Smooth clean gradient for contrast */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#0A1128] via-[#0A1128]/35 to-transparent"></div>
+
+                      {/* Top Bar: Minimal Number + Clean Icon */}
+                      <div className="relative z-10 p-5 flex items-center justify-between">
+                        <span className="text-xs font-mono font-semibold tracking-wider px-2.5 py-1 rounded-full bg-[#0A1128]/70 border border-white/15 text-white/90">
+                          {serv.number}
+                        </span>
+                        <div className="w-10 h-10 rounded-2xl bg-[#0A1128]/70 border border-white/15 flex items-center justify-center">
+                          <Icon className={`w-5 h-5 ${serv.iconColor}`} />
+                        </div>
+                      </div>
+
+                      {/* Bottom Bar: Title + Simple Flip Badge */}
+                      <div className="relative z-10 p-5 sm:p-6 bg-gradient-to-t from-[#0A1128] via-[#0A1128]/90 to-transparent pt-8">
+                        <div className="flex items-center justify-between gap-3">
+                          <h3 className="text-lg sm:text-xl font-bold text-white tracking-wide leading-snug">
+                            {serv.title}
+                          </h3>
+                          <span className="text-[11px] font-mono font-medium text-pink-300 bg-pink-500/15 border border-pink-500/30 px-2.5 py-1 rounded-full flex-shrink-0">
+                            Flip ↺
+                          </span>
+                        </div>
+                      </div>
                     </div>
 
-                    {/* Service Description */}
-                    <p className="text-[13.5px] sm:text-sm text-gray-300/90 leading-relaxed font-light mb-6">
-                      {serv.desc}
-                    </p>
-                  </div>
+                    {/* ========== BACK FACE (Clean sleek details, no shadow) ========== */}
+                    <div className="absolute inset-0 w-full h-full rounded-3xl border border-white/15 p-6 sm:p-7 flex flex-col justify-between overflow-hidden bg-[#0A1128] [transform:rotateY(180deg)] [backface-visibility:hidden]">
+                      {/* Top Edge Accent Line */}
+                      <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-[var(--color-primary-pink)] to-transparent"></div>
 
-                  {/* Bottom Tags Strip */}
-                  <div className="flex flex-wrap gap-2 pt-4 border-t border-white/[0.08]">
-                    {serv.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className={`text-[11px] font-semibold tracking-wide px-3 py-1 rounded-full border ${serv.badgeColor} backdrop-blur-md shadow-sm group-hover:scale-105 transition-transform duration-300`}
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
+                      <div>
+                        {/* Header: Icon + Number */}
+                        <div className="flex items-center justify-between mb-5">
+                          <div className="w-11 h-11 rounded-2xl bg-white/[0.05] border border-white/10 flex items-center justify-center">
+                            <Icon className={`w-5 h-5 ${serv.iconColor}`} />
+                          </div>
+                          <span className="text-xs font-mono font-medium text-white/50 tracking-wider">
+                            {serv.number}
+                          </span>
+                        </div>
 
+                        {/* Title */}
+                        <h4 className="text-lg sm:text-xl font-bold text-white mb-3 text-[var(--color-primary-pink)] leading-snug">
+                          {serv.title}
+                        </h4>
+
+                        {/* Description */}
+                        <p className="text-[13px] sm:text-[13.5px] text-gray-300 leading-relaxed font-light mb-4">
+                          {serv.desc}
+                        </p>
+                      </div>
+
+                      {/* Bottom Tags Strip */}
+                      <div className="pt-3 border-t border-white/[0.08]">
+                        <div className="flex flex-wrap gap-1.5">
+                          {serv.tags.map((tag) => (
+                            <span
+                              key={tag}
+                              className={`text-[10.5px] font-medium tracking-wide px-2.5 py-1 rounded-full border ${serv.badgeColor}`}
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
                 </div>
               );
             })}
