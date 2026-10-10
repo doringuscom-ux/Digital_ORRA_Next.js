@@ -22,12 +22,13 @@ export async function POST(req) {
     const arrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
 
-    // Upload to Cloudinary using Promise wrapper
+    // Upload to Cloudinary using Promise wrapper with extended timeout
     const uploadResult = await new Promise((resolve, reject) => {
       const uploadStream = cloudinary.uploader.upload_stream(
         {
           folder: "digitalorra-uploads",
           resource_type: "auto",
+          timeout: 60000, // 60 seconds timeout
         },
         (error, result) => {
           if (error) reject(error);

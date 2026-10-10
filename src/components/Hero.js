@@ -69,9 +69,14 @@ export default function Hero() {
       {/* Hero Main Content */}
       <div className="relative z-20 w-full max-w-7xl mx-auto px-4 sm:px-6 text-center mt-auto pt-0 pb-0 -translate-y-5 sm:translate-y-0">
 
-        {/* 1. Headline */}
-        <h1 suppressHydrationWarning className="text-2xl sm:text-3xl md:text-5xl lg:text-[50px] font-black text-white tracking-tight leading-tight flex flex-wrap items-center justify-center gap-x-2.5 max-w-5xl mx-auto drop-shadow-[0_4px_20px_rgba(0,0,0,0.8)] translate-y-[2px]">
-          <span className="text-white whitespace-nowrap">
+        {/* 1. Primary SEO H1 Headline */}
+        <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-[52px] font-black text-white tracking-tight leading-tight max-w-5xl mx-auto drop-shadow-[0_4px_20px_rgba(0,0,0,0.8)] translate-y-[2px]">
+          Digital Marketing Company in India
+        </h1>
+
+        {/* 2. Dynamic Animated Subheading */}
+        <h2 suppressHydrationWarning className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-extrabold text-gray-200 tracking-tight leading-tight flex flex-wrap items-center justify-center gap-x-2.5 max-w-5xl mx-auto mt-2 drop-shadow-[0_4px_20px_rgba(0,0,0,0.8)]">
+          <span className="text-gray-200 whitespace-nowrap">
             {prefix}
           </span>
           <span className="inline-flex items-center">
@@ -81,7 +86,7 @@ export default function Hero() {
             {/* Blinking Cyber Cursor */}
             <span className="inline-block w-[3px] md:w-[4px] h-[1em] bg-pink-500 ml-1 animate-pulse rounded-full" />
           </span>
-        </h1>
+        </h2>
 
         {/* 2. CTA Action Buttons (Single Row / 1 Line on Mobile & Desktop) */}
         <div className="flex flex-row items-center justify-center gap-1.5 sm:gap-4 relative z-30 mt-3.5 md:mt-4 w-full max-w-2xl mx-auto px-1 sm:px-0">
