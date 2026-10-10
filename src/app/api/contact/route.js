@@ -44,6 +44,28 @@ export async function POST(req) {
 
     await newInquiry.save();
 
+    // Forward inquiry to Google Apps Script (Email / Google Sheets)
+    const googleScriptUrl = process.env.GOOGLE_SCRIPT_URL;
+    if (googleScriptUrl) {
+      try {
+        fetch(googleScriptUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            fullName,
+            email,
+            phone: phone || "",
+            service: service || "General Inquiry",
+            budget: budget || "Flexible",
+            message,
+            createdAt: newInquiry.createdAt || new Date().toISOString()
+          }),
+        }).catch((err) => console.error("Google Script fetch error:", err));
+      } catch (scriptErr) {
+        console.error("Google Script trigger error:", scriptErr);
+      }
+    }
+
     return NextResponse.json(
       {
         success: true,
