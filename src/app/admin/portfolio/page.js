@@ -190,6 +190,16 @@ export default function AdminPortfolioPage() {
     }
   };
 
+  // Filter tabs come from saved projects so they always match the database
+  const categories = [
+    ...new Set(portfolios.map((p) => (p.category || "").trim()).filter(Boolean))
+  ].sort();
+
+  // Falls back to "all" if the last project in the selected category is removed
+  const activeCategory = categories.includes(selectedCategory) ? selectedCategory : "all";
+
+  const formCategories = [...new Set([...categories, ...CATEGORY_OPTIONS])];
+
   const filtered = portfolios.filter((p) => {
     const q = searchQuery.toLowerCase();
     const matchesSearch =
@@ -197,7 +207,7 @@ export default function AdminPortfolioPage() {
       (p.category && p.category.toLowerCase().includes(q));
 
     const matchesCategory =
-      selectedCategory === "all" || p.category === selectedCategory;
+      activeCategory === "all" || (p.category || "").trim() === activeCategory;
 
     return matchesSearch && matchesCategory;
   });
@@ -275,17 +285,17 @@ export default function AdminPortfolioPage() {
           <button
             onClick={() => setSelectedCategory("all")}
             className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
-              selectedCategory === "all" ? "bg-cyan-500 text-slate-950 font-bold" : "bg-white/5 text-gray-400 hover:text-white"
+              activeCategory === "all" ? "bg-cyan-500 text-slate-950 font-bold" : "bg-white/5 text-gray-400 hover:text-white"
             }`}
           >
             All ({portfolios.length})
           </button>
-          {CATEGORY_OPTIONS.map((cat) => (
+          {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
-                selectedCategory === cat ? "bg-cyan-500 text-slate-950 font-bold" : "bg-white/5 text-gray-400 hover:text-white"
+                activeCategory === cat ? "bg-cyan-500 text-slate-950 font-bold" : "bg-white/5 text-gray-400 hover:text-white"
               }`}
             >
               {cat}
@@ -428,7 +438,7 @@ export default function AdminPortfolioPage() {
                   onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                   className="w-full px-3 py-2 bg-black/30 border border-white/15 rounded-xl text-xs text-white focus:outline-none focus:border-cyan-400"
                 >
-                  {CATEGORY_OPTIONS.map((c) => (
+                  {formCategories.map((c) => (
                     <option key={c} value={c} className="bg-[#0A1128] text-white">
                       {c}
                     </option>
