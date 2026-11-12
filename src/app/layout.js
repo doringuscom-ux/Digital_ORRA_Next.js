@@ -2,6 +2,8 @@ import { Outfit } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import GlobalImageSeoObserver from "../components/GlobalImageSeoObserver";
+import { getSiteSettings } from "../lib/getSiteSettings";
+import GaPageViewTracker from "../components/GaPageViewTracker";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -9,6 +11,9 @@ const outfit = Outfit({
   display: "swap",
   weight: ["300", "400", "500", "600", "700", "800", "900"],
 });
+
+const SITE_TITLE = "Digital ORRA – Digital Marketing Company in India";
+const SITE_DESCRIPTION = "Digital ORRA is a leading digital marketing company in India offering SEO, Google Ads, Meta Ads, social media marketing, website development, graphic designing, video production, branding, CRM solutions and AI-powered digital growth services to help businesses increase visibility, generate leads and grow online.";
 
 export const metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://digitalorra.com"),
@@ -23,11 +28,11 @@ export const metadata = {
     shortcut: "/icon.png",
     apple: "/icon.png",
   },
-  title: "Digital ORRA | Top Digital Marketing & Growth Agency",
-  description: "Scale your revenue with Digital ORRA. Expert performance marketing, paid ads, viral social media management, brand development, and web solutions in Panchkula & Chandigarh.",
+  title: SITE_TITLE,
+  description: SITE_DESCRIPTION,
   openGraph: {
-    title: "Digital ORRA | Top Digital Marketing & Growth Agency",
-    description: "Scale your revenue with Digital ORRA. Expert performance marketing, paid ads, viral social media management, brand development, and web solutions.",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
     url: "https://digitalorra.com",
     siteName: "Digital ORRA",
     images: [
@@ -43,8 +48,8 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Digital ORRA | Top Digital Marketing & Growth Agency",
-    description: "Scale your revenue with Digital ORRA. Expert performance marketing, paid ads, viral social media management, brand development, and web solutions.",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
     images: ["/DO JPG.jpeg"],
   },
     robots: {
@@ -70,7 +75,7 @@ const organizationSchema = {
   "url": "https://digitalorra.com",
   "logo": "https://digitalorra.com/DO%20JPG.jpeg",
   "image": "https://digitalorra.com/DO%20JPG.jpeg",
-  "description": "Premium Digital Marketing & Web Development Agency in Panchkula & Chandigarh Tricity",
+  "description": SITE_DESCRIPTION,
   "telephone": "+91 90564 33303",
   "address": {
     "@type": "PostalAddress",
@@ -84,7 +89,24 @@ const organizationSchema = {
   ]
 };
 
-export default function RootLayout({ children }) {
+// Re-generate static pages at most once an hour so admin-managed settings (GA ID, SEO)
+// self-heal if the DB was unreachable during a build. Admin saves still apply instantly.
+export const revalidate = 3600;
+
+const GA_ID_PATTERN = /^G-[A-Z0-9]{4,20}$/;
+
+// GA4 ID saved in Admin → Google Analytics (falls back to env var)
+async function getGaMeasurementId() {
+  const settings = await getSiteSettings();
+  const id = settings.gaEnabled
+    ? settings.gaMeasurementId
+    : process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "";
+  return GA_ID_PATTERN.test(id) ? id : "";
+}
+
+export default async function RootLayout({ children }) {
+  const gaMeasurementId = await getGaMeasurementId();
+
   return (
     <html
       lang="en"
@@ -111,13 +133,18 @@ export default function RootLayout({ children }) {
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
 
-              gtag('config', 'AW-11104822865');
+              gtag('config', 'AW-11104822865');${gaMeasurementId ? `
+              if (!location.pathname.startsWith('/admin')) {
+                gtag('config', '${gaMeasurementId}');
+                window.__gaConfigured = true;
+              }` : ""}
             `,
           }}
         />
       </head>
       <body suppressHydrationWarning className={`${outfit.className} min-h-full flex flex-col font-sans`}>
         <GlobalImageSeoObserver />
+        {gaMeasurementId && <GaPageViewTracker measurementId={gaMeasurementId} />}
         {children}
       </body>
     </html>

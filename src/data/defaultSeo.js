@@ -3,8 +3,8 @@ export const defaultPagesSeo = [
   {
     pagePath: "/",
     pageName: "Home Page",
-    metaTitle: "Digital ORRA | Top Digital Marketing & Growth Agency",
-    metaDescription: "Scale your revenue with Digital ORRA. Expert performance marketing, paid ads, viral social media management, brand development, and web solutions.",
+    metaTitle: "Digital ORRA – Digital Marketing Company in India",
+    metaDescription: "Digital ORRA is a leading digital marketing company in India offering SEO, Google Ads, Meta Ads, social media marketing, website development, graphic designing, video production, branding, CRM solutions and AI-powered digital growth services to help businesses increase visibility, generate leads and grow online.",
     metaKeywords: "digital marketing agency, performance marketing, social media marketing, SEO agency, PPC, Digital ORRA",
     ogImage: "/DO JPG.jpeg",
     canonicalUrl: "https://digitalorra.com",

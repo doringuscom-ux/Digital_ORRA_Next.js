@@ -21,7 +21,8 @@ import {
   Activity,
   Layers,
   MapPin,
-  HelpCircle
+  HelpCircle,
+  BarChart3
 } from "lucide-react";
 
 export default function AdminLayout({ children }) {
@@ -296,6 +297,12 @@ export default function AdminLayout({ children }) {
       icon: Globe,
       href: "/admin/seo",
       active: pathname.startsWith("/admin/seo"),
+    },
+    {
+      label: "Google Analytics",
+      icon: BarChart3,
+      href: "/admin/analytics",
+      active: pathname.startsWith("/admin/analytics"),
     },
   ];
 
