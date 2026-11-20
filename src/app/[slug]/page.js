@@ -14,13 +14,7 @@ import Blog from '@/models/Blog';
 import Service from '@/models/Service';
 import LocationPage from '@/models/LocationPage';
 import { cleanBlogFields, decodeHtmlEntities } from '../../lib/decodeHtmlEntities';
-import {
-  ArrowLeft,
-  Clock,
-  ArrowRight,
-  Home,
-  ChevronRight
-} from 'lucide-react';
+import { ArrowLeft, Clock, ArrowRight, Home, ChevronRight } from '../../components/SlugIcons';
 import './BlogDetailPage.css';
 
 // Legacy routes redirection map
