@@ -49,7 +49,7 @@ export default function About({
 
       {/* Elegant Balanced Background Watermark */}
       <div style={{ pointerEvents: 'none' }} className={`flex absolute ${watermarkTop} left-0 w-full justify-center pointer-events-none select-none overflow-hidden z-0 [mask-image:linear-gradient(to_bottom,black_85%,transparent_100%)]`}>
-        <span style={{ pointerEvents: 'none' }} className="text-[7.5vw] sm:text-[6.5vw] md:text-[7vw] font-black uppercase tracking-wider whitespace-nowrap select-none text-transparent bg-clip-text bg-gradient-to-b from-white/[0.80] via-white/[0.5] to-white/[0.2]">
+        <span style={{ pointerEvents: 'none' }} className="text-[length:calc(7.5vw/var(--z))] sm:text-[length:calc(6.5vw/var(--z))] md:text-[length:calc(7vw/var(--z))] font-black uppercase tracking-wider whitespace-nowrap select-none text-transparent bg-clip-text bg-gradient-to-b from-white/[0.80] via-white/[0.5] to-white/[0.2]">
           ABOUT DIGITAL ORRA
         </span>
       </div>

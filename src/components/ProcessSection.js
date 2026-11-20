@@ -220,7 +220,7 @@ export default function ProcessSection() {
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent'
           }}
-          className="text-[9vw] sm:text-[8vw] md:text-[8vw] font-black uppercase tracking-widest whitespace-nowrap select-none"
+          className="text-[length:calc(9vw/var(--z))] sm:text-[length:calc(8vw/var(--z))] md:text-[length:calc(8vw/var(--z))] font-black uppercase tracking-widest whitespace-nowrap select-none"
         >
           HOW WE WORK
         </span>

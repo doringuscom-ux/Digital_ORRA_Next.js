@@ -146,7 +146,7 @@ export default function Services() {
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent'
           }}
-          className="text-[7.5vw] md:text-[8vw] font-black uppercase tracking-widest whitespace-nowrap select-none"
+          className="text-[length:calc(7.5vw/var(--z))] md:text-[length:calc(8vw/var(--z))] font-black uppercase tracking-widest whitespace-nowrap select-none"
         >
           WHAT WE DELIVER
         </span>
@@ -280,7 +280,7 @@ export default function Services() {
           onClick={() => setSelectedService(null)}
         >
           <div
-            className="bg-[#0a0a0a] border border-white/10 rounded-2xl w-full max-w-xl max-h-[85vh] overflow-y-auto p-6 sm:p-8 shadow-2xl relative text-left my-auto hide-scrollbar"
+            className="bg-[#0a0a0a] border border-white/10 rounded-2xl w-full max-w-xl max-h-[calc(85vh/var(--z))] overflow-y-auto p-6 sm:p-8 shadow-2xl relative text-left my-auto hide-scrollbar"
             onClick={(e) => e.stopPropagation()}
           >
             <button

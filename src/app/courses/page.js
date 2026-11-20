@@ -98,7 +98,7 @@ export default function CoursesPage() {
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent'
             }} 
-            className="text-[8vw] md:text-[8.5vw] font-black uppercase tracking-wider whitespace-nowrap select-none"
+            className="text-[length:calc(8vw/var(--z))] md:text-[length:calc(8.5vw/var(--z))] font-black uppercase tracking-wider whitespace-nowrap select-none"
           >
             ACADEMY COURSES
           </h1>
@@ -238,7 +238,7 @@ export default function CoursesPage() {
       {selectedCourse && (
         <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 sm:p-6 bg-black/85 backdrop-blur-xl animate-fade-in">
           <div 
-            className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-3xl bg-gradient-to-b from-[#121E45] to-[#0A122B] border border-white/25 p-6 sm:p-8 shadow-2xl"
+            className="relative w-full max-w-3xl max-h-[calc(90vh/var(--z))] overflow-y-auto rounded-3xl bg-gradient-to-b from-[#121E45] to-[#0A122B] border border-white/25 p-6 sm:p-8 shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close Button */}

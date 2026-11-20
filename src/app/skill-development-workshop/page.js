@@ -176,7 +176,7 @@ export default function SkillDevelopmentWorkshopPage() {
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent'
             }} 
-            className="text-[6.5vw] md:text-[7vw] font-black uppercase tracking-wider whitespace-nowrap select-none"
+            className="text-[length:calc(6.5vw/var(--z))] md:text-[length:calc(7vw/var(--z))] font-black uppercase tracking-wider whitespace-nowrap select-none"
           >
             SKILL WORKSHOP
           </h1>
@@ -332,13 +332,13 @@ export default function SkillDevelopmentWorkshopPage() {
 
           {/* Main Fullscreen Image Container */}
           <div 
-            className="relative max-w-5xl max-h-[85vh] w-full flex flex-col items-center justify-center"
+            className="relative max-w-5xl max-h-[calc(85vh/var(--z))] w-full flex flex-col items-center justify-center"
             onClick={(e) => e.stopPropagation()}
           >
             <img
               src={selectedImage.image}
               alt={selectedImage.title || "Workshop Preview"}
-              className="max-h-[80vh] max-w-full object-contain rounded-2xl shadow-2xl border border-white/15"
+              className="max-h-[calc(80vh/var(--z))] max-w-full object-contain rounded-2xl shadow-2xl border border-white/15"
             />
             {selectedImage.category && (
               <div className="mt-3 text-center">

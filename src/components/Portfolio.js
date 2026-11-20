@@ -101,7 +101,7 @@ export default function Portfolio() {
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent'
           }}
-          className="text-[8.5vw] sm:text-[8vw] md:text-[8vw] font-black uppercase tracking-widest whitespace-nowrap select-none"
+          className="text-[length:calc(8.5vw/var(--z))] sm:text-[length:calc(8vw/var(--z))] md:text-[length:calc(8vw/var(--z))] font-black uppercase tracking-widest whitespace-nowrap select-none"
         >
           OUR PORTFOLIO
         </span>
@@ -220,13 +220,13 @@ export default function Portfolio() {
           {/* Modal Container */}
           <div 
             onClick={(e) => e.stopPropagation()} 
-            className="relative max-w-4xl max-h-[88vh] rounded-3xl overflow-hidden border border-white/20 shadow-[0_25px_60px_rgba(0,0,0,0.95)] flex flex-col items-center bg-[#070D1E]"
+            className="relative max-w-4xl max-h-[calc(88vh/var(--z))] rounded-3xl overflow-hidden border border-white/20 shadow-[0_25px_60px_rgba(0,0,0,0.95)] flex flex-col items-center bg-[#070D1E]"
           >
-            <div className="w-full flex items-center justify-center p-4 sm:p-8 bg-white min-h-[300px] max-h-[70vh] overflow-hidden">
+            <div className="w-full flex items-center justify-center p-4 sm:p-8 bg-white min-h-[300px] max-h-[calc(70vh/var(--z))] overflow-hidden">
               <img 
                 src={selectedItem.image} 
                 alt={selectedItem.title || 'Digital ORRA Portfolio'} 
-                className="max-h-[65vh] w-auto max-w-full object-contain select-none"
+                className="max-h-[calc(65vh/var(--z))] w-auto max-w-full object-contain select-none"
               />
             </div>
             

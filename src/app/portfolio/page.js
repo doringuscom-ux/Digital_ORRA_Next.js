@@ -100,7 +100,7 @@ export default function PortfolioPage() {
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent'
             }} 
-            className="text-[8vw] md:text-[8.5vw] font-black uppercase tracking-wider whitespace-nowrap select-none"
+            className="text-[length:calc(8vw/var(--z))] md:text-[length:calc(8.5vw/var(--z))] font-black uppercase tracking-wider whitespace-nowrap select-none"
           >
             OUR PORTFOLIO
           </h1>
@@ -303,11 +303,11 @@ export default function PortfolioPage() {
             </div>
 
             {/* Modal Image */}
-            <div className="max-h-[70vh] overflow-hidden bg-black/50 flex items-center justify-center">
+            <div className="max-h-[calc(70vh/var(--z))] overflow-hidden bg-black/50 flex items-center justify-center">
               <img
                 src={selectedProject.image}
                 alt={selectedProject.title}
-                className="w-full max-h-[70vh] object-contain"
+                className="w-full max-h-[calc(70vh/var(--z))] object-contain"
               />
             </div>
 

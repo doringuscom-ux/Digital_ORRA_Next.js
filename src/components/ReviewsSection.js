@@ -73,7 +73,7 @@ export default function ReviewsSection() {
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent'
           }}
-          className="text-[8vw] md:text-[8vw] font-black uppercase tracking-widest whitespace-nowrap select-none"
+          className="text-[length:calc(8vw/var(--z))] md:text-[length:calc(8vw/var(--z))] font-black uppercase tracking-widest whitespace-nowrap select-none"
         >
           TESTIMONIALS
         </span>

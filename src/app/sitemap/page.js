@@ -150,7 +150,7 @@ export default function HtmlSitemapPage() {
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent'
             }} 
-            className="text-[8vw] md:text-[8.5vw] font-black uppercase tracking-wider whitespace-nowrap select-none"
+            className="text-[length:calc(8vw/var(--z))] md:text-[length:calc(8.5vw/var(--z))] font-black uppercase tracking-wider whitespace-nowrap select-none"
           >
             SITEMAP
           </span>

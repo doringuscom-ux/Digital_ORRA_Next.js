@@ -300,3 +300,26 @@ body {
 }
 
 
+
+/* ============================================================
+   LARGE TV / 4K SCREENS (50"+ LCDs, 2K & 4K monitors)
+   The layout is designed for a ~1920px wide viewport. On wider
+   screens every section stayed at desktop pixel sizes, so content
+   looked tiny and boxed into the middle of the screen. Zooming the
+   whole page keeps every section proportional to a 1920px desktop.
+
+   --z holds the current zoom. CSS zoom also multiplies vw/vh units,
+   so anything sized from the viewport must divide by var(--z)
+   (e.g. text-[length:calc(8vw/var(--z))], max-h-[calc(90vh/var(--z))]).
+   ============================================================ */
+:root { --z: 1; }
+@media (min-width: 2240px) { :root { --z: 1.15; } }
+@media (min-width: 2560px) { :root { --z: 1.3333; } }
+@media (min-width: 3200px) { :root { --z: 1.6667; } }
+@media (min-width: 3840px) { :root { --z: 2; } }
+
+html { zoom: var(--z); }
+
+/* Full-viewport utilities must stay one real screen tall when zoomed */
+.min-h-screen { min-height: calc(100vh / var(--z)); }
+.h-screen { height: calc(100vh / var(--z)); }

@@ -136,7 +136,7 @@ export default function AboutUsPage() {
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent'
             }} 
-            className="text-[6.5vw] md:text-[7vw] font-black uppercase tracking-wider whitespace-nowrap select-none"
+            className="text-[length:calc(6.5vw/var(--z))] md:text-[length:calc(7vw/var(--z))] font-black uppercase tracking-wider whitespace-nowrap select-none"
           >
             OUR CORE EXPERTISE
           </span>
@@ -262,7 +262,7 @@ export default function AboutUsPage() {
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent'
             }} 
-            className="text-[6.5vw] md:text-[7vw] font-black uppercase tracking-wider whitespace-nowrap select-none"
+            className="text-[length:calc(6.5vw/var(--z))] md:text-[length:calc(7vw/var(--z))] font-black uppercase tracking-wider whitespace-nowrap select-none"
           >
             OUR CORE VALUES
           </span>

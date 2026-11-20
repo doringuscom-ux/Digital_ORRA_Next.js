@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Navbar from '../../components/Navbar';
@@ -48,6 +48,46 @@ export default function GalleryPage() {
       label: cat
     }))
   ];
+
+  // Filter bar: show left/right arrows only when tabs are hidden on that side
+  const tabsRef = useRef(null);
+  const [tabArrows, setTabArrows] = useState({ left: false, right: false });
+
+  const updateTabArrows = useCallback(() => {
+    const el = tabsRef.current;
+    if (!el) return;
+    const left = el.scrollLeft > 4;
+    const right = el.scrollLeft + el.clientWidth < el.scrollWidth - 4;
+    setTabArrows(prev => (prev.left === left && prev.right === right ? prev : { left, right }));
+  }, []);
+
+  const scrollTabs = (dir) => {
+    const el = tabsRef.current;
+    if (!el) return;
+    el.scrollBy({ left: dir * Math.max(el.clientWidth * 0.6, 160), behavior: 'smooth' });
+  };
+
+  // Re-check when categories load or the bar is resized (rotation, window resize, TV zoom)
+  useEffect(() => {
+    updateTabArrows();
+    const el = tabsRef.current;
+    if (!el || typeof ResizeObserver === 'undefined') return;
+    const ro = new ResizeObserver(updateTabArrows);
+    ro.observe(el);
+    if (el.firstElementChild) ro.observe(el.firstElementChild);
+    return () => ro.disconnect();
+  }, [gallery, updateTabArrows]);
+
+  // Keep the selected tab fully visible
+  useEffect(() => {
+    const el = tabsRef.current;
+    const btn = el?.querySelector(`[data-tab="${CSS.escape(activeTab)}"]`);
+    if (!el || !btn) return;
+    const pad = 48; // room for the arrow overlay
+    const bl = btn.offsetLeft, br = bl + btn.offsetWidth;
+    if (bl - pad < el.scrollLeft) el.scrollTo({ left: bl - pad, behavior: 'smooth' });
+    else if (br + pad > el.scrollLeft + el.clientWidth) el.scrollTo({ left: br + pad - el.clientWidth, behavior: 'smooth' });
+  }, [activeTab]);
 
   const filteredItems = gallery.filter(item => {
     return activeTab === 'all' || item.category === activeTab;
@@ -103,7 +143,7 @@ export default function GalleryPage() {
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent'
             }}
-            className="text-[8vw] md:text-[8.5vw] font-black uppercase tracking-wider whitespace-nowrap select-none"
+            className="text-[length:calc(8vw/var(--z))] md:text-[length:calc(8.5vw/var(--z))] font-black uppercase tracking-wider whitespace-nowrap select-none"
           >
             LIFE AT DO
           </h1>
@@ -113,21 +153,57 @@ export default function GalleryPage() {
           <h2 className="sr-only">Digital ORRA Culture, Highlights & Creative Production Gallery</h2>
 
 
-          {/* Category Filter Tabs: Clean, Open in a Single Row */}
+          {/* Category Filter Tabs: single scrollable row with arrow buttons */}
           <div className="relative z-20 mb-8 sm:mb-12 w-full flex items-center justify-center">
-            <div className="flex items-center justify-start md:justify-center gap-2 sm:gap-2.5 overflow-x-auto scrollbar-none no-scrollbar flex-nowrap p-2 rounded-2xl md:rounded-full bg-[#121E45]/80 backdrop-blur-xl border border-white/20 shadow-[0_10px_35px_rgba(0,0,0,0.3)] w-full max-w-5xl [-webkit-overflow-scrolling:touch]">
-              {categories.map(cat => (
+            <div className="relative w-full max-w-5xl rounded-full bg-[#121E45]/80 backdrop-blur-xl border border-white/20 shadow-[0_10px_35px_rgba(0,0,0,0.3)] overflow-hidden">
+              <div
+                ref={tabsRef}
+                onScroll={updateTabArrows}
+                className="overflow-x-auto no-scrollbar scroll-smooth p-2 [-webkit-overflow-scrolling:touch]"
+              >
+                {/* w-max + mx-auto: centred when the tabs fit, starts at the left edge when they overflow (never clipped) */}
+                <div className="flex w-max mx-auto items-center gap-2 sm:gap-2.5">
+                  {categories.map(cat => (
+                    <button
+                      key={cat.id}
+                      data-tab={cat.id}
+                      onClick={() => setActiveTab(cat.id)}
+                      className={`px-4 sm:px-5 py-2.5 rounded-full text-xs sm:text-[13px] font-semibold whitespace-nowrap transition-all duration-300 flex-shrink-0 ${activeTab === cat.id
+                          ? 'bg-gradient-to-r from-[var(--color-primary-pink)] to-pink-600 text-white shadow-[0_0_20px_rgba(255,51,153,0.45)]'
+                          : 'text-gray-300 hover:text-white hover:bg-white/[0.08]'
+                        }`}
+                    >
+                      {cat.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Left scroll arrow + fade (only when there are hidden tabs on the left) */}
+              <div className={`absolute inset-y-0 left-0 flex items-center pl-1.5 pr-8 bg-gradient-to-r from-[#121E45] via-[#121E45]/90 to-transparent transition-opacity duration-300 ${tabArrows.left ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
                 <button
-                  key={cat.id}
-                  onClick={() => setActiveTab(cat.id)}
-                  className={`px-4 sm:px-5 py-2.5 rounded-full text-xs sm:text-[13px] font-semibold whitespace-nowrap transition-all duration-300 flex-shrink-0 ${activeTab === cat.id
-                      ? 'bg-gradient-to-r from-[var(--color-primary-pink)] to-pink-600 text-white shadow-[0_0_20px_rgba(255,51,153,0.45)]'
-                      : 'text-gray-300 hover:text-white hover:bg-white/[0.08]'
-                    }`}
+                  type="button"
+                  aria-label="Scroll categories left"
+                  onClick={() => scrollTabs(-1)}
+                  tabIndex={tabArrows.left ? 0 : -1}
+                  className="w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center bg-white/10 border border-white/20 text-white hover:bg-[var(--color-primary-pink)] hover:border-transparent transition-colors"
                 >
-                  {cat.label}
+                  <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
                 </button>
-              ))}
+              </div>
+
+              {/* Right scroll arrow + fade (only when there are hidden tabs on the right) */}
+              <div className={`absolute inset-y-0 right-0 flex items-center pr-1.5 pl-8 bg-gradient-to-l from-[#121E45] via-[#121E45]/90 to-transparent transition-opacity duration-300 ${tabArrows.right ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+                <button
+                  type="button"
+                  aria-label="Scroll categories right"
+                  onClick={() => scrollTabs(1)}
+                  tabIndex={tabArrows.right ? 0 : -1}
+                  className="w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center bg-white/10 border border-white/20 text-white hover:bg-[var(--color-primary-pink)] hover:border-transparent transition-colors"
+                >
+                  <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+                </button>
+              </div>
             </div>
           </div>
 
@@ -227,12 +303,12 @@ export default function GalleryPage() {
           {/* Main Photo Container */}
           <div
             onClick={(e) => e.stopPropagation()}
-            className="relative max-w-5xl max-h-[85vh] rounded-2xl overflow-hidden border border-white/20 shadow-[0_20px_60px_rgba(0,0,0,0.9)] flex flex-col items-center bg-[#070D1E]"
+            className="relative max-w-5xl max-h-[calc(85vh/var(--z))] rounded-2xl overflow-hidden border border-white/20 shadow-[0_20px_60px_rgba(0,0,0,0.9)] flex flex-col items-center bg-[#070D1E]"
           >
             <img
               src={selectedPhoto.image}
               alt={selectedPhoto.category || 'Digital ORRA'}
-              className="max-h-[75vh] w-auto max-w-full object-contain rounded-t-2xl"
+              className="max-h-[calc(75vh/var(--z))] w-auto max-w-full object-contain rounded-t-2xl"
             />
             <div className="w-full p-4 bg-[#0A1128] border-t border-white/10 flex items-center justify-between">
               <span className="text-xs font-mono font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-pink-500/20 text-pink-300 border border-pink-500/30">

@@ -1,7 +1,7 @@
 /* Blog Detail Page CSS - Premium Crisp Light / White Theme */
 .blog-detail-wrapper {
   background-color: #FFFFFF;
-  min-height: 100vh;
+  min-height: calc(100vh / var(--z));
   color: #0F172A;
   font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
   padding-bottom: 0;
@@ -530,7 +530,7 @@
 .blog-sidebar {
   position: sticky;
   top: 90px;
-  max-height: calc(100vh - 110px);
+  max-height: calc(100vh / var(--z) - 110px);
   overflow-y: scroll;
   overflow-x: hidden;
   display: flex;

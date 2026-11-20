@@ -361,7 +361,7 @@ export default function AdminLayout({ children }) {
       {/* Main Layout Area: Persistent Sidebar + Page Content */}
       <div className="flex-1 flex flex-col md:flex-row">
         {/* Persistent Left Sidebar */}
-        <aside className="w-full md:w-64 bg-[#0F1B4C]/35 border-r border-white/10 p-4 shrink-0 flex flex-col justify-between sticky top-[61px] md:h-[calc(100vh-61px)]">
+        <aside className="w-full md:w-64 bg-[#0F1B4C]/35 border-r border-white/10 p-4 shrink-0 flex flex-col justify-between sticky top-[61px] md:h-[calc(100vh/var(--z)-61px)]">
           <div className="space-y-1">
             <p className="text-[11px] font-bold uppercase tracking-wider text-gray-400 px-3 py-2">
               Navigation

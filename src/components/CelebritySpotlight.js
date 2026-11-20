@@ -40,7 +40,7 @@ export default function CelebritySpotlight() {
 
       {/* Elegant Balanced Background Watermark */}
       <div className="absolute top-3 sm:top-2 md:top-2 lg:top-3 left-0 w-full flex justify-center pointer-events-none select-none overflow-hidden z-0 [mask-image:linear-gradient(to_bottom,black_85%,transparent_100%)]">
-        <span className="text-[6.5vw] md:text-[7vw] font-black uppercase tracking-wider whitespace-nowrap select-none text-transparent bg-clip-text bg-gradient-to-b from-white/[0.80] via-white/[0.5] to-white/[0.2]">
+        <span className="text-[length:calc(6.5vw/var(--z))] md:text-[length:calc(7vw/var(--z))] font-black uppercase tracking-wider whitespace-nowrap select-none text-transparent bg-clip-text bg-gradient-to-b from-white/[0.80] via-white/[0.5] to-white/[0.2]">
           CELEBRITY SPOTLIGHT
         </span>
       </div>

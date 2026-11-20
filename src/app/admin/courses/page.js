@@ -491,7 +491,7 @@ export default function AdminCoursesPage() {
       {/* CREATE / EDIT MODAL DRAWER */}
       {modalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/85 backdrop-blur-xl animate-fade-in overflow-y-auto">
-          <div className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-3xl bg-[#0A1128] border border-white/20 p-6 sm:p-8 shadow-2xl space-y-6 custom-editor-scrollbar my-auto">
+          <div className="relative w-full max-w-4xl max-h-[calc(90vh/var(--z))] overflow-y-auto rounded-3xl bg-[#0A1128] border border-white/20 p-6 sm:p-8 shadow-2xl space-y-6 custom-editor-scrollbar my-auto">
             {/* Modal Header */}
             <div className="flex items-center justify-between pb-4 border-b border-white/10">
               <div className="flex items-center gap-3">

@@ -127,7 +127,7 @@ export default function FaqSection() {
 
       {/* Background Watermark */}
       <div className="absolute top-2 sm:top-4 left-0 w-full flex justify-center pointer-events-none select-none overflow-hidden z-0 mask-[linear-gradient(to_bottom,black_85%,transparent_100%)]">
-        <span className="text-[11vw] sm:text-[9vw] md:text-[8vw] lg:text-[7vw] font-black uppercase tracking-widest whitespace-nowrap select-none text-transparent bg-clip-text bg-linear-to-b from-white/80 via-white/45 to-white/18">
+        <span className="text-[length:calc(11vw/var(--z))] sm:text-[length:calc(9vw/var(--z))] md:text-[length:calc(8vw/var(--z))] lg:text-[length:calc(7vw/var(--z))] font-black uppercase tracking-widest whitespace-nowrap select-none text-transparent bg-clip-text bg-linear-to-b from-white/80 via-white/45 to-white/18">
           FAQ
         </span>
       </div>

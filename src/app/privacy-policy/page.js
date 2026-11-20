@@ -30,7 +30,7 @@ export default function PrivacyPolicyPage() {
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent'
             }} 
-            className="text-[7.5vw] md:text-[8vw] font-black uppercase tracking-wider whitespace-nowrap select-none"
+            className="text-[length:calc(7.5vw/var(--z))] md:text-[length:calc(8vw/var(--z))] font-black uppercase tracking-wider whitespace-nowrap select-none"
           >
             POLICIES & TERMS
           </span>

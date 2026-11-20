@@ -474,7 +474,7 @@ export default function AdminFaqsPage() {
       {/* Add / Edit FAQ Modal */}
       {modalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fadeIn">
-          <div className="relative w-full max-w-2xl bg-[#091122] border border-white/20 rounded-3xl p-6 sm:p-8 shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto">
+          <div className="relative w-full max-w-2xl bg-[#091122] border border-white/20 rounded-3xl p-6 sm:p-8 shadow-2xl overflow-hidden max-h-[calc(90vh/var(--z))] overflow-y-auto">
             {/* Header */}
             <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-6">
               <div className="flex items-center gap-3">

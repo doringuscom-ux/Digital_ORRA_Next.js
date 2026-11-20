@@ -774,7 +774,7 @@ export default function AdminServicesPage() {
       {/* CREATE / EDIT DRAWER MODAL */}
       {modalOpen && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md overflow-y-auto">
-          <div className="w-full max-w-4xl bg-[#091024] border border-white/20 rounded-3xl p-6 sm:p-8 my-8 shadow-[0_25px_60px_rgba(0,0,0,0.8)] relative max-h-[90vh] overflow-y-auto">
+          <div className="w-full max-w-4xl bg-[#091024] border border-white/20 rounded-3xl p-6 sm:p-8 my-8 shadow-[0_25px_60px_rgba(0,0,0,0.8)] relative max-h-[calc(90vh/var(--z))] overflow-y-auto">
             {/* Close Button */}
             <button
               onClick={() => setModalOpen(false)}

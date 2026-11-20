@@ -52,7 +52,7 @@ export default function Footer({ hideCta = false }) {
         <div className="w-[120%] overflow-hidden whitespace-nowrap">
           <div className="inline-block animate-marquee" style={{ animationDuration: '40s' }}>
             {[1, 2, 3].map((i) => (
-              <span key={i} className="text-[12vw] font-black text-transparent bg-clip-text bg-gradient-to-b from-white/[0.04] to-transparent uppercase tracking-tight px-4">
+              <span key={i} className="text-[length:calc(12vw/var(--z))] font-black text-transparent bg-clip-text bg-gradient-to-b from-white/[0.04] to-transparent uppercase tracking-tight px-4">
                 DIGITAL ORRA • WE BUILD DIGITAL DOMINANCE •
               </span>
             ))}
