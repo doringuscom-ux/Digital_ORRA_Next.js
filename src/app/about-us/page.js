@@ -115,6 +115,7 @@ export default function AboutUsPage() {
         ptClass="pt-28 sm:pt-36 pb-10 md:pt-52 md:pb-16"
         watermarkTop="top-20 sm:top-24 md:top-24"
         id="about-us-hero"
+        showVideo={true}
       />
 
       {/* Global Certifications Marquee */}
